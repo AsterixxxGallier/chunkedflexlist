@@ -1,0 +1,23 @@
+{
+  "name": "chunkedflexlist",
+  "version": "1.0.0",
+  "description": "An AssemblyScript implementation of a special kind of chunked weighed-linked list data structure",
+  "main": "index.js",
+  "repository": "https://www.github.com/AsterixxxGallier/chunkedflexlist",
+  "author": "Asterixxx",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@assemblyscript/loader": "^0.19.20",
+    "as-bind": "^0.8.2"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.19.20"
+  },
+  "scripts": {
+    "asbuild:untouched": "asc assembly/index.ts --exportRuntime --transform as-bind --target debug",
+    "asbuild:optimized": "asc assembly/index.ts --exportRuntime --transform as-bind --target release",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
+    "test": "node tests"
+  }
+}
