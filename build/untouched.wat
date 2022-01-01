@@ -54,8 +54,6 @@
   local.get $0
   local.get $1
   i32.add
-  i32.const 0
-  i32.add
  )
  (func $~lib/rt/itcms/Object#set:nextWithColor (param $0 i32) (param $1 i32)
   local.get $0
