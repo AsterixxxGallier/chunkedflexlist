@@ -13,7 +13,8 @@
   },
   "devDependencies": {
     "@as-pect/cli": "^6.2.4",
-    "assemblyscript": "^0.19.20"
+    "assemblyscript": "^0.19.20",
+    "semantic-release": "^18.0.1"
   },
   "scripts": {
     "asbuild:untouched": "asc assembly/index.ts --exportRuntime --transform as-bind --target debug",
