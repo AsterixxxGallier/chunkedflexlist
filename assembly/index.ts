@@ -27,3 +27,10 @@ class ChunkedFlexList<E, D extends number> {
 		this.offset = offset
 	}
 }
+
+/**
+ * A single chunk that stores elements (not other chunks) and the distance between them.
+ */
+class DataChunk<E, D extends number> {
+
+}
