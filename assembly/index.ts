@@ -28,9 +28,13 @@ class ChunkedFlexList<E, D extends number> {
 	}
 }
 
+abstract class Chunk<E, D extends number> {
+
+}
+
 /**
  * A single chunk that stores elements (not other chunks) and the distance between them.
  */
-class DataChunk<E, D extends number> {
+class DataChunk<E, D extends number> extends Chunk<E, D> {
 
 }
