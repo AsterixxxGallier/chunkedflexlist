@@ -1,6 +1,6 @@
 {
   "name": "chunkedflexlist",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "An AssemblyScript implementation of a special kind of chunked weighed-linked list data structure",
   "main": "index.js",
   "repository": "https://www.github.com/AsterixxxGallier/chunkedflexlist.git",
