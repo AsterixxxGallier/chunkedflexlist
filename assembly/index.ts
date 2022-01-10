@@ -2,7 +2,18 @@
  * Superclass for all variants of ChunkedFlexLists
  */
 abstract class AbstractChunkedFlexList<D extends number, C extends Chunk<D>> {
+	/**
+	 * Offsets all elements (distance between zero and the first element)
+	 */
+	offset: D
 
+	/**
+	 * Creates an empty ChunkedFlexList
+	 * @param offset see {@link ChunkedFlexList.offset}
+	 */
+	protected constructor(offset: D) {
+		this.offset = offset
+	}
 }
 
 /**
@@ -20,18 +31,9 @@ abstract class AbstractChunkedFlexList<D extends number, C extends Chunk<D>> {
  * - Stores positional offset for the whole list that offsets all elements.
  * - E is the type of data to be stored, D is the number type to be used for storing distances between elements and the list offset.
  */
-class ChunkedFlexList<E, D extends number> {
-	/**
-	 * Offsets all elements (distance between zero and the first element)
-	 */
-	offset: D
-
-	/**
-	 * Creates an empty ChunkedFlexList
-	 * @param offset see {@link ChunkedFlexList.offset}
-	 */
+class ChunkedFlexList<E, D extends number> extends AbstractChunkedFlexList<D, DataChunk<E, D>> {
 	constructor(offset: D = 0 as D) {
-		this.offset = offset
+		super(offset)
 	}
 }
 
