@@ -45,7 +45,7 @@ class LinkIndex {
 	}
 }
 
-abstract class Chunk<E, D extends number> {
+abstract class Chunk<D extends number> {
 	static indexBits: i32 = 8
 	static maxSize: i32 = 1 << Chunk.indexBits
 	static numbersOfLinks: StaticArray<u8> = new StaticArray<u8>(Chunk.maxSize)
@@ -87,6 +87,6 @@ abstract class Chunk<E, D extends number> {
 /**
  * A single chunk that stores elements (not other chunks) and the distance between them.
  */
-class DataChunk<E, D extends number> extends Chunk<E, D> {
+class DataChunk<E, D extends number> extends Chunk<D> {
 
 }
