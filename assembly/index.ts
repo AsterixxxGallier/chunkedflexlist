@@ -1,3 +1,7 @@
+abstract class AbstractChunkedFlexList<D extends number, C extends Chunk<D>> {
+
+}
+
 /**
  * A list-like data structure that stores the distance between its elements.
  * - Separates data into nested chunks of 256 elements/chunks each.
