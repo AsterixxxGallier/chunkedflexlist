@@ -1,7 +1,25 @@
 /**
  * Superclass for all variants of ChunkedFlexLists
  */
-abstract class AbstractChunkedFlexList<D extends number, C extends Chunk<D>> {
+abstract class AbstractChunkedFlexList<D extends number, C extends AbstractChunk<D>> {
+	/**
+	 * Offsets all elements (distance between zero and the first element)
+	 */
+	offset: D
+
+	/**
+	 * Creates an empty ChunkedFlexList
+	 * @param offset see {@link ChunkedFlexList.offset}
+	 */
+	protected constructor(offset: D) {
+		this.offset = offset
+	}
+}
+
+/**
+ * Superclass for ChunkedFlexList and RangeChunkedFlexList
+ */
+abstract class DatafulChunkedFlexList<E, D extends number, C extends DatafulChunk<E, D>> {
 	/**
 	 * Offsets all elements (distance between zero and the first element)
 	 */
@@ -31,7 +49,7 @@ abstract class AbstractChunkedFlexList<D extends number, C extends Chunk<D>> {
  * - Stores positional offset for the whole list that offsets all elements.
  * - E is the type of data to be stored, D is the number type to be used for storing distances between elements and the list offset.
  */
-class ChunkedFlexList<E, D extends number> extends AbstractChunkedFlexList<D, DataChunk<E, D>> {
+class ChunkedFlexList<E, D extends number> extends DatafulChunkedFlexList<E, D, Chunk<E, D>> {
 	constructor(offset: D = 0 as D) {
 		super(offset)
 	}
@@ -50,16 +68,16 @@ class LinkIndex {
 	}
 
 	toString(): string {
-		return `[node ${this.nodeIndex.toString(2).padStart(Chunk.indexBits, '0')} degree ${this.degree}]`
+		return `[node ${this.nodeIndex.toString(2).padStart(AbstractChunk.indexBits, '0')} degree ${this.degree}]`
 	}
 }
 
-abstract class Chunk<D extends number> {
+abstract class AbstractChunk<D extends number> {
 	static indexBits: i32 = 8
-	static maxSize: i32 = 1 << Chunk.indexBits
-	static numbersOfLinks: StaticArray<u8> = new StaticArray<u8>(Chunk.maxSize)
+	static maxSize: i32 = 1 << AbstractChunk.indexBits
+	static numbersOfLinks: StaticArray<u8> = new StaticArray<u8>(AbstractChunk.maxSize)
 	static linkIndexesAbove: StaticArray<Array<LinkIndex>> =
-		new StaticArray<Array<LinkIndex>>(Chunk.maxSize)
+		new StaticArray<Array<LinkIndex>>(AbstractChunk.maxSize)
 
 	@inline
 	static calculateLinkIndexesAbove(nodeIndex: u8): Array<LinkIndex> {
@@ -82,11 +100,11 @@ abstract class Chunk<D extends number> {
 	static calculateNumberOfLinks(index: u8): u8 {
 		const trailingZeros = ctz(index)
 		const ones = popcnt(index)
-		return Chunk.indexBits - trailingZeros > (ones as i32) ? trailingZeros + 1 : trailingZeros
+		return AbstractChunk.indexBits - trailingZeros > (ones as i32) ? trailingZeros + 1 : trailingZeros
 	}
 
 	static init(): void {
-		for (let i = 0; i < Chunk.maxSize; i++) {
+		for (let i = 0; i < AbstractChunk.maxSize; i++) {
 			this.numbersOfLinks[i] = this.calculateNumberOfLinks(i as u8)
 			this.linkIndexesAbove[i] = this.calculateLinkIndexesAbove(i as u8)
 		}
@@ -94,8 +112,15 @@ abstract class Chunk<D extends number> {
 }
 
 /**
+ * Superclass for Chunk and RangeChunk
+ */
+abstract class DatafulChunk<E, D extends number> extends AbstractChunk<D> {
+
+}
+
+/**
  * A single chunk that stores elements (not other chunks) and the distance between them.
  */
-class DataChunk<E, D extends number> extends Chunk<D> {
+class Chunk<E, D extends number> extends DatafulChunk<E, D> {
 
 }
