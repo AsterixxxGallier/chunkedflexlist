@@ -8,7 +8,7 @@
  (type $none_=>_i32 (func (result i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
- (global $assembly/index/Chunk.maxSize (mut i32) (i32.const 0))
+ (global $assembly/index/AbstractChunk.maxSize (mut i32) (i32.const 0))
  (global $~lib/rt/itcms/total (mut i32) (i32.const 0))
  (global $~lib/rt/itcms/threshold (mut i32) (i32.const 0))
  (global $~lib/rt/itcms/state (mut i32) (i32.const 0))
@@ -19,8 +19,8 @@
  (global $~lib/rt/itcms/white (mut i32) (i32.const 0))
  (global $~lib/rt/itcms/fromSpace (mut i32) (i32.const 0))
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
- (global $assembly/index/Chunk.numbersOfLinks (mut i32) (i32.const 0))
- (global $assembly/index/Chunk.linkIndexesAbove (mut i32) (i32.const 0))
+ (global $assembly/index/AbstractChunk.numbersOfLinks (mut i32) (i32.const 0))
+ (global $assembly/index/AbstractChunk.linkIndexesAbove (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 1680))
  (global $~lib/memory/__stack_pointer (mut i32) (i32.const 18124))
  (memory $0 1)
@@ -54,13 +54,13 @@
  (func $~lib/rt/itcms/visitRoots
   (local $0 i32)
   (local $1 i32)
-  global.get $assembly/index/Chunk.numbersOfLinks
+  global.get $assembly/index/AbstractChunk.numbersOfLinks
   local.tee $0
   if
    local.get $0
    call $byn-split-outlined-A$~lib/rt/itcms/__visit
   end
-  global.get $assembly/index/Chunk.linkIndexesAbove
+  global.get $assembly/index/AbstractChunk.linkIndexesAbove
   local.tee $0
   if
    local.get $0
@@ -1958,7 +1958,7 @@
   (local $0 i32)
   block $__inlined_func$start:assembly/index
    i32.const 256
-   global.set $assembly/index/Chunk.maxSize
+   global.set $assembly/index/AbstractChunk.maxSize
    memory.size
    i32.const 16
    i32.shl
@@ -2016,7 +2016,7 @@
      i32.add
      global.set $~lib/memory/__stack_pointer
      local.get $0
-     global.set $assembly/index/Chunk.numbersOfLinks
+     global.set $assembly/index/AbstractChunk.numbersOfLinks
      global.get $~lib/memory/__stack_pointer
      i32.const 4
      i32.sub
@@ -2028,7 +2028,7 @@
      global.get $~lib/memory/__stack_pointer
      i32.const 0
      i32.store
-     global.get $assembly/index/Chunk.maxSize
+     global.get $assembly/index/AbstractChunk.maxSize
      local.tee $0
      i32.const 268435455
      i32.gt_u
@@ -2046,7 +2046,7 @@
      i32.add
      global.set $~lib/memory/__stack_pointer
      local.get $0
-     global.set $assembly/index/Chunk.linkIndexesAbove
+     global.set $assembly/index/AbstractChunk.linkIndexesAbove
      br $__inlined_func$start:assembly/index
     end
     i32.const 18144

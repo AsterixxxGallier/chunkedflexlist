@@ -9,8 +9,8 @@
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $none_=>_i32 (func (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
- (global $assembly/index/Chunk.indexBits (mut i32) (i32.const 8))
- (global $assembly/index/Chunk.maxSize (mut i32) (i32.const 0))
+ (global $assembly/index/AbstractChunk.indexBits (mut i32) (i32.const 8))
+ (global $assembly/index/AbstractChunk.maxSize (mut i32) (i32.const 0))
  (global $~lib/shared/runtime/Runtime.Stub i32 (i32.const 0))
  (global $~lib/shared/runtime/Runtime.Minimal i32 (i32.const 1))
  (global $~lib/shared/runtime/Runtime.Incremental i32 (i32.const 2))
@@ -27,8 +27,8 @@
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $~lib/ASC_RUNTIME i32 (i32.const 2))
- (global $assembly/index/Chunk.numbersOfLinks (mut i32) (i32.const 0))
- (global $assembly/index/Chunk.linkIndexesAbove (mut i32) (i32.const 0))
+ (global $assembly/index/AbstractChunk.numbersOfLinks (mut i32) (i32.const 0))
+ (global $assembly/index/AbstractChunk.linkIndexesAbove (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 656))
  (global $~lib/memory/__data_end i32 (i32.const 716))
  (global $~lib/memory/__stack_pointer (mut i32) (i32.const 17100))
@@ -2361,9 +2361,9 @@
  )
  (func $start:assembly/index
   i32.const 1
-  global.get $assembly/index/Chunk.indexBits
+  global.get $assembly/index/AbstractChunk.indexBits
   i32.shl
-  global.set $assembly/index/Chunk.maxSize
+  global.set $assembly/index/AbstractChunk.maxSize
   memory.size
   i32.const 16
   i32.shl
@@ -2382,13 +2382,13 @@
   call $~lib/rt/itcms/initLazy
   global.set $~lib/rt/itcms/fromSpace
   i32.const 0
-  global.get $assembly/index/Chunk.maxSize
+  global.get $assembly/index/AbstractChunk.maxSize
   call $~lib/staticarray/StaticArray<u8>#constructor
-  global.set $assembly/index/Chunk.numbersOfLinks
+  global.set $assembly/index/AbstractChunk.numbersOfLinks
   i32.const 0
-  global.get $assembly/index/Chunk.maxSize
+  global.get $assembly/index/AbstractChunk.maxSize
   call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/index/LinkIndex>>#constructor
-  global.set $assembly/index/Chunk.linkIndexesAbove
+  global.set $assembly/index/AbstractChunk.linkIndexesAbove
  )
  (func $~lib/rt/itcms/__pin (param $0 i32) (result i32)
   (local $1 i32)
@@ -2510,14 +2510,14 @@
  )
  (func $~lib/rt/__visit_globals (param $0 i32)
   (local $1 i32)
-  global.get $assembly/index/Chunk.numbersOfLinks
+  global.get $assembly/index/AbstractChunk.numbersOfLinks
   local.tee $1
   if
    local.get $1
    local.get $0
    call $~lib/rt/itcms/__visit
   end
-  global.get $assembly/index/Chunk.linkIndexesAbove
+  global.get $assembly/index/AbstractChunk.linkIndexesAbove
   local.tee $1
   if
    local.get $1
