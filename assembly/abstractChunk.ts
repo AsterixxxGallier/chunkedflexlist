@@ -1,5 +1,8 @@
 import {LinkIndex} from "./linkIndex"
 
+/**
+ * Superclass for all Chunks
+ */
 export abstract class AbstractChunk<D extends number> {
 	static indexBits: i32 = 8
 	static maxSize: i32 = 1 << AbstractChunk.indexBits
