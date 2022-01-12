@@ -19,19 +19,7 @@ abstract class AbstractChunkedFlexList<D extends number, C extends AbstractChunk
 /**
  * Superclass for ChunkedFlexList and RangeChunkedFlexList
  */
-abstract class DatafulChunkedFlexList<E, D extends number, C extends DatafulChunk<E, D>> {
-	/**
-	 * Offsets all elements (distance between zero and the first element)
-	 */
-	offset: D
-
-	/**
-	 * Creates an empty ChunkedFlexList
-	 * @param offset see {@link ChunkedFlexList.offset}
-	 */
-	protected constructor(offset: D) {
-		this.offset = offset
-	}
+abstract class DatafulChunkedFlexList<E, D extends number, C extends DatafulChunk<E, D>> extends AbstractChunkedFlexList<D, DatafulChunk<E, D>> {
 }
 
 /**
