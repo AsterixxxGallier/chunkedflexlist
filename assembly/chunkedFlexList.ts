@@ -1,4 +1,5 @@
 import {DatafulChunkedFlexList} from "./datafulChunkedFlexList"
+import {Chunk} from "./chunk"
 
 /**
  * A list-like data structure that stores the distance between its elements.
@@ -15,7 +16,7 @@ import {DatafulChunkedFlexList} from "./datafulChunkedFlexList"
  * - Stores positional offset for the whole list that offsets all elements.
  * - E is the type of data to be stored, D is the number type to be used for storing distances between elements and the list offset.
  */
-class ChunkedFlexList<E, D extends number> extends DatafulChunkedFlexList<E, D, Chunk<E, D>> {
+export class ChunkedFlexList<E, D extends number> extends DatafulChunkedFlexList<E, D, Chunk<E, D>> {
 	constructor(offset: D = 0 as D) {
 		super(offset)
 	}
