@@ -1,5 +1,5 @@
 /**
- * Superclass for all variants of ChunkedFlexLists
+ * Superclass for all ChunkedFlexLists
  */
 abstract class AbstractChunkedFlexList<D extends number, C extends AbstractChunk<D>> {
 	/**
