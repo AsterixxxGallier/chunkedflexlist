@@ -11,6 +11,13 @@ export abstract class AbstractChunk<D extends number> {
 		new StaticArray<Array<LinkIndex>>(AbstractChunk.maxSize)
 
 	@inline
+	static calculateNumberOfLinks(index: u8): u8 {
+		const trailingZeros = ctz(index)
+		const ones = popcnt(index)
+		return AbstractChunk.indexBits - trailingZeros > (ones as i32) ? trailingZeros + 1 : trailingZeros
+	}
+
+	@inline
 	static calculateLinkIndexesAbove(nodeIndex: u8): Array<LinkIndex> {
 		if (nodeIndex == 0) return new Array<LinkIndex>(0)
 		const linkIndexes = new Array<LinkIndex>(this.indexBits as i32)
@@ -25,13 +32,6 @@ export abstract class AbstractChunk<D extends number> {
 			index = index & ~(1 << degree)
 		}
 		return linkIndexes
-	}
-
-	@inline
-	static calculateNumberOfLinks(index: u8): u8 {
-		const trailingZeros = ctz(index)
-		const ones = popcnt(index)
-		return AbstractChunk.indexBits - trailingZeros > (ones as i32) ? trailingZeros + 1 : trailingZeros
 	}
 
 	static init(): void {
