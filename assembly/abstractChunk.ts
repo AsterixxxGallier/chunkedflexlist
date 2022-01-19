@@ -4,7 +4,7 @@ import {LinkIndex} from "./linkIndex"
  * Superclass for all Chunks
  */
 export abstract class AbstractChunk<D extends number> {
-	static indexBits: i32 = 8
+	static indexBits: u8 = 8
 	static maxSize: i32 = 1 << AbstractChunk.indexBits
 	static numbersOfLinks: StaticArray<u8> = new StaticArray<u8>(AbstractChunk.maxSize)
 	static linkIndexesAbove: StaticArray<Array<LinkIndex>> =
@@ -14,7 +14,7 @@ export abstract class AbstractChunk<D extends number> {
 	static calculateNumberOfLinks(index: u8): u8 {
 		const trailingZeros = ctz(index)
 		const ones = popcnt(index)
-		return AbstractChunk.indexBits - trailingZeros > (ones as i32) ? trailingZeros + 1 : trailingZeros
+		return AbstractChunk.indexBits - trailingZeros > ones ? trailingZeros + 1 : trailingZeros
 	}
 
 	@inline
@@ -22,8 +22,8 @@ export abstract class AbstractChunk<D extends number> {
 		if (nodeIndex == 0) return new Array<LinkIndex>(0)
 		const linkIndexes = new Array<LinkIndex>(this.indexBits as i32)
 		let index = nodeIndex
-		for (let degree = 0 as u8; degree < (this.indexBits as u8); degree++) {
-			if ((nodeIndex as i32) + (1 << degree) > this.maxSize) {
+		for (let degree = 0 as u8; degree < this.indexBits; degree++) {
+			if ((1 << degree) + nodeIndex > this.maxSize) {
 				linkIndexes.length = degree
 				return linkIndexes
 			}
