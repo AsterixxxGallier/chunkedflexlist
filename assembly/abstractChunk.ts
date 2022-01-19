@@ -12,7 +12,9 @@ export abstract class AbstractChunk<D extends number> {
 
 	@inline
 	static calculateNumberOfLinks(index: u8): u8 {
-		const trailingZeros = ctz(index)
+		let trailingZeros = ctz(index)
+		if (trailingZeros > this.indexBits)
+			trailingZeros = this.indexBits
 		const ones = popcnt(index)
 		return AbstractChunk.indexBits - trailingZeros > ones ? trailingZeros + 1 : trailingZeros
 	}
