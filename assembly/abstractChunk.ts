@@ -4,6 +4,7 @@ import {LinkIndex} from "./linkIndex"
  * Superclass for all Chunks
  */
 export abstract class AbstractChunk<D extends number> {
+	// region static stuff
 	static isInitialised: boolean = false
 	static indexBits: u8 = 8
 	static maxSize: i32 = 1 << AbstractChunk.indexBits
@@ -46,7 +47,9 @@ export abstract class AbstractChunk<D extends number> {
 		}
 		this.isInitialised = true
 	}
+	// endregion
 
+	// region fields
 	/**
 	 * The distance from zero to the last element/point
 	 */
@@ -61,6 +64,7 @@ export abstract class AbstractChunk<D extends number> {
 	 * The lengths of the links between elements/points, by local index of the from-element and degree
 	 */
 	linkLengths: StaticArray<StaticArray<D>> = new StaticArray<StaticArray<D>>(AbstractChunk.maxSize)
+	// endregion
 
 	constructor() {
 		for (let i = 0; i < this.linkLengths.length; i++) {
@@ -68,6 +72,7 @@ export abstract class AbstractChunk<D extends number> {
 		}
 	}
 
+	// region link length accessors
 	@inline
 	getLinkLengthUncheckedByLinkIndex(localIndex: LinkIndex): D {
 		return this.getLinkLengthUnchecked(localIndex.nodeIndex, localIndex.degree)
@@ -98,9 +103,12 @@ export abstract class AbstractChunk<D extends number> {
 	setLinkLengthUnchecked(index: i32, degree: u8, length: D): void {
 		this.linkLengths[index][degree] = length
 	}
+	// endregion
 
+	// region abstract methods
 	/**
 	 * Returns a human-readable string representation of this chunk
 	 */
 	abstract toDebugString(): string
+	// endregion
 }
