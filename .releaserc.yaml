@@ -6,6 +6,7 @@ plugins:
   - - '@semantic-release/git'
     - assets:
         - 'build/*.wat'
+        - 'assembly/__tests__/**/*.{wat,wasm,map}'
         - 'package.json'
       message: |-
         chore(release): ${nextRelease.version} [skip ci]
