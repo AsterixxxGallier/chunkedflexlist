@@ -89,7 +89,7 @@ export abstract class AbstractChunk<D extends number> {
 	 * @param degree the degree of the link
 	 */
 	@inline
-	getLinkLengthUnchecked(index: i32, degree: u8): D {
+	getLinkLengthUnchecked(index: u8, degree: u8): D {
 		return this.linkLengths[index][degree]
 	}
 
@@ -100,7 +100,7 @@ export abstract class AbstractChunk<D extends number> {
 	 * @param length the new length of the link
 	 */
 	@inline
-	setLinkLengthUnchecked(index: i32, degree: u8, length: D): void {
+	setLinkLengthUnchecked(index: u8, degree: u8, length: D): void {
 		this.linkLengths[index][degree] = length
 	}
 	// endregion
