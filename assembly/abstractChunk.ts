@@ -4,6 +4,7 @@ import {LinkIndex} from "./linkIndex"
  * Superclass for all Chunks
  */
 export abstract class AbstractChunk<D extends number> {
+	static isInitialised: boolean = false
 	static indexBits: u8 = 8
 	static maxSize: i32 = 1 << AbstractChunk.indexBits
 	static numbersOfLinks: StaticArray<u8> = new StaticArray<u8>(AbstractChunk.maxSize)
@@ -37,10 +38,13 @@ export abstract class AbstractChunk<D extends number> {
 	}
 
 	static init(): void {
+		if (this.isInitialised)
+			return
 		for (let i = 0; i < AbstractChunk.maxSize; i++) {
 			this.numbersOfLinks[i] = this.calculateNumberOfLinks(i as u8)
 			this.linkIndexesAbove[i] = this.calculateLinkIndexesAbove(i as u8)
 		}
+		this.isInitialised = true
 	}
 
 	/**
