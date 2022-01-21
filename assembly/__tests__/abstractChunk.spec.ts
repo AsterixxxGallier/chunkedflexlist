@@ -1,7 +1,7 @@
 import {AbstractChunk} from "../abstractChunk"
 
 describe("AbstractChunk initialisation", () => {
-	AbstractChunk.init()
+	beforeAll(AbstractChunk.init)
 	test("AbstractChunk.indexBits", () => {
 		expect<i32>(AbstractChunk.indexBits).toBe(8)
 	})
