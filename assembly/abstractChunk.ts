@@ -42,4 +42,61 @@ export abstract class AbstractChunk<D extends number> {
 			this.linkIndexesAbove[i] = this.calculateLinkIndexesAbove(i as u8)
 		}
 	}
+
+	/**
+	 * The distance from zero to the last element/point
+	 */
+	totalLength: D
+
+	/**
+	 * The number of elements/points in this chunk
+	 */
+	size: u8 = 0
+
+	/**
+	 * The lengths of the links between elements/points, by local index of the from-element and degree
+	 */
+	linkLengths: StaticArray<StaticArray<D>> = new StaticArray<StaticArray<D>>(AbstractChunk.maxSize)
+
+	constructor() {
+		for (let i = 0; i < this.linkLengths.length; i++) {
+			this.linkLengths[i] = new StaticArray(AbstractChunk.numbersOfLinks[i])
+		}
+	}
+
+	@inline
+	getLinkLengthUncheckedByLinkIndex(localIndex: LinkIndex): D {
+		return this.getLinkLengthUnchecked(localIndex.nodeIndex, localIndex.degree)
+	}
+
+	@inline
+	setLinkLengthUncheckedByLinkIndex(localIndex: LinkIndex, value: D): void {
+		this.setLinkLengthUnchecked(localIndex.nodeIndex, localIndex.degree, value)
+	}
+
+	/**
+	 * Gets the length of the link starting at `index` of degree `degree`
+	 * @param index the local index of node a
+	 * @param degree the degree of the link
+	 */
+	@inline
+	getLinkLengthUnchecked(index: i32, degree: u8): D {
+		return this.linkLengths[index][degree]
+	}
+
+	/**
+	 * Sets the length of the link starting at `index` of degree `degree` to `length`
+	 * @param index the local index of node a
+	 * @param degree the degree of the link
+	 * @param length the new length of the link
+	 */
+	@inline
+	setLinkLengthUnchecked(index: i32, degree: u8, length: D): void {
+		this.linkLengths[index][degree] = length
+	}
+
+	/**
+	 * Returns a human-readable string representation of this chunk
+	 */
+	abstract toDebugString(): string
 }
