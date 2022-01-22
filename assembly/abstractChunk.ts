@@ -53,17 +53,17 @@ export abstract class AbstractChunk<D extends number> {
 
 	// region fields
 	/**
-	 * The distance from zero to the last element/point
+	 * The distance from zero to the last element/node
 	 */
 	totalLength: D
 
 	/**
-	 * The number of elements/points in this chunk
+	 * The number of elements/nodes in this chunk
 	 */
 	size: u8 = 0
 
 	/**
-	 * The lengths of the links between elements/points, by local index of the from-element and degree
+	 * The lengths of the links between elements/nodes, by local index of the from-element and degree
 	 */
 	linkLengths: StaticArray<StaticArray<D>> = new StaticArray<StaticArray<D>>(AbstractChunk.maxSize)
 
@@ -76,12 +76,12 @@ export abstract class AbstractChunk<D extends number> {
 	}
 
 	/**
-	 * Appends a dataless point to this chunk, distanceFromEnd away from the last element/point.
+	 * Appends a dataless node to this chunk, distanceFromEnd away from the last element/node.
 	 * Does not append an element, only changes the size and link lengths stored in this chunk.
 	 * If this chunk is empty, only the size will be changed, and no link lengths will be modified.
 	 * @param distanceFromEnd
 	 */
-	appendPointUnchecked(distanceFromEnd: D): void {
+	appendNodeUnchecked(distanceFromEnd: D): void {
 		if (this.size == 0) {
 			this.size = 1
 			return

@@ -35,7 +35,7 @@
  (data (i32.const 1996) "\8c\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00t\00\00\00n\00o\00d\00e\00_\00m\00o\00d\00u\00l\00e\00s\00/\00@\00a\00s\00-\00p\00e\00c\00t\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2140) "\1c\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2172) "\1c\00\00\00\00\00\00\00\00\00\00\00\07\00\00\00\08\00\00\00\02\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 2204) "\\\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00@\00\00\00H\00o\00l\00l\00o\00w\00C\00h\00u\00n\00k\00.\00a\00p\00p\00e\00n\00d\00P\00o\00i\00n\00t\00U\00n\00c\00h\00e\00c\00k\00e\00d\00\00\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 2204) "\\\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00>\00\00\00H\00o\00l\00l\00o\00w\00C\00h\00u\00n\00k\00.\00a\00p\00p\00e\00n\00d\00N\00o\00d\00e\00U\00n\00c\00h\00e\00c\00k\00e\00d\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2300) "\1c\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\04\00\00\00u\008\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2332) "\1c\00\00\00\00\00\00\00\00\00\00\00\07\00\00\00\08\00\00\00\03\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2364) "\1c\00\00\00\00\00\00\00\00\00\00\00\07\00\00\00\08\00\00\00\04\00\00\00\00\00\00\00\00\00\00\00")
@@ -5253,7 +5253,7 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $assembly/abstractChunk/AbstractChunk<f64>#appendPointUnchecked (param $0 i32) (param $1 f64)
+ (func $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked (param $0 i32) (param $1 f64)
   (local $2 i32)
   (local $3 i32)
   (local $4 f64)
@@ -5586,7 +5586,7 @@
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $2
   call $~lib/math/NativeMath.random
-  call $assembly/abstractChunk/AbstractChunk<f64>#appendPointUnchecked
+  call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
   local.get $2
   i32.load8_u offset=8
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
@@ -5713,7 +5713,7 @@
   local.get $2
   call $~lib/math/NativeMath.random
   local.tee $3
-  call $assembly/abstractChunk/AbstractChunk<f64>#appendPointUnchecked
+  call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
   local.get $2
   i32.load8_u offset=8
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
@@ -5914,7 +5914,7 @@
   local.get $2
   call $~lib/math/NativeMath.random
   local.tee $4
-  call $assembly/abstractChunk/AbstractChunk<f64>#appendPointUnchecked
+  call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
   local.get $2
   i32.load8_u offset=8
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>

@@ -25,12 +25,12 @@ describe("HollowChunk", () => {
 			}
 		}
 	})
-	test("HollowChunk.appendPointUnchecked", () => {
+	test("HollowChunk.appendNodeUnchecked", () => {
 		const chunk = new HollowChunk<f64>()
 		expect(chunk.size).toBe(0)
 		expect(chunk.totalLength).toBe(0.0)
 
-		chunk.appendPointUnchecked(Math.random())
+		chunk.appendNodeUnchecked(Math.random())
 		expect(chunk.size).toBe(1)
 		expect(chunk.totalLength).toBe(0.0)
 		{
@@ -44,7 +44,7 @@ describe("HollowChunk", () => {
 		}
 
 		let random1 = Math.random();
-		chunk.appendPointUnchecked(random1)
+		chunk.appendNodeUnchecked(random1)
 		expect(chunk.size).toBe(2)
 		expect(chunk.totalLength).toBe(random1)
 		for (let degree = 0 as u8; degree < AbstractChunk.numbersOfLinks[0]; degree++) {
@@ -61,7 +61,7 @@ describe("HollowChunk", () => {
 		}
 
 		let random2 = Math.random();
-		chunk.appendPointUnchecked(random2)
+		chunk.appendNodeUnchecked(random2)
 		expect(chunk.size).toBe(3)
 		expect(chunk.totalLength).toBe(random1 + random2)
 		expect(chunk.getLinkLengthUnchecked(0, 0)).toBe(random1)
