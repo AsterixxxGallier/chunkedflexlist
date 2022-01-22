@@ -75,6 +75,26 @@ export abstract class AbstractChunk<D extends number> {
 		}
 	}
 
+	/**
+	 * Appends a dataless point to this chunk, distanceFromEnd away from the last element/point.
+	 * Does not append an element, only changes the size and link lengths stored in this chunk.
+	 * If this chunk is empty, only the size will be changed, and no link lengths will be modified.
+	 * @param distanceFromEnd
+	 */
+	appendPointUnchecked(distanceFromEnd: D): void {
+		if (this.size == 0) {
+			this.size = 1
+			return
+		}
+		const linkIndexes = AbstractChunk.linkIndexesAbove[this.size]
+		for (let i = 0; i < linkIndexes.length; i++) {
+			const linkIndex = linkIndexes[i]
+			this.setLinkLengthUncheckedByLinkIndex(linkIndex, this.getLinkLengthUncheckedByLinkIndex(linkIndex) + distanceFromEnd as D)
+		}
+		this.size++
+		this.totalLength = this.totalLength + distanceFromEnd as D
+	}
+
 	// region link length accessors
 	@inline
 	getLinkLengthUncheckedByLinkIndex(localIndex: LinkIndex): D {
