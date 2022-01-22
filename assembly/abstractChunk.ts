@@ -47,6 +47,7 @@ export abstract class AbstractChunk<D extends number> {
 		}
 		this.isInitialised = true
 	}
+
 	// endregion
 
 	// region fields
@@ -64,6 +65,7 @@ export abstract class AbstractChunk<D extends number> {
 	 * The lengths of the links between elements/points, by local index of the from-element and degree
 	 */
 	linkLengths: StaticArray<StaticArray<D>> = new StaticArray<StaticArray<D>>(AbstractChunk.maxSize)
+
 	// endregion
 
 	constructor() {
@@ -103,6 +105,7 @@ export abstract class AbstractChunk<D extends number> {
 	setLinkLengthUnchecked(index: u8, degree: u8, length: D): void {
 		this.linkLengths[index][degree] = length
 	}
+
 	// endregion
 
 	// region abstract methods
@@ -110,5 +113,6 @@ export abstract class AbstractChunk<D extends number> {
 	 * Returns a human-readable string representation of this chunk
 	 */
 	abstract toDebugString(): string
+
 	// endregion
 }
