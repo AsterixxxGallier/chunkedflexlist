@@ -8,6 +8,7 @@ export abstract class AbstractChunk<D extends number> {
 	static isInitialised: boolean = false
 	static indexBits: u8 = 8
 	static maxSize: i32 = 1 << AbstractChunk.indexBits
+	static maxLastIndex: u8 = AbstractChunk.maxSize - 1 as u8
 	static numbersOfLinks: StaticArray<u8> = new StaticArray<u8>(AbstractChunk.maxSize)
 	static linkIndexesAbove: StaticArray<Array<LinkIndex>> =
 		new StaticArray<Array<LinkIndex>>(AbstractChunk.maxSize)

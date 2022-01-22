@@ -20,7 +20,7 @@ export class HollowChunk<D extends number> extends AbstractChunk<D> {
 				}
 				line += " "
 			}
-			line += nodeIndex.toString().padStart(i32(Math.ceil(Mathf.log10(AbstractChunk.maxSize - 1 as f32))))
+			line += nodeIndex.toString().padStart(i32(Math.ceil(Mathf.log10(AbstractChunk.maxLastIndex as f32))))
 			line += " "
 			line += nodeIndex.toString(2).padStart(AbstractChunk.indexBits, '0')
 			result += line
