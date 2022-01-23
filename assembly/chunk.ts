@@ -8,7 +8,11 @@ export class Chunk<E, D extends number> extends DatafulChunk<E, D> {
 	/**
 	 * The elements that this {@link Chunk} contains
 	 */
-	elements: StaticArray<E> = new StaticArray<E>(Chunk.maxSize)
+	elements: StaticArray<E> = new StaticArray<E>(AbstractChunk.maxSize)
+
+	getElementAt(index: u8): E {
+		return this.elements[index];
+	}
 
 	/**
 	 * The local index of the last stored element
