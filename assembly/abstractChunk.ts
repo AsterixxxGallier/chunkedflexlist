@@ -1,4 +1,5 @@
 import {LinkIndex} from "./linkIndex"
+import {TraversalResult} from "./traversalResult";
 
 /**
  * Superclass for all Chunks
@@ -93,6 +94,24 @@ export abstract class AbstractChunk<D extends number> {
 		}
 		this.size++
 		this.totalLength = this.totalLength + distanceFromEnd as D
+	}
+
+	/**
+	 * Systematically traverses this chunk to find the index of the node which is positioned just before distanceFromStart
+	 * and additionally returns the "overshoot" distance in a {@link TraversalResult}.
+	 * @param distanceFromStart
+	 */
+	traverse(distanceFromStart: D): TraversalResult<D> {
+		let toGo = distanceFromStart
+		let index: i32 = 0
+		for (let degree = AbstractChunk.indexBits - 1; degree >= 0; degree--) {
+			const toNext = this.getLinkLengthUnchecked(index, degree as u8)
+			if (toGo >= toNext) {
+				toGo = toGo - toNext as D
+				index += 1 << degree
+			}
+		}
+		return new TraversalResult(index, toGo)
 	}
 
 	// region link length accessors
