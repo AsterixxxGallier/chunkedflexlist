@@ -1,10 +1,11 @@
 import {DatafulChunk} from "./datafulChunk"
 import {AbstractChunk} from "./abstractChunk"
+import {ChunkedFlexList} from "./chunkedFlexList";
 
 /**
  * A single chunk that stores elements (not other chunks) and the distance between them.
  */
-export class Chunk<E, D extends number> extends DatafulChunk<E, D> {
+export class Chunk<E, D extends number> extends DatafulChunk<E, D, ChunkedFlexList<E, D>> {
 	/**
 	 * The elements that this {@link Chunk} contains
 	 */

@@ -1,10 +1,11 @@
 import {LinkIndex} from "./linkIndex"
 import {TraversalResult} from "./traversalResult";
+import {AbstractChunkedFlexList} from "./abstractChunkedFlexList";
 
 /**
  * Superclass for all Chunks
  */
-export abstract class AbstractChunk<D extends number> {
+export abstract class AbstractChunk<D extends number, L extends AbstractChunkedFlexList<D>> {
 	// region static stuff
 	static isInitialised: boolean = false
 	static indexBits: u8 = 8

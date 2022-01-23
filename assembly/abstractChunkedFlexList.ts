@@ -3,7 +3,7 @@
  */
 import {AbstractChunk} from "./abstractChunk"
 
-export abstract class AbstractChunkedFlexList<D extends number, C extends AbstractChunk<D>> {
+export abstract class AbstractChunkedFlexList<D extends number> {
 	/**
 	 * Offsets all elements (distance between zero and the first element)
 	 */

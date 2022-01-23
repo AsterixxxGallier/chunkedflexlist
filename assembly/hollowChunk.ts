@@ -1,9 +1,10 @@
 import {AbstractChunk} from "./abstractChunk"
+import {HollowChunkedFlexList} from "./hollowChunkedFlexList";
 
 /**
  * A single chunk that stores the distance between dataless nodes instead of list elements.
  */
-export class HollowChunk<D extends number> extends AbstractChunk<D> {
+export class HollowChunk<D extends number> extends AbstractChunk<D, HollowChunkedFlexList<D>> {
 	toDebugString(): string {
 		let result = "\n"
 		const maxNumberOfLinksFromNode = AbstractChunk.indexBits
