@@ -40,7 +40,7 @@
  (data (i32.const 2332) "\1c\00\00\00\00\00\00\00\00\00\00\00\07\00\00\00\08\00\00\00\03\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2364) "\1c\00\00\00\00\00\00\00\00\00\00\00\07\00\00\00\08\00\00\00\04\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2396) "\1c\00\00\00\00\00\00\00\00\00\00\00\07\00\00\00\08\00\00\00\05\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 2432) "\0f\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00d\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\02A\00\00\00\00\00\00\04A\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\t\00\00\00\00\00\00\00\00\00\00\00$\1a\00\00\00\00\00\00\04A\00\00\00\00\00\00 \00\00\00\00\00\00\00\10\t\02\00\00\00\00\00 \00\00\00\00\00\00\00")
+ (data (i32.const 2432) "\12\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00d\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\02A\00\00\00\00\00\00\04A\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\0b\00\00\00 \00\00\00\n\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00$\1a\00\00\00\00\00\00\04A\00\00\00\00\00\00\04a\00\00\00\00\00\00 \00\00\00\00\00\00\00\10\t\02\00\00\00\00\00 \00\00\00\00\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onvisit" (func $~lib/rt/rtrace/onvisit (param i32) (result i32)))
  (import "rtrace" "oninit" (func $~lib/rt/rtrace/oninit (param i32)))
@@ -76,7 +76,7 @@
  (global $~lib/math/random_seeded (mut i32) (i32.const 0))
  (global $~lib/math/random_state0_64 (mut i64) (i64.const 0))
  (global $~lib/math/random_state1_64 (mut i64) (i64.const 0))
- (global $~lib/memory/__stack_pointer (mut i32) (i32.const 18940))
+ (global $~lib/memory/__stack_pointer (mut i32) (i32.const 18964))
  (global $~started (mut i32) (i32.const 0))
  (table $0 6 funcref)
  (elem $0 (i32.const 1) $assembly/abstractChunk/AbstractChunk.init $start:assembly/__tests__/hollowChunk.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/hollowChunk.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/hollowChunk.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
@@ -261,7 +261,7 @@
    if
     i32.const 0
     local.get $0
-    i32.const 18940
+    i32.const 18964
     i32.lt_u
     local.get $0
     i32.load offset=8
@@ -947,7 +947,7 @@
  (func $~lib/rt/tlsf/initialize
   (local $0 i32)
   (local $1 i32)
-  i32.const 18940
+  i32.const 18964
   call $~lib/rt/rtrace/oninit
   memory.size
   local.tee $1
@@ -966,14 +966,14 @@
   if
    unreachable
   end
-  i32.const 18944
+  i32.const 18976
   i32.const 0
   i32.const 4
   i32.const 1
   call $~onstore
   i32.const 0
   i32.store
-  i32.const 18944
+  i32.const 18976
   i32.const 1568
   i32.const 4
   i32.const 1
@@ -988,7 +988,7 @@
     local.get $0
     i32.const 2
     i32.shl
-    i32.const 18944
+    i32.const 18976
     i32.add
     i32.const 4
     i32.const 4
@@ -1010,7 +1010,7 @@
       i32.add
       i32.const 2
       i32.shl
-      i32.const 18944
+      i32.const 18976
       i32.add
       i32.const 96
       i32.const 4
@@ -1032,13 +1032,13 @@
     br $for-loop|0
    end
   end
-  i32.const 18944
-  i32.const 20516
+  i32.const 18976
+  i32.const 20548
   memory.size
   i32.const 16
   i32.shl
   call $~lib/rt/tlsf/addMemory
-  i32.const 18944
+  i32.const 18976
   global.set $~lib/rt/tlsf/ROOT
  )
  (func $~lib/rt/itcms/step (result i32)
@@ -1118,7 +1118,7 @@
      local.set $0
      loop $while-continue|0
       local.get $0
-      i32.const 18940
+      i32.const 18964
       i32.lt_u
       if
        local.get $0
@@ -1213,7 +1213,7 @@
      unreachable
     end
     local.get $0
-    i32.const 18940
+    i32.const 18964
     i32.lt_u
     if
      local.get $0
@@ -1244,7 +1244,7 @@
      i32.const 4
      i32.add
      local.tee $0
-     i32.const 18940
+     i32.const 18964
      i32.ge_u
      if
       global.get $~lib/rt/tlsf/ROOT
@@ -3595,11 +3595,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -3618,7 +3618,7 @@
   i32.const 0
   call $~onstore
   i32.const 16
-  i32.const 12
+  i32.const 15
   call $~lib/rt/itcms/__new
   local.tee $1
   i32.store
@@ -3821,11 +3821,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -3844,7 +3844,7 @@
   i32.const 0
   call $~onstore
   i32.const 5
-  i32.const 14
+  i32.const 17
   call $~lib/rt/itcms/__new
   local.tee $1
   i32.store
@@ -3927,34 +3927,21 @@
  (func $node_modules/@as-pect/assembly/assembly/internal/log/__ignoreLogs (param $0 i32)
   nop
  )
- (func $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>~visit (param $0 i32)
+ (func $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>~visit (param $0 i32)
   (local $1 i32)
-  (local $2 i32)
   local.get $0
-  i32.const 20
-  i32.sub
+  i32.load offset=12
+  local.tee $1
+  if
+   local.get $1
+   call $byn-split-outlined-A$~lib/rt/itcms/__visit
+  end
+  local.get $0
   i32.load offset=16
-  local.get $0
-  i32.add
-  local.set $2
-  loop $while-continue|0
+  local.tee $0
+  if
    local.get $0
-   local.get $2
-   i32.lt_u
-   if
-    local.get $0
-    i32.load
-    local.tee $1
-    if
-     local.get $1
-     call $byn-split-outlined-A$~lib/rt/itcms/__visit
-    end
-    local.get $0
-    i32.const 4
-    i32.add
-    local.set $0
-    br $while-continue|0
-   end
+   call $byn-split-outlined-A$~lib/rt/itcms/__visit
   end
  )
  (func $~lib/rt/__visit_members (param $0 i32)
@@ -3966,93 +3953,99 @@
     block $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8>
      block $~lib/map/Map<usize,i32>
       block $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>
-       block $~lib/staticarray/StaticArray<~lib/staticarray/StaticArray<f64>>
-        block $~lib/staticarray/StaticArray<f64>
-         block $~lib/function/Function<%28%29=>void>
-          block $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>
-           block $~lib/array/Array<assembly/linkIndex/LinkIndex>
-            block $assembly/linkIndex/LinkIndex
-             block $~lib/staticarray/StaticArray<u8>
-              block $~lib/arraybuffer/ArrayBufferView
-               block $~lib/string/String
-                block $~lib/arraybuffer/ArrayBuffer
+       block $~lib/staticarray/StaticArray<f64>
+        block $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>
+         block $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<f64>
+          block $assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>
+           block $assembly/hollowChunk/HollowChunk<f64>
+            block $~lib/function/Function<%28%29=>void>
+             block $~lib/array/Array<assembly/linkIndex/LinkIndex>
+              block $assembly/linkIndex/LinkIndex
+               block $~lib/staticarray/StaticArray<u8>
+                block $~lib/arraybuffer/ArrayBufferView
+                 block $~lib/string/String
+                  block $~lib/arraybuffer/ArrayBuffer
+                   local.get $0
+                   i32.const 8
+                   i32.sub
+                   i32.load
+                   br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $~lib/staticarray/StaticArray<u8> $assembly/linkIndex/LinkIndex $~lib/array/Array<assembly/linkIndex/LinkIndex> $folding-inner0 $~lib/function/Function<%28%29=>void> $assembly/hollowChunk/HollowChunk<f64> $assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64> $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<f64> $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>> $~lib/staticarray/StaticArray<f64> $folding-inner0 $folding-inner0 $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64> $~lib/map/Map<usize,i32> $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8> $invalid
+                  end
+                  return
+                 end
+                 return
+                end
+                local.get $0
+                i32.load
+                local.tee $0
+                if
                  local.get $0
-                 i32.const 8
-                 i32.sub
-                 i32.load
-                 br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $~lib/staticarray/StaticArray<u8> $assembly/linkIndex/LinkIndex $~lib/array/Array<assembly/linkIndex/LinkIndex> $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>> $~lib/function/Function<%28%29=>void> $folding-inner0 $folding-inner0 $~lib/staticarray/StaticArray<f64> $~lib/staticarray/StaticArray<~lib/staticarray/StaticArray<f64>> $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64> $~lib/map/Map<usize,i32> $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8> $invalid
+                 call $byn-split-outlined-A$~lib/rt/itcms/__visit
                 end
                 return
                end
                return
               end
-              local.get $0
-              i32.load
-              local.tee $0
-              if
-               local.get $0
-               call $byn-split-outlined-A$~lib/rt/itcms/__visit
-              end
               return
              end
+             local.get $0
+             i32.load offset=4
+             local.tee $1
+             local.get $0
+             i32.load offset=12
+             i32.const 2
+             i32.shl
+             i32.add
+             local.set $3
+             loop $while-continue|0
+              local.get $1
+              local.get $3
+              i32.lt_u
+              if
+               local.get $1
+               i32.load
+               local.tee $2
+               if
+                local.get $2
+                call $byn-split-outlined-A$~lib/rt/itcms/__visit
+               end
+               local.get $1
+               i32.const 4
+               i32.add
+               local.set $1
+               br $while-continue|0
+              end
+             end
+             local.get $0
+             i32.load
+             local.tee $0
+             if
+              local.get $0
+              call $byn-split-outlined-A$~lib/rt/itcms/__visit
+             end
              return
+            end
+            local.get $0
+            i32.load offset=4
+            local.tee $0
+            if
+             local.get $0
+             call $byn-split-outlined-A$~lib/rt/itcms/__visit
             end
             return
            end
            local.get $0
-           i32.load offset=4
-           local.tee $1
-           local.get $0
-           i32.load offset=12
-           i32.const 2
-           i32.shl
-           i32.add
-           local.set $2
-           loop $while-continue|0
-            local.get $1
-            local.get $2
-            i32.lt_u
-            if
-             local.get $1
-             i32.load
-             local.tee $3
-             if
-              local.get $3
-              call $byn-split-outlined-A$~lib/rt/itcms/__visit
-             end
-             local.get $1
-             i32.const 4
-             i32.add
-             local.set $1
-             br $while-continue|0
-            end
-           end
-           local.get $0
-           i32.load
-           local.tee $0
-           if
-            local.get $0
-            call $byn-split-outlined-A$~lib/rt/itcms/__visit
-           end
+           call $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>~visit
            return
           end
-          local.get $0
-          call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>~visit
           return
-         end
-         local.get $0
-         i32.load offset=4
-         local.tee $0
-         if
-          local.get $0
-          call $byn-split-outlined-A$~lib/rt/itcms/__visit
          end
          return
         end
+        local.get $0
+        call $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>~visit
         return
        end
-       local.get $0
-       call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>~visit
        return
       end
       return
@@ -4078,11 +4071,30 @@
    unreachable
   end
   local.get $0
-  i32.load offset=12
-  local.tee $0
-  if
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  local.get $0
+  i32.add
+  local.set $1
+  loop $while-continue|00
    local.get $0
-   call $byn-split-outlined-A$~lib/rt/itcms/__visit
+   local.get $1
+   i32.lt_u
+   if
+    local.get $0
+    i32.load
+    local.tee $2
+    if
+     local.get $2
+     call $byn-split-outlined-A$~lib/rt/itcms/__visit
+    end
+    local.get $0
+    i32.const 4
+    i32.add
+    local.set $0
+    br $while-continue|00
+   end
   end
  )
  (func $~start
@@ -4100,7 +4112,7 @@
   block $folding-inner1
    block $folding-inner0
     global.get $~lib/memory/__stack_pointer
-    i32.const 2556
+    i32.const 2580
     i32.lt_s
     br_if $folding-inner0
     global.get $~lib/memory/__stack_pointer
@@ -4117,7 +4129,7 @@
     memory.size
     i32.const 16
     i32.shl
-    i32.const 18940
+    i32.const 18964
     i32.sub
     i32.const 1
     i32.shr_u
@@ -4136,7 +4148,7 @@
     i32.sub
     global.set $~lib/memory/__stack_pointer
     global.get $~lib/memory/__stack_pointer
-    i32.const 2556
+    i32.const 2580
     i32.lt_s
     br_if $folding-inner0
     global.get $assembly/abstractChunk/AbstractChunk.maxSize
@@ -4173,7 +4185,7 @@
     i32.sub
     global.set $~lib/memory/__stack_pointer
     global.get $~lib/memory/__stack_pointer
-    i32.const 2556
+    i32.const 2580
     i32.lt_s
     br_if $folding-inner0
     global.get $assembly/abstractChunk/AbstractChunk.maxSize
@@ -4230,8 +4242,8 @@
     global.set $~lib/memory/__stack_pointer
     return
    end
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -4260,11 +4272,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -4525,7 +4537,7 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $assembly/abstractChunk/AbstractChunk<f64>#constructor (param $0 i32) (result i32)
+ (func $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>#constructor (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -4536,7 +4548,7 @@
   block $folding-inner1
    block $folding-inner0
     global.get $~lib/memory/__stack_pointer
-    i32.const 2556
+    i32.const 2580
     i32.lt_s
     br_if $folding-inner0
     global.get $~lib/memory/__stack_pointer
@@ -4561,8 +4573,8 @@
      i32.const 4
      i32.const 0
      call $~onstore
-     i32.const 16
-     i32.const 9
+     i32.const 20
+     i32.const 11
      call $~lib/rt/itcms/__new
      local.tee $0
      i32.store
@@ -4586,7 +4598,7 @@
     i32.sub
     global.set $~lib/memory/__stack_pointer
     global.get $~lib/memory/__stack_pointer
-    i32.const 2556
+    i32.const 2580
     i32.lt_s
     br_if $folding-inner0
     global.get $assembly/abstractChunk/AbstractChunk.maxSize
@@ -4610,7 +4622,7 @@
     local.get $2
     i32.const 2
     i32.shl
-    i32.const 11
+    i32.const 13
     call $~lib/rt/itcms/__new
     local.tee $2
     i32.store
@@ -4625,6 +4637,57 @@
     call $~onstore
     local.get $2
     i32.store offset=12
+    local.get $2
+    if
+     local.get $0
+     local.get $2
+     i32.const 0
+     call $byn-split-outlined-A$~lib/rt/itcms/__link
+    end
+    global.get $~lib/memory/__stack_pointer
+    i32.const 4
+    i32.sub
+    global.set $~lib/memory/__stack_pointer
+    global.get $~lib/memory/__stack_pointer
+    i32.const 2580
+    i32.lt_s
+    br_if $folding-inner0
+    global.get $assembly/abstractChunk/AbstractChunk.maxSize
+    local.set $2
+    global.get $~lib/memory/__stack_pointer
+    i32.const 0
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    i32.const 0
+    i32.store
+    local.get $2
+    i32.const 268435455
+    i32.gt_u
+    br_if $folding-inner1
+    global.get $~lib/memory/__stack_pointer
+    i32.const 0
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    local.get $2
+    i32.const 2
+    i32.shl
+    i32.const 14
+    call $~lib/rt/itcms/__new
+    local.tee $2
+    i32.store
+    global.get $~lib/memory/__stack_pointer
+    i32.const 4
+    i32.add
+    global.set $~lib/memory/__stack_pointer
+    local.get $0
+    i32.const 16
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    local.get $2
+    i32.store offset=16
     local.get $2
     if
      local.get $0
@@ -4680,7 +4743,7 @@
       i32.sub
       global.set $~lib/memory/__stack_pointer
       global.get $~lib/memory/__stack_pointer
-      i32.const 2556
+      i32.const 2580
       i32.lt_s
       br_if $folding-inner0
       global.get $~lib/memory/__stack_pointer
@@ -4702,7 +4765,7 @@
       local.get $3
       i32.const 3
       i32.shl
-      i32.const 10
+      i32.const 12
       call $~lib/rt/itcms/__new
       local.tee $3
       i32.store
@@ -4735,8 +4798,8 @@
     local.get $0
     return
    end
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -4766,11 +4829,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -5253,7 +5316,7 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked (param $0 i32) (param $1 f64)
+ (func $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>#appendNodeUnchecked (param $0 i32) (param $1 f64)
   (local $2 i32)
   (local $3 i32)
   (local $4 f64)
@@ -5267,7 +5330,7 @@
   global.set $~lib/memory/__stack_pointer
   block $folding-inner0
    global.get $~lib/memory/__stack_pointer
-   i32.const 2556
+   i32.const 2580
    i32.lt_s
    br_if $folding-inner0
    global.get $~lib/memory/__stack_pointer
@@ -5337,7 +5400,7 @@
      i32.sub
      global.set $~lib/memory/__stack_pointer
      global.get $~lib/memory/__stack_pointer
-     i32.const 2556
+     i32.const 2580
      i32.lt_s
      br_if $folding-inner0
      global.get $~lib/memory/__stack_pointer
@@ -5490,8 +5553,8 @@
    global.set $~lib/memory/__stack_pointer
    return
   end
-  i32.const 18960
-  i32.const 19008
+  i32.const 18992
+  i32.const 19040
   i32.const 1
   i32.const 1
   call $~lib/builtins/abort
@@ -5510,11 +5573,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -5586,7 +5649,7 @@
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $2
   call $~lib/math/NativeMath.random
-  call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
+  call $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>#appendNodeUnchecked
   local.get $2
   i32.load8_u offset=8
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
@@ -5713,7 +5776,7 @@
   local.get $2
   call $~lib/math/NativeMath.random
   local.tee $3
-  call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
+  call $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>#appendNodeUnchecked
   local.get $2
   i32.load8_u offset=8
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
@@ -5914,7 +5977,7 @@
   local.get $2
   call $~lib/math/NativeMath.random
   local.tee $4
-  call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
+  call $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>#appendNodeUnchecked
   local.get $2
   i32.load8_u offset=8
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
@@ -6217,11 +6280,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -6291,11 +6354,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -6423,11 +6486,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -6491,11 +6554,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -6513,7 +6576,7 @@
   i32.const 4
   i32.const 0
   call $~onstore
-  i32.const 16
+  i32.const 20
   i32.const 8
   call $~lib/rt/itcms/__new
   local.tee $0
@@ -6524,7 +6587,7 @@
   i32.const 0
   call $~onstore
   local.get $0
-  call $assembly/abstractChunk/AbstractChunk<f64>#constructor
+  call $assembly/abstractChunk/AbstractChunk<f64,assembly/hollowChunkedFlexList/HollowChunkedFlexList<f64>>#constructor
   local.tee $0
   i32.store
   global.get $~lib/memory/__stack_pointer
@@ -6539,11 +6602,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -6607,11 +6670,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -6659,11 +6722,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -6682,7 +6745,7 @@
   i32.const 0
   call $~onstore
   i32.const 24
-  i32.const 13
+  i32.const 16
   call $~lib/rt/itcms/__new
   local.tee $0
   i32.store
@@ -6762,7 +6825,7 @@
   global.set $~lib/memory/__stack_pointer
   block $folding-inner0
    global.get $~lib/memory/__stack_pointer
-   i32.const 2556
+   i32.const 2580
    i32.lt_s
    br_if $folding-inner0
    global.get $~lib/memory/__stack_pointer
@@ -6795,7 +6858,7 @@
    i32.sub
    global.set $~lib/memory/__stack_pointer
    global.get $~lib/memory/__stack_pointer
-   i32.const 2556
+   i32.const 2580
    i32.lt_s
    br_if $folding-inner0
    global.get $~lib/memory/__stack_pointer
@@ -6828,8 +6891,8 @@
    global.set $~lib/memory/__stack_pointer
    return
   end
-  i32.const 18960
-  i32.const 19008
+  i32.const 18992
+  i32.const 19040
   i32.const 1
   i32.const 1
   call $~lib/builtins/abort
@@ -6842,7 +6905,7 @@
   global.set $~lib/memory/__stack_pointer
   block $folding-inner0
    global.get $~lib/memory/__stack_pointer
-   i32.const 2556
+   i32.const 2580
    i32.lt_s
    br_if $folding-inner0
    global.get $~lib/memory/__stack_pointer
@@ -6875,7 +6938,7 @@
    i32.sub
    global.set $~lib/memory/__stack_pointer
    global.get $~lib/memory/__stack_pointer
-   i32.const 2556
+   i32.const 2580
    i32.lt_s
    br_if $folding-inner0
    global.get $~lib/memory/__stack_pointer
@@ -6909,8 +6972,8 @@
    global.set $~lib/memory/__stack_pointer
    return
   end
-  i32.const 18960
-  i32.const 19008
+  i32.const 18992
+  i32.const 19040
   i32.const 1
   i32.const 1
   call $~lib/builtins/abort
@@ -6922,11 +6985,11 @@
   i32.sub
   global.set $~lib/memory/__stack_pointer
   global.get $~lib/memory/__stack_pointer
-  i32.const 2556
+  i32.const 2580
   i32.lt_s
   if
-   i32.const 18960
-   i32.const 19008
+   i32.const 18992
+   i32.const 19040
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
