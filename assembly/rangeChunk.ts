@@ -11,6 +11,10 @@ export class RangeChunk<E, D extends number> extends DatafulChunk<E, D> {
 		return this.elements[index >> 1];
 	}
 
+	setElementAt(index: u8, element: E): void {
+		this.elements[index >> 1] = element
+	}
+
 	toDebugString(): string {
 		return "RangeChunk.toDebugString() is not yet implemented";
 	}

@@ -5,4 +5,6 @@ import {AbstractChunk} from "./abstractChunk"
  */
 export abstract class DatafulChunk<E, D extends number> extends AbstractChunk<D> {
 	abstract getElementAt(index: u8): E
+
+	abstract setElementAt(index: u8, element: E): void
 }

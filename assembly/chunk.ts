@@ -14,6 +14,10 @@ export class Chunk<E, D extends number> extends DatafulChunk<E, D> {
 		return this.elements[index];
 	}
 
+	setElementAt(index: u8, element: E): void {
+		this.elements[index] = element
+	}
+
 	/**
 	 * Appends an element to this chunk, distanceFromEnd away from the last element.
 	 * Internally calls {@link appendNodeUnchecked} after storing the given element.
