@@ -69,6 +69,11 @@ export abstract class AbstractChunk<D extends number, L extends AbstractChunkedF
 	 */
 	linkLengths: StaticArray<StaticArray<D>> = new StaticArray<StaticArray<D>>(AbstractChunk.maxSize)
 
+	/**
+	 * The indices of the
+	 */
+	sublists: StaticArray<L | null> = new StaticArray<L | null>(AbstractChunk.maxSize)
+
 	// endregion
 
 	constructor() {
