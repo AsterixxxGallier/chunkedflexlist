@@ -15,6 +15,17 @@ export class Chunk<E, D extends number> extends DatafulChunk<E, D> {
 	}
 
 	/**
+	 * Appends an element to this chunk, distanceFromEnd away from the last element.
+	 * Internally calls {@link appendNodeUnchecked} after storing the given element.
+	 * @param distanceFromEnd
+	 * @param element
+	 */
+	appendElementUnchecked(element: E, distanceFromEnd: D) {
+		this.elements[this.size] = element
+		this.appendNodeUnchecked(distanceFromEnd)
+	}
+
+	/**
 	 * The local index of the last stored element
 	 */
 	@inline
