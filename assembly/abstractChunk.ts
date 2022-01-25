@@ -69,9 +69,6 @@ export abstract class AbstractChunk<D extends number> {
 	 */
 	linkLengths: StaticArray<StaticArray<D>> = new StaticArray<StaticArray<D>>(AbstractChunk.maxSize)
 
-	/**
-	 * The indices of the
-	 */
 	sublists: StaticArray<AbstractChunkedFlexList<D> | null> = new StaticArray(AbstractChunk.maxSize)
 
 	// endregion
