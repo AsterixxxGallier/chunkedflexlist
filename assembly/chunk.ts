@@ -1,23 +1,14 @@
 import {DatafulChunk} from "./datafulChunk"
 import {AbstractChunk} from "./abstractChunk"
-import {ChunkedFlexList} from "./chunkedFlexList";
 
 /**
  * A single chunk that stores elements (not other chunks) and the distance between them.
  */
-export class Chunk<E, D extends number> extends DatafulChunk<E, D, ChunkedFlexList<E, D>> {
+export class Chunk<E, D extends number> extends DatafulChunk<E, D> {
 	/**
 	 * The elements that this {@link Chunk} contains
 	 */
 	elements: StaticArray<E> = new StaticArray<E>(AbstractChunk.maxSize)
-
-	getElementAt(index: u8): E {
-		return this.elements[index];
-	}
-
-	setElementAt(index: u8, element: E): void {
-		this.elements[index] = element
-	}
 
 	/**
 	 * The local index of the last stored element
@@ -25,6 +16,14 @@ export class Chunk<E, D extends number> extends DatafulChunk<E, D, ChunkedFlexLi
 	@inline
 	get lastIndex(): u8 {
 		return this.size - 1
+	}
+
+	getElementAt(index: u8): E {
+		return this.elements[index]
+	}
+
+	setElementAt(index: u8, element: E): void {
+		this.elements[index] = element
 	}
 
 	toDebugString(): string {

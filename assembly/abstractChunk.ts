@@ -5,7 +5,7 @@ import {AbstractChunkedFlexList} from "./abstractChunkedFlexList";
 /**
  * Superclass for all Chunks
  */
-export abstract class AbstractChunk<D extends number, L extends AbstractChunkedFlexList<D>> {
+export abstract class AbstractChunk<D extends number> {
 	// region static stuff
 	static isInitialised: boolean = false
 	static indexBits: u8 = 8
@@ -72,7 +72,7 @@ export abstract class AbstractChunk<D extends number, L extends AbstractChunkedF
 	/**
 	 * The indices of the
 	 */
-	sublists: StaticArray<L | null> = new StaticArray<L | null>(AbstractChunk.maxSize)
+	sublists: StaticArray<AbstractChunkedFlexList<D> | null> = new StaticArray(AbstractChunk.maxSize)
 
 	// endregion
 
