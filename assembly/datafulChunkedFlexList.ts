@@ -1,5 +1,4 @@
 import {AbstractChunkedFlexList} from "./abstractChunkedFlexList"
-import {DatafulChunk} from "./datafulChunk"
 
 /**
  * Superclass for ChunkedFlexList and RangeChunkedFlexList
