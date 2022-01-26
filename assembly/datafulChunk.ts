@@ -14,7 +14,7 @@ export abstract class DatafulChunk<E, D extends number> extends AbstractChunk<D>
 	 * @param distanceFromEnd
 	 * @param element
 	 */
-	appendElementUnchecked(element: E, distanceFromEnd: D) {
+	appendElementUnchecked(element: E, distanceFromEnd: D): void {
 		this.setElementAt(this.size, element)
 		this.appendNodeUnchecked(distanceFromEnd)
 	}
