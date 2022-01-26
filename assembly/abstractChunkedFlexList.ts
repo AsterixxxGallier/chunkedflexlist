@@ -13,7 +13,7 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 	 * Creates an empty ChunkedFlexList
 	 * @param offset see {@link ChunkedFlexList.offset}
 	 */
-	protected constructor(offset: D) {
+	protected constructor(offset: D = 0 as D) {
 		this.offset = offset
 	}
 }
