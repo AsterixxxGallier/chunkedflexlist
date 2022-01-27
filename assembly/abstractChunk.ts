@@ -62,7 +62,7 @@ export abstract class AbstractChunk<D extends number> {
 	/**
 	 * The number of elements/nodes in this chunk
 	 */
-	size: u8 = 0
+	size: i32 = 0
 
 	/**
 	 * The lengths of the links between elements/nodes, by local index of the from-element and degree
