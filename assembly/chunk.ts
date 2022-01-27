@@ -10,14 +10,6 @@ export class Chunk<E, D extends number> extends DatafulChunk<E, D> {
 	 */
 	elements: StaticArray<E> = new StaticArray<E>(AbstractChunk.maxSize)
 
-	/**
-	 * The local index of the last stored element
-	 */
-	@inline
-	get lastIndex(): u8 {
-		return this.size - 1
-	}
-
 	getElementAt(index: u8): E {
 		return this.elements[index]
 	}
