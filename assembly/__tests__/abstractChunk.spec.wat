@@ -961,12 +961,12 @@
   i32.const 19516
   call $~lib/rt/rtrace/oninit
   memory.size
-  local.tee $0
+  local.tee $1
   i32.const 0
   i32.le_s
   if (result i32)
    i32.const 1
-   local.get $0
+   local.get $1
    i32.sub
    memory.grow
    i32.const 0
@@ -992,11 +992,11 @@
   i32.const 0
   i32.store offset=1568
   loop $for-loop|0
-   local.get $1
+   local.get $0
    i32.const 23
    i32.lt_u
    if
-    local.get $1
+    local.get $0
     i32.const 2
     i32.shl
     i32.const 19520
@@ -1008,14 +1008,14 @@
     i32.const 0
     i32.store offset=4
     i32.const 0
-    local.set $0
+    local.set $1
     loop $for-loop|1
-     local.get $0
+     local.get $1
      i32.const 16
      i32.lt_u
      if
-      local.get $0
       local.get $1
+      local.get $0
       i32.const 4
       i32.shl
       i32.add
@@ -1029,17 +1029,17 @@
       call $~onstore
       i32.const 0
       i32.store offset=96
-      local.get $0
+      local.get $1
       i32.const 1
       i32.add
-      local.set $0
+      local.set $1
       br $for-loop|1
      end
     end
-    local.get $1
+    local.get $0
     i32.const 1
     i32.add
-    local.set $1
+    local.set $0
     br $for-loop|0
    end
   end
@@ -3393,10 +3393,9 @@
  (func $~lib/array/ensureCapacity (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
-  (local $5 i32)
   local.get $0
   i32.load offset=8
-  local.tee $5
+  local.tee $4
   i32.const 2
   i32.shr_u
   local.get $1
@@ -3415,7 +3414,7 @@
    end
    local.get $0
    i32.load
-   local.set $4
+   local.set $3
    local.get $1
    i32.const 8
    local.get $1
@@ -3424,33 +3423,33 @@
    select
    i32.const 2
    i32.shl
-   local.set $3
+   local.set $1
    block $__inlined_func$~lib/rt/itcms/__renew
     local.get $2
-    if
-     local.get $5
+    if (result i32)
+     local.get $4
      i32.const 1
      i32.shl
-     local.tee $1
+     local.tee $2
      i32.const 1073741820
-     local.get $1
+     local.get $2
      i32.const 1073741820
      i32.lt_u
      select
-     local.tee $1
-     local.get $3
+     local.tee $2
      local.get $1
-     local.get $3
-     i32.gt_u
+     local.get $1
+     local.get $2
+     i32.lt_u
      select
-     local.set $3
+    else
+     local.get $1
     end
+    local.tee $2
     local.get $3
-    local.get $4
-    local.tee $1
     i32.const 20
     i32.sub
-    local.tee $5
+    local.tee $4
     i32.load
     i32.const -4
     i32.and
@@ -3458,35 +3457,35 @@
     i32.sub
     i32.le_u
     if
-     local.get $5
+     local.get $4
      i32.const 16
      i32.const 4
      i32.const 1
      call $~onstore
-     local.get $3
+     local.get $2
      i32.store offset=16
+     local.get $3
+     local.set $1
      br $__inlined_func$~lib/rt/itcms/__renew
     end
-    local.get $3
-    local.get $5
+    local.get $2
+    local.get $4
     i32.load offset=12
     call $~lib/rt/itcms/__new
-    local.tee $2
-    local.get $1
-    local.get $3
-    local.get $5
-    i32.load offset=16
     local.tee $1
-    local.get $1
     local.get $3
-    i32.gt_u
+    local.get $2
+    local.get $4
+    i32.load offset=16
+    local.tee $4
+    local.get $2
+    local.get $4
+    i32.lt_u
     select
     call $~lib/memory/memory.copy
-    local.get $2
-    local.set $1
    end
    local.get $1
-   local.get $4
+   local.get $3
    i32.ne
    if
     local.get $0
@@ -3516,7 +3515,7 @@
    i32.const 4
    i32.const 0
    call $~onstore
-   local.get $3
+   local.get $2
    i32.store offset=8
   end
  )
@@ -3784,52 +3783,6 @@
   global.set $~lib/memory/__stack_pointer
   local.get $1
  )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8>#toBe (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  local.get $0
-  i32.load8_u offset=4
-  local.tee $3
-  local.get $1
-  i32.const 255
-  i32.and
-  i32.eq
-  local.set $2
-  local.get $0
-  i32.load
-  local.set $0
-  i32.const 1
-  global.set $~argumentsLength
-  local.get $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>@varargs
-  local.tee $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
-  local.get $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
-  i32.const 1
-  global.set $~argumentsLength
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>@varargs
-  local.tee $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
-  local.get $1
-  local.get $0
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
-  local.get $0
-  local.get $2
-  i32.xor
-  i32.eqz
-  if
-   i32.const 2064
-   i32.const 1920
-   i32.const 2
-   i32.const 19
-   call $~lib/builtins/abort
-   unreachable
-  end
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected
- )
  (func $~lib/staticarray/StaticArray<f64>#__get (param $0 i32) (param $1 i32) (result f64)
   local.get $0
   i32.const 20
@@ -3962,8 +3915,7 @@
  )
  (func $~lib/math/NativeMath.random (result f64)
   (local $0 i64)
-  (local $1 i32)
-  (local $2 i64)
+  (local $1 i64)
   global.get $~lib/math/random_seeded
   i32.eqz
   if
@@ -3976,74 +3928,74 @@
     local.set $0
    end
    local.get $0
+   local.get $0
    i64.const 33
    i64.shr_u
-   local.get $0
    i64.xor
    i64.const -49064778989728563
    i64.mul
    local.tee $0
-   local.get $0
    i64.const 33
    i64.shr_u
+   local.get $0
    i64.xor
    i64.const -4265267296055464877
    i64.mul
    local.tee $0
-   local.get $0
    i64.const 33
    i64.shr_u
+   local.get $0
    i64.xor
    global.set $~lib/math/random_state0_64
    global.get $~lib/math/random_state0_64
    i64.const -1
    i64.xor
    local.tee $0
-   local.get $0
    i64.const 33
    i64.shr_u
+   local.get $0
    i64.xor
    i64.const -49064778989728563
    i64.mul
    local.tee $0
-   local.get $0
    i64.const 33
    i64.shr_u
+   local.get $0
    i64.xor
    i64.const -4265267296055464877
    i64.mul
    local.tee $0
-   local.get $0
    i64.const 33
    i64.shr_u
+   local.get $0
    i64.xor
    global.set $~lib/math/random_state1_64
    i32.const 1
    global.set $~lib/math/random_seeded
   end
   global.get $~lib/math/random_state0_64
-  local.set $0
+  local.set $1
   global.get $~lib/math/random_state1_64
-  local.tee $2
+  local.tee $0
   global.set $~lib/math/random_state0_64
-  local.get $2
-  local.get $0
+  local.get $1
   i64.const 23
   i64.shl
-  local.get $0
+  local.get $1
   i64.xor
-  local.tee $0
-  local.get $0
+  local.tee $1
   i64.const 17
   i64.shr_u
+  local.get $1
   i64.xor
+  local.get $0
   i64.xor
-  local.get $2
+  local.get $0
   i64.const 26
   i64.shr_u
   i64.xor
   global.set $~lib/math/random_state1_64
-  local.get $2
+  local.get $0
   i64.const 12
   i64.shr_u
   i64.const 4607182418800017408
@@ -4451,6 +4403,7 @@
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 16
   i32.sub
@@ -4490,7 +4443,7 @@
   end
   loop $for-loop|0
    global.get $assembly/abstractChunk/AbstractChunk.maxSize
-   local.get $1
+   local.get $3
    i32.gt_s
    if
     global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
@@ -4502,22 +4455,23 @@
     call $~onstore
     local.get $2
     i32.store
-    local.get $1
+    local.get $3
+    local.tee $0
     i32.const 255
     i32.and
     i32.ctz
-    local.tee $0
+    local.tee $1
     i32.const 8
     i32.gt_u
     if
      i32.const 8
-     local.set $0
+     local.set $1
     end
     local.get $2
     i32.const 20
     i32.sub
     i32.load offset=16
-    local.get $1
+    local.get $3
     i32.le_u
     if
      i32.const 1360
@@ -4527,50 +4481,51 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $0
+    local.get $1
     i32.const 1
     i32.add
-    local.get $0
     local.get $1
+    local.get $0
     i32.const 255
     i32.and
-    local.tee $3
     i32.popcnt
     i32.const 8
-    local.get $0
+    local.get $1
     i32.sub
     i32.const 255
     i32.and
     i32.lt_u
     select
-    local.set $0
-    local.get $1
+    local.set $1
     local.get $2
+    local.get $3
     i32.add
     i32.const 0
     i32.const 1
     i32.const 0
     call $~onstore
-    local.get $0
+    local.get $1
     i32.store8
     global.get $assembly/abstractChunk/AbstractChunk.linkIndexesAbove
-    local.set $4
+    local.set $7
     global.get $~lib/memory/__stack_pointer
     i32.const 0
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $4
+    local.get $7
     i32.store
-    local.get $1
-    local.set $0
+    local.get $0
+    local.set $1
     block $assembly/abstractChunk/AbstractChunk.calculateLinkIndexesAbove|inlined.0
      local.get $3
+     i32.const 255
+     i32.and
      i32.eqz
      if
       i32.const 0
       call $~lib/array/Array<assembly/linkIndex/LinkIndex>#constructor
-      local.set $3
+      local.set $4
       br $assembly/abstractChunk/AbstractChunk.calculateLinkIndexesAbove|inlined.0
      end
      global.get $~lib/memory/__stack_pointer
@@ -4580,14 +4535,14 @@
      call $~onstore
      i32.const 8
      call $~lib/array/Array<assembly/linkIndex/LinkIndex>#constructor
-     local.tee $3
+     local.tee $4
      i32.store offset=8
-     local.get $0
+     local.get $1
      local.set $2
      i32.const 0
-     local.set $5
+     local.set $8
      loop $for-loop|2
-      local.get $5
+      local.get $8
       i32.const 255
       i32.and
       i32.const 8
@@ -4598,19 +4553,19 @@
        i32.const 255
        i32.and
        i32.const 1
-       local.get $5
+       local.get $8
        i32.shl
        i32.add
        i32.lt_s
        if
-        local.get $3
-        local.get $5
+        local.get $4
+        local.get $8
         i32.const 255
         i32.and
         local.tee $1
         i32.const 0
         call $~lib/array/ensureCapacity
-        local.get $3
+        local.get $4
         i32.const 12
         i32.const 4
         i32.const 0
@@ -4623,45 +4578,45 @@
        local.get $2
        i32.const 1
        i32.sub
-       local.get $5
+       local.get $8
        i32.const 255
        i32.and
-       local.tee $2
+       local.tee $5
        select
        local.tee $6
-       local.get $5
+       local.get $8
        call $assembly/linkIndex/LinkIndex#constructor
-       local.set $8
+       local.set $9
        global.get $~lib/memory/__stack_pointer
        i32.const 12
        i32.const 4
        i32.const 0
        call $~onstore
-       local.get $8
+       local.get $9
        i32.store offset=12
-       local.get $3
+       local.get $4
        i32.load offset=12
-       local.get $2
+       local.get $5
        i32.le_u
        if
-        local.get $3
-        local.get $2
+        local.get $4
+        local.get $5
         i32.const 1
         i32.add
-        local.tee $7
+        local.tee $2
         i32.const 1
         call $~lib/array/ensureCapacity
-        local.get $3
+        local.get $4
         i32.const 12
         i32.const 4
         i32.const 0
         call $~onstore
-        local.get $7
+        local.get $2
         i32.store offset=12
        end
-       local.get $3
+       local.get $4
        i32.load offset=4
-       local.get $2
+       local.get $5
        i32.const 2
        i32.shl
        i32.add
@@ -4669,27 +4624,27 @@
        i32.const 4
        i32.const 0
        call $~onstore
-       local.get $8
+       local.get $9
        i32.store
-       local.get $8
+       local.get $9
        if
-        local.get $3
-        local.get $8
+        local.get $4
+        local.get $9
         i32.const 1
         call $byn-split-outlined-A$~lib/rt/itcms/__link
        end
        i32.const -2
-       local.get $5
+       local.get $8
        i32.const 7
        i32.and
        i32.rotl
        local.get $6
        i32.and
        local.set $2
-       local.get $5
+       local.get $8
        i32.const 1
        i32.add
-       local.set $5
+       local.set $8
        br $for-loop|2
       end
      end
@@ -4699,16 +4654,16 @@
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $3
-    i32.store offset=4
     local.get $4
+    i32.store offset=4
+    local.get $7
     local.get $0
-    local.get $3
+    local.get $4
     call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__set
-    local.get $0
+    local.get $3
     i32.const 1
     i32.add
-    local.set $1
+    local.set $3
     br $for-loop|0
    end
   end
@@ -4849,34 +4804,34 @@
   i64.store
   block $folding-inner0
    loop $for-loop|0
-    local.get $0
+    local.get $1
     i32.const 256
     i32.lt_s
     if
      global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
-     local.set $1
+     local.set $0
      global.get $~lib/memory/__stack_pointer
      i32.const 0
      i32.const 4
      i32.const 0
      call $~onstore
-     local.get $1
-     i32.store
-     local.get $1
      local.get $0
+     i32.store
+     local.get $0
+     local.get $1
      call $~lib/staticarray/StaticArray<u8>#__get
      local.set $2
      i32.const 0
-     local.set $1
+     local.set $0
      loop $for-loop|1
-      local.get $1
+      local.get $0
       local.get $2
       i32.lt_s
       if
        i32.const 1
-       local.get $1
-       i32.shl
        local.get $0
+       i32.shl
+       local.get $1
        i32.add
        local.tee $3
        call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
@@ -4927,7 +4882,7 @@
        br_if $folding-inner0
        call $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual
        call $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected
-       local.get $0
+       local.get $1
        local.get $3
        i32.xor
        i32.popcnt
@@ -5004,17 +4959,17 @@
        br_if $folding-inner0
        call $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual
        call $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected
-       local.get $1
+       local.get $0
        i32.const 1
        i32.add
-       local.set $1
+       local.set $0
        br $for-loop|1
       end
      end
-     local.get $0
+     local.get $1
      i32.const 1
      i32.add
-     local.set $0
+     local.set $1
      br $for-loop|0
     end
    end
@@ -5068,171 +5023,204 @@
   call $~onstore
   i64.const 0
   i64.store offset=8
-  loop $for-loop|0
-   local.get $1
-   i32.const 256
-   i32.lt_s
-   if
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    global.get $assembly/abstractChunk/AbstractChunk.linkIndexesAbove
-    local.set $2
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $2
-    i32.store
-    local.get $2
+  block $folding-inner0
+   loop $for-loop|0
     local.get $1
-    call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-    local.tee $2
-    i32.store offset=4
-    i32.const 0
-    local.set $0
-    loop $for-loop|1
+    i32.const 256
+    i32.lt_s
+    if
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     global.get $assembly/abstractChunk/AbstractChunk.linkIndexesAbove
+     local.set $2
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
      local.get $2
-     i32.load offset=12
-     local.get $0
-     i32.gt_s
-     if
-      global.get $~lib/memory/__stack_pointer
-      i32.const 8
-      i32.const 4
-      i32.const 0
-      call $~onstore
+     i32.store
+     local.get $2
+     local.get $1
+     call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
+     local.tee $2
+     i32.store offset=4
+     i32.const 0
+     local.set $0
+     loop $for-loop|1
       local.get $2
+      i32.load offset=12
       local.get $0
-      call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__get
-      local.tee $3
-      i32.store offset=8
-      local.get $3
-      i32.load8_u offset=1
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 0
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store
-      global.get $~lib/memory/__stack_pointer
-      i32.const 12
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 2064
-      i32.store offset=12
-      local.get $4
-      local.get $0
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8>#toBe
-      local.get $3
-      i32.load8_u
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 0
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store
-      global.get $~lib/memory/__stack_pointer
-      i32.const 12
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 2064
-      i32.store offset=12
-      local.get $4
-      i32.load
-      local.set $5
-      local.get $4
-      i32.load8_u offset=4
-      local.set $4
-      i32.const 1
-      global.set $~argumentsLength
-      local.get $4
-      call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>@varargs
-      local.tee $6
-      call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
-      local.get $6
-      call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
-      i32.const 1
-      global.set $~argumentsLength
-      local.get $1
-      call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>@varargs
-      local.tee $6
-      call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
-      local.get $6
-      local.get $5
-      call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
-      local.get $1
-      i32.const 255
-      i32.and
-      local.get $4
-      i32.gt_u
-      local.get $5
-      i32.xor
-      i32.eqz
+      i32.gt_s
       if
+       global.get $~lib/memory/__stack_pointer
+       i32.const 8
+       i32.const 4
+       i32.const 0
+       call $~onstore
+       local.get $2
+       local.get $0
+       call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__get
+       local.tee $3
+       i32.store offset=8
+       local.get $3
+       i32.load8_u offset=1
+       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
+       local.set $4
+       global.get $~lib/memory/__stack_pointer
+       i32.const 0
+       i32.const 4
+       i32.const 0
+       call $~onstore
+       local.get $4
+       i32.store
+       global.get $~lib/memory/__stack_pointer
+       i32.const 12
+       i32.const 4
+       i32.const 0
+       call $~onstore
        i32.const 2064
-       i32.const 1920
-       i32.const 2
-       i32.const 19
-       call $~lib/builtins/abort
-       unreachable
+       i32.store offset=12
+       local.get $4
+       i32.load
+       local.set $5
+       local.get $4
+       i32.load8_u offset=4
+       local.set $4
+       i32.const 1
+       global.set $~argumentsLength
+       local.get $4
+       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>@varargs
+       local.tee $6
+       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
+       local.get $6
+       call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
+       i32.const 1
+       global.set $~argumentsLength
+       local.get $0
+       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>@varargs
+       local.tee $6
+       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
+       local.get $6
+       local.get $5
+       call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
+       local.get $0
+       i32.const 255
+       i32.and
+       local.get $4
+       i32.eq
+       local.get $5
+       i32.xor
+       i32.eqz
+       br_if $folding-inner0
+       call $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual
+       call $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected
+       local.get $3
+       i32.load8_u
+       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
+       local.set $4
+       global.get $~lib/memory/__stack_pointer
+       i32.const 0
+       i32.const 4
+       i32.const 0
+       call $~onstore
+       local.get $4
+       i32.store
+       global.get $~lib/memory/__stack_pointer
+       i32.const 12
+       i32.const 4
+       i32.const 0
+       call $~onstore
+       i32.const 2064
+       i32.store offset=12
+       local.get $4
+       i32.load
+       local.set $5
+       local.get $4
+       i32.load8_u offset=4
+       local.set $4
+       i32.const 1
+       global.set $~argumentsLength
+       local.get $4
+       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>@varargs
+       local.tee $6
+       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
+       local.get $6
+       call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
+       i32.const 1
+       global.set $~argumentsLength
+       local.get $1
+       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>@varargs
+       local.tee $6
+       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
+       local.get $6
+       local.get $5
+       call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
+       local.get $1
+       i32.const 255
+       i32.and
+       local.get $4
+       i32.gt_u
+       local.get $5
+       i32.xor
+       i32.eqz
+       br_if $folding-inner0
+       call $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual
+       call $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected
+       local.get $3
+       i32.load8_u
+       i32.const 1
+       local.get $0
+       i32.shl
+       i32.add
+       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
+       local.set $3
+       global.get $~lib/memory/__stack_pointer
+       i32.const 0
+       i32.const 4
+       i32.const 0
+       call $~onstore
+       local.get $3
+       i32.store
+       global.get $~lib/memory/__stack_pointer
+       i32.const 12
+       i32.const 4
+       i32.const 0
+       call $~onstore
+       i32.const 2064
+       i32.store offset=12
+       local.get $3
+       local.get $1
+       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBeGreaterThanOrEqual
+       local.get $0
+       i32.const 1
+       i32.add
+       local.set $0
+       br $for-loop|1
       end
-      call $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual
-      call $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected
-      local.get $3
-      i32.load8_u
-      i32.const 1
-      local.get $0
-      i32.shl
-      i32.add
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
-      local.set $3
-      global.get $~lib/memory/__stack_pointer
-      i32.const 0
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $3
-      i32.store
-      global.get $~lib/memory/__stack_pointer
-      i32.const 12
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 2064
-      i32.store offset=12
-      local.get $3
-      local.get $1
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBeGreaterThanOrEqual
-      local.get $0
-      i32.const 1
-      i32.add
-      local.set $0
-      br $for-loop|1
      end
+     local.get $1
+     i32.const 1
+     i32.add
+     local.set $1
+     br $for-loop|0
     end
-    local.get $1
-    i32.const 1
-    i32.add
-    local.set $1
-    br $for-loop|0
    end
+   global.get $~lib/memory/__stack_pointer
+   i32.const 16
+   i32.add
+   global.set $~lib/memory/__stack_pointer
+   return
   end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 16
-  i32.add
-  global.set $~lib/memory/__stack_pointer
+  i32.const 2064
+  i32.const 1920
+  i32.const 2
+  i32.const 19
+  call $~lib/builtins/abort
+  unreachable
  )
  (func $start:assembly/__tests__/abstractChunk.spec~anonymous|0~anonymous|0
   global.get $~lib/memory/__stack_pointer
@@ -5381,11 +5369,11 @@
     f64.store
     local.get $0
     i32.const 8
-    i32.const 1
+    i32.const 4
     i32.const 0
     call $~onstore
     i32.const 0
-    i32.store8 offset=8
+    i32.store offset=8
     global.get $~lib/memory/__stack_pointer
     i32.const 4
     i32.sub
@@ -5394,8 +5382,6 @@
     i32.const 3132
     i32.lt_s
     br_if $folding-inner0
-    local.get $0
-    local.set $1
     global.get $assembly/abstractChunk/AbstractChunk.maxSize
     local.set $2
     global.get $~lib/memory/__stack_pointer
@@ -5425,7 +5411,7 @@
     i32.const 4
     i32.add
     global.set $~lib/memory/__stack_pointer
-    local.get $1
+    local.get $0
     i32.const 12
     i32.const 4
     i32.const 0
@@ -5434,7 +5420,7 @@
     i32.store offset=12
     local.get $2
     if
-     local.get $1
+     local.get $0
      local.get $2
      i32.const 0
      call $byn-split-outlined-A$~lib/rt/itcms/__link
@@ -5476,7 +5462,7 @@
     i32.const 4
     i32.add
     global.set $~lib/memory/__stack_pointer
-    local.get $1
+    local.get $0
     i32.const 16
     i32.const 4
     i32.const 0
@@ -5485,7 +5471,7 @@
     i32.store offset=16
     local.get $2
     if
-     local.get $1
+     local.get $0
      local.get $2
      i32.const 0
      call $byn-split-outlined-A$~lib/rt/itcms/__link
@@ -5493,46 +5479,46 @@
     loop $for-loop|0
      local.get $0
      i32.load offset=12
-     local.set $1
+     local.set $2
      global.get $~lib/memory/__stack_pointer
      i32.const 4
      i32.const 4
      i32.const 0
      call $~onstore
-     local.get $1
+     local.get $2
      i32.store offset=4
-     local.get $1
+     local.get $2
      i32.const 20
      i32.sub
      i32.load offset=16
      i32.const 2
      i32.shr_u
-     local.get $3
+     local.get $1
      i32.gt_s
      if
       local.get $0
       i32.load offset=12
-      local.set $1
+      local.set $2
       global.get $~lib/memory/__stack_pointer
       i32.const 4
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $1
+      local.get $2
       i32.store offset=4
       global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
-      local.set $2
+      local.set $3
       global.get $~lib/memory/__stack_pointer
       i32.const 8
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $2
-      i32.store offset=8
-      local.get $2
       local.get $3
+      i32.store offset=8
+      local.get $3
+      local.get $1
       call $~lib/staticarray/StaticArray<u8>#__get
-      local.set $2
+      local.set $3
       global.get $~lib/memory/__stack_pointer
       i32.const 4
       i32.sub
@@ -5548,7 +5534,7 @@
       call $~onstore
       i32.const 0
       i32.store
-      local.get $2
+      local.get $3
       i32.const 134217727
       i32.gt_u
       br_if $folding-inner1
@@ -5557,12 +5543,12 @@
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $2
+      local.get $3
       i32.const 3
       i32.shl
       i32.const 13
       call $~lib/rt/itcms/__new
-      local.tee $2
+      local.tee $3
       i32.store
       global.get $~lib/memory/__stack_pointer
       i32.const 4
@@ -5573,16 +5559,16 @@
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $2
+      local.get $3
       i32.store offset=8
+      local.get $2
       local.get $1
       local.get $3
-      local.get $2
       call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__set
-      local.get $3
+      local.get $1
       i32.const 1
       i32.add
-      local.set $3
+      local.set $1
       br $for-loop|0
      end
     end
@@ -5619,10 +5605,6 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  (local $13 i32)
-  (local $14 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 28
   i32.sub
@@ -5672,23 +5654,23 @@
   i32.const 0
   call $~onstore
   call $assembly/hollowChunk/HollowChunk<f64>#constructor
-  local.tee $1
+  local.tee $0
   i32.store
   loop $for-loop|3
-   local.get $1
+   local.get $0
    i32.load offset=12
-   local.set $0
+   local.set $1
    global.get $~lib/memory/__stack_pointer
    i32.const 4
    i32.const 4
    i32.const 0
    call $~onstore
-   local.get $0
+   local.get $1
    i32.store offset=4
    local.get $3
    i32.const 255
    i32.and
-   local.get $0
+   local.get $1
    i32.const 20
    i32.sub
    i32.load offset=16
@@ -5703,7 +5685,7 @@
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $1
+    local.get $0
     i32.load offset=12
     local.set $4
     global.get $~lib/memory/__stack_pointer
@@ -5718,15 +5700,15 @@
     i32.const 255
     i32.and
     call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-    local.tee $10
+    local.tee $4
     i32.store offset=8
     i32.const 0
-    local.set $0
+    local.set $1
     loop $for-loop|5
-     local.get $0
+     local.get $1
      i32.const 255
      i32.and
-     local.get $10
+     local.get $4
      i32.const 20
      i32.sub
      i32.load offset=16
@@ -5742,52 +5724,48 @@
       i32.const 0
       call $~onstore
       local.get $3
-      local.get $0
+      local.get $1
       call $assembly/linkIndex/LinkIndex#constructor
       local.tee $5
       i32.store offset=12
-      local.get $1
+      local.get $0
       i32.load offset=12
-      local.set $4
+      local.set $6
       global.get $~lib/memory/__stack_pointer
       i32.const 20
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $4
+      local.get $6
       i32.store offset=20
-      local.get $4
+      local.get $6
       local.get $3
       i32.const 255
       i32.and
-      local.tee $8
-      local.tee $11
-      local.tee $12
+      local.tee $6
       call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $4
+      local.set $7
       global.get $~lib/memory/__stack_pointer
       i32.const 16
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $4
+      local.get $7
       i32.store offset=16
-      local.get $4
-      local.get $0
+      local.get $7
+      local.get $1
       i32.const 255
       i32.and
-      local.tee $9
-      local.tee $13
-      local.tee $4
+      local.tee $7
       call $~lib/staticarray/StaticArray<f64>#__get
       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-      local.set $6
+      local.set $8
       global.get $~lib/memory/__stack_pointer
       i32.const 4
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $6
+      local.get $8
       i32.store offset=4
       global.get $~lib/memory/__stack_pointer
       i32.const 16
@@ -5796,250 +5774,47 @@
       call $~onstore
       i32.const 2064
       i32.store offset=16
-      local.get $6
+      local.get $8
       f64.const 0
       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
       local.get $5
       i32.load8_u
-      local.set $14
+      local.set $8
       local.get $5
       i32.load8_u offset=1
-      local.set $6
-      local.get $1
+      local.set $9
+      local.get $0
       i32.load offset=12
-      local.set $7
+      local.set $10
       global.get $~lib/memory/__stack_pointer
       i32.const 20
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $7
+      local.get $10
       i32.store offset=20
-      local.get $7
-      local.get $14
-      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $7
-      global.get $~lib/memory/__stack_pointer
-      i32.const 16
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $7
-      i32.store offset=16
-      local.get $7
-      local.get $6
-      call $~lib/staticarray/StaticArray<f64>#__get
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-      local.set $6
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $6
-      i32.store offset=4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 16
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 2064
-      i32.store offset=16
-      local.get $6
-      f64.const 0
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
-      call $~lib/math/NativeMath.random
-      f64.const 2e6
-      f64.mul
-      f64.const 1e6
-      f64.sub
-      local.set $2
-      local.get $1
-      i32.load offset=12
-      local.set $6
-      global.get $~lib/memory/__stack_pointer
-      i32.const 24
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $6
-      i32.store offset=24
-      local.get $6
-      local.get $12
-      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $6
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $6
-      i32.store offset=4
-      local.get $6
-      local.get $4
-      local.get $2
-      call $~lib/staticarray/StaticArray<f64>#__set
-      local.get $1
-      i32.load offset=12
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 20
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store offset=20
-      local.get $4
-      local.get $11
-      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 16
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store offset=16
-      local.get $4
-      local.get $13
-      call $~lib/staticarray/StaticArray<f64>#__get
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store offset=4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 16
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 2064
-      i32.store offset=16
-      local.get $4
-      local.get $2
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
-      local.get $5
-      i32.load8_u
-      local.set $4
-      local.get $5
-      i32.load8_u offset=1
-      local.set $6
-      local.get $1
-      i32.load offset=12
-      local.set $7
-      global.get $~lib/memory/__stack_pointer
-      i32.const 20
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $7
-      i32.store offset=20
-      local.get $7
-      local.get $4
-      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 16
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store offset=16
-      local.get $4
-      local.get $6
-      call $~lib/staticarray/StaticArray<f64>#__get
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store offset=4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 16
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 2064
-      i32.store offset=16
-      local.get $4
-      local.get $2
-      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
-      call $~lib/math/NativeMath.random
-      f64.const 2e6
-      f64.mul
-      f64.const 1e6
-      f64.sub
-      local.set $2
-      local.get $5
-      i32.load8_u
-      local.set $4
-      local.get $5
-      i32.load8_u offset=1
-      local.set $6
-      local.get $1
-      i32.load offset=12
-      local.set $7
-      global.get $~lib/memory/__stack_pointer
-      i32.const 24
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $7
-      i32.store offset=24
-      local.get $7
-      local.get $4
-      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store offset=4
-      local.get $4
-      local.get $6
-      local.get $2
-      call $~lib/staticarray/StaticArray<f64>#__set
-      local.get $1
-      i32.load offset=12
-      local.set $4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 20
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $4
-      i32.store offset=20
-      local.get $4
+      local.get $10
       local.get $8
       call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $4
+      local.set $8
       global.get $~lib/memory/__stack_pointer
       i32.const 16
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $4
+      local.get $8
       i32.store offset=16
-      local.get $4
+      local.get $8
       local.get $9
       call $~lib/staticarray/StaticArray<f64>#__get
       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-      local.set $4
+      local.set $8
       global.get $~lib/memory/__stack_pointer
       i32.const 4
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $4
+      local.get $8
       i32.store offset=4
       global.get $~lib/memory/__stack_pointer
       i32.const 16
@@ -6048,47 +5823,72 @@
       call $~onstore
       i32.const 2064
       i32.store offset=16
-      local.get $4
-      local.get $2
+      local.get $8
+      f64.const 0
       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
-      local.get $5
-      i32.load8_u
-      local.set $4
-      local.get $5
-      i32.load8_u offset=1
-      local.set $5
-      local.get $1
+      call $~lib/math/NativeMath.random
+      f64.const 2e6
+      f64.mul
+      f64.const 1e6
+      f64.sub
+      local.set $2
+      local.get $0
       i32.load offset=12
-      local.set $6
+      local.set $8
+      global.get $~lib/memory/__stack_pointer
+      i32.const 24
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $8
+      i32.store offset=24
+      local.get $8
+      local.get $6
+      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
+      local.set $8
+      global.get $~lib/memory/__stack_pointer
+      i32.const 4
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $8
+      i32.store offset=4
+      local.get $8
+      local.get $7
+      local.get $2
+      call $~lib/staticarray/StaticArray<f64>#__set
+      local.get $0
+      i32.load offset=12
+      local.set $8
       global.get $~lib/memory/__stack_pointer
       i32.const 20
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $6
+      local.get $8
       i32.store offset=20
+      local.get $8
       local.get $6
-      local.get $4
       call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $4
+      local.set $8
       global.get $~lib/memory/__stack_pointer
       i32.const 16
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $4
+      local.get $8
       i32.store offset=16
-      local.get $4
-      local.get $5
+      local.get $8
+      local.get $7
       call $~lib/staticarray/StaticArray<f64>#__get
       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-      local.set $4
+      local.set $8
       global.get $~lib/memory/__stack_pointer
       i32.const 4
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $4
+      local.get $8
       i32.store offset=4
       global.get $~lib/memory/__stack_pointer
       i32.const 16
@@ -6097,13 +5897,191 @@
       call $~onstore
       i32.const 2064
       i32.store offset=16
-      local.get $4
+      local.get $8
       local.get $2
       call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+      local.get $5
+      i32.load8_u
+      local.set $8
+      local.get $5
+      i32.load8_u offset=1
+      local.set $9
       local.get $0
+      i32.load offset=12
+      local.set $10
+      global.get $~lib/memory/__stack_pointer
+      i32.const 20
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $10
+      i32.store offset=20
+      local.get $10
+      local.get $8
+      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
+      local.set $8
+      global.get $~lib/memory/__stack_pointer
+      i32.const 16
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $8
+      i32.store offset=16
+      local.get $8
+      local.get $9
+      call $~lib/staticarray/StaticArray<f64>#__get
+      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+      local.set $8
+      global.get $~lib/memory/__stack_pointer
+      i32.const 4
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $8
+      i32.store offset=4
+      global.get $~lib/memory/__stack_pointer
+      i32.const 16
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      i32.const 2064
+      i32.store offset=16
+      local.get $8
+      local.get $2
+      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+      call $~lib/math/NativeMath.random
+      f64.const 2e6
+      f64.mul
+      f64.const 1e6
+      f64.sub
+      local.set $2
+      local.get $5
+      i32.load8_u
+      local.set $8
+      local.get $5
+      i32.load8_u offset=1
+      local.set $9
+      local.get $0
+      i32.load offset=12
+      local.set $10
+      global.get $~lib/memory/__stack_pointer
+      i32.const 24
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $10
+      i32.store offset=24
+      local.get $10
+      local.get $8
+      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
+      local.set $8
+      global.get $~lib/memory/__stack_pointer
+      i32.const 4
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $8
+      i32.store offset=4
+      local.get $8
+      local.get $9
+      local.get $2
+      call $~lib/staticarray/StaticArray<f64>#__set
+      local.get $0
+      i32.load offset=12
+      local.set $8
+      global.get $~lib/memory/__stack_pointer
+      i32.const 20
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $8
+      i32.store offset=20
+      local.get $8
+      local.get $6
+      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
+      local.set $6
+      global.get $~lib/memory/__stack_pointer
+      i32.const 16
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $6
+      i32.store offset=16
+      local.get $6
+      local.get $7
+      call $~lib/staticarray/StaticArray<f64>#__get
+      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+      local.set $6
+      global.get $~lib/memory/__stack_pointer
+      i32.const 4
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $6
+      i32.store offset=4
+      global.get $~lib/memory/__stack_pointer
+      i32.const 16
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      i32.const 2064
+      i32.store offset=16
+      local.get $6
+      local.get $2
+      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+      local.get $5
+      i32.load8_u
+      local.set $6
+      local.get $5
+      i32.load8_u offset=1
+      local.set $5
+      local.get $0
+      i32.load offset=12
+      local.set $7
+      global.get $~lib/memory/__stack_pointer
+      i32.const 20
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $7
+      i32.store offset=20
+      local.get $7
+      local.get $6
+      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
+      local.set $6
+      global.get $~lib/memory/__stack_pointer
+      i32.const 16
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $6
+      i32.store offset=16
+      local.get $6
+      local.get $5
+      call $~lib/staticarray/StaticArray<f64>#__get
+      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+      local.set $5
+      global.get $~lib/memory/__stack_pointer
+      i32.const 4
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $5
+      i32.store offset=4
+      global.get $~lib/memory/__stack_pointer
+      i32.const 16
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      i32.const 2064
+      i32.store offset=16
+      local.get $5
+      local.get $2
+      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+      local.get $1
       i32.const 1
       i32.add
-      local.set $0
+      local.set $1
       br $for-loop|5
      end
     end
@@ -6157,16 +6135,16 @@
   i64.const 0
   i64.store offset=8
   local.get $0
-  i32.load8_u offset=8
+  i32.load offset=8
   i32.eqz
   if
    local.get $0
    i32.const 8
-   i32.const 1
+   i32.const 4
    i32.const 0
    call $~onstore
    i32.const 1
-   i32.store8 offset=8
+   i32.store offset=8
    global.get $~lib/memory/__stack_pointer
    i32.const 16
    i32.add
@@ -6189,7 +6167,7 @@
   i32.store
   local.get $5
   local.get $0
-  i32.load8_u offset=8
+  i32.load offset=8
   call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
   local.tee $5
   i32.store offset=4
@@ -6281,17 +6259,17 @@
    end
   end
   local.get $0
-  i32.load8_u offset=8
+  i32.load offset=8
   i32.const 1
   i32.add
   local.set $2
   local.get $0
   i32.const 8
-  i32.const 1
+  i32.const 4
   i32.const 0
   call $~onstore
   local.get $2
-  i32.store8 offset=8
+  i32.store offset=8
   local.get $0
   f64.load
   local.get $1
@@ -6355,15 +6333,15 @@
   local.tee $2
   i32.store
   local.get $2
-  i32.load8_u offset=8
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
-  local.set $1
+  i32.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
+  local.set $0
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.const 4
   i32.const 0
   call $~onstore
-  local.get $1
+  local.get $0
   i32.store offset=4
   global.get $~lib/memory/__stack_pointer
   i32.const 8
@@ -6372,19 +6350,19 @@
   call $~onstore
   i32.const 2064
   i32.store offset=8
-  local.get $1
+  local.get $0
   i32.const 0
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe
   local.get $2
   f64.load
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-  local.set $1
+  local.set $0
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.const 4
   i32.const 0
   call $~onstore
-  local.get $1
+  local.get $0
   i32.store offset=4
   global.get $~lib/memory/__stack_pointer
   i32.const 8
@@ -6393,22 +6371,22 @@
   call $~onstore
   i32.const 2064
   i32.store offset=8
-  local.get $1
+  local.get $0
   f64.const 0
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $2
   call $~lib/math/NativeMath.random
   call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
   local.get $2
-  i32.load8_u offset=8
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
-  local.set $1
+  i32.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
+  local.set $0
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.const 4
   i32.const 0
   call $~onstore
-  local.get $1
+  local.get $0
   i32.store offset=4
   global.get $~lib/memory/__stack_pointer
   i32.const 8
@@ -6417,19 +6395,19 @@
   call $~onstore
   i32.const 2064
   i32.store offset=8
-  local.get $1
+  local.get $0
   i32.const 1
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe
   local.get $2
   f64.load
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-  local.set $1
+  local.set $0
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.const 4
   i32.const 0
   call $~onstore
-  local.get $1
+  local.get $0
   i32.store offset=4
   global.get $~lib/memory/__stack_pointer
   i32.const 8
@@ -6438,12 +6416,12 @@
   call $~onstore
   i32.const 2064
   i32.store offset=8
-  local.get $1
+  local.get $0
   f64.const 0
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   loop $do-loop|0
    i32.const 0
-   local.set $1
+   local.set $0
    loop $for-loop|2
     global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
     local.set $5
@@ -6455,9 +6433,9 @@
     local.get $5
     i32.store offset=4
     local.get $5
-    local.get $0
-    call $~lib/staticarray/StaticArray<u8>#__get
     local.get $1
+    call $~lib/staticarray/StaticArray<u8>#__get
+    local.get $0
     i32.const 255
     i32.and
     i32.gt_u
@@ -6473,7 +6451,7 @@
      local.get $5
      i32.store offset=12
      local.get $5
-     local.get $0
+     local.get $1
      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
      local.set $5
      global.get $~lib/memory/__stack_pointer
@@ -6484,7 +6462,7 @@
      local.get $5
      i32.store offset=8
      local.get $5
-     local.get $1
+     local.get $0
      i32.const 255
      i32.and
      call $~lib/staticarray/StaticArray<f64>#__get
@@ -6507,17 +6485,17 @@
      local.get $5
      f64.const 0
      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
-     local.get $1
+     local.get $0
      i32.const 1
      i32.add
-     local.set $1
+     local.set $0
      br $for-loop|2
     end
    end
-   local.get $0
+   local.get $1
    i32.const 1
    i32.add
-   local.tee $0
+   local.tee $1
    global.get $assembly/abstractChunk/AbstractChunk.maxLastIndex
    i32.le_u
    br_if $do-loop|0
@@ -6527,8 +6505,8 @@
   local.tee $3
   call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
   local.get $2
-  i32.load8_u offset=8
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
+  i32.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
   local.set $0
   global.get $~lib/memory/__stack_pointer
   i32.const 4
@@ -6546,7 +6524,7 @@
   i32.store offset=8
   local.get $0
   i32.const 2
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe
   local.get $2
   f64.load
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
@@ -6569,59 +6547,59 @@
   local.get $3
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   i32.const 0
-  local.set $0
+  local.set $1
   loop $for-loop|4
    global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
-   local.set $1
+   local.set $0
    global.get $~lib/memory/__stack_pointer
    i32.const 4
    i32.const 4
    i32.const 0
    call $~onstore
-   local.get $1
+   local.get $0
    i32.store offset=4
-   local.get $1
+   local.get $0
    i32.const 0
    call $~lib/staticarray/StaticArray<u8>#__get
-   local.get $0
+   local.get $1
    i32.const 255
    i32.and
    i32.gt_u
    if
     local.get $2
     i32.load offset=12
-    local.set $1
+    local.set $0
     global.get $~lib/memory/__stack_pointer
     i32.const 12
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $1
+    local.get $0
     i32.store offset=12
-    local.get $1
+    local.get $0
     i32.const 0
     call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-    local.set $1
+    local.set $0
     global.get $~lib/memory/__stack_pointer
     i32.const 8
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $1
-    i32.store offset=8
-    local.get $1
     local.get $0
+    i32.store offset=8
+    local.get $0
+    local.get $1
     i32.const 255
     i32.and
     call $~lib/staticarray/StaticArray<f64>#__get
     call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
-    local.set $1
+    local.set $0
     global.get $~lib/memory/__stack_pointer
     i32.const 4
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $1
+    local.get $0
     i32.store offset=4
     global.get $~lib/memory/__stack_pointer
     i32.const 8
@@ -6630,21 +6608,21 @@
     call $~onstore
     i32.const 2064
     i32.store offset=8
-    local.get $1
+    local.get $0
     local.get $3
     call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
-    local.get $0
+    local.get $1
     i32.const 1
     i32.add
-    local.set $0
+    local.set $1
     br $for-loop|4
    end
   end
   i32.const 1
-  local.set $0
+  local.set $1
   loop $do-loop|5
    i32.const 0
-   local.set $1
+   local.set $0
    loop $for-loop|7
     global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
     local.set $5
@@ -6656,9 +6634,9 @@
     local.get $5
     i32.store offset=4
     local.get $5
-    local.get $0
-    call $~lib/staticarray/StaticArray<u8>#__get
     local.get $1
+    call $~lib/staticarray/StaticArray<u8>#__get
+    local.get $0
     i32.const 255
     i32.and
     i32.gt_u
@@ -6674,7 +6652,7 @@
      local.get $5
      i32.store offset=12
      local.get $5
-     local.get $0
+     local.get $1
      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
      local.set $5
      global.get $~lib/memory/__stack_pointer
@@ -6685,7 +6663,7 @@
      local.get $5
      i32.store offset=8
      local.get $5
-     local.get $1
+     local.get $0
      i32.const 255
      i32.and
      call $~lib/staticarray/StaticArray<f64>#__get
@@ -6708,17 +6686,17 @@
      local.get $5
      f64.const 0
      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
-     local.get $1
+     local.get $0
      i32.const 1
      i32.add
-     local.set $1
+     local.set $0
      br $for-loop|7
     end
    end
-   local.get $0
+   local.get $1
    i32.const 1
    i32.add
-   local.tee $0
+   local.tee $1
    global.get $assembly/abstractChunk/AbstractChunk.maxLastIndex
    i32.le_u
    br_if $do-loop|5
@@ -6728,8 +6706,8 @@
   local.tee $4
   call $assembly/abstractChunk/AbstractChunk<f64>#appendNodeUnchecked
   local.get $2
-  i32.load8_u offset=8
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u8>
+  i32.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
   local.set $0
   global.get $~lib/memory/__stack_pointer
   i32.const 4
@@ -6747,7 +6725,7 @@
   i32.store offset=8
   local.get $0
   i32.const 3
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u8>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe
   local.get $2
   f64.load
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
@@ -6936,10 +6914,10 @@
   local.get $4
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   i32.const 2
-  local.set $1
+  local.set $0
   loop $do-loop|10
    i32.const 0
-   local.set $0
+   local.set $1
    loop $for-loop|12
     global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
     local.set $5
@@ -6951,9 +6929,9 @@
     local.get $5
     i32.store offset=4
     local.get $5
-    local.get $1
-    call $~lib/staticarray/StaticArray<u8>#__get
     local.get $0
+    call $~lib/staticarray/StaticArray<u8>#__get
+    local.get $1
     i32.const 255
     i32.and
     i32.gt_u
@@ -6969,7 +6947,7 @@
      local.get $5
      i32.store offset=12
      local.get $5
-     local.get $1
+     local.get $0
      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
      local.set $5
      global.get $~lib/memory/__stack_pointer
@@ -6980,7 +6958,7 @@
      local.get $5
      i32.store offset=8
      local.get $5
-     local.get $0
+     local.get $1
      i32.const 255
      i32.and
      call $~lib/staticarray/StaticArray<f64>#__get
@@ -7003,17 +6981,17 @@
      local.get $5
      f64.const 0
      call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
-     local.get $0
+     local.get $1
      i32.const 1
      i32.add
-     local.set $0
+     local.set $1
      br $for-loop|12
     end
    end
-   local.get $1
+   local.get $0
    i32.const 1
    i32.add
-   local.tee $1
+   local.tee $0
    global.get $assembly/abstractChunk/AbstractChunk.maxLastIndex
    i32.le_u
    br_if $do-loop|10
