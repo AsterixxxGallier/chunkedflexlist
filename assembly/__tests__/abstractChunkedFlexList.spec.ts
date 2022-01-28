@@ -29,5 +29,11 @@ describe("AbstractChunkedFlexList", () => {
 		expect(list.lastChunks[0].size).toBe(0)
 		expect(list.lastChunks[1]).toBe(list.topChunk!)
 		expect(list.lastChunks[1].size).toBe(2)
+
+		const list2 = new HollowChunkedFlexList<u64>()
+		const max = 1 << ((AbstractChunk.indexBits as u64) * 2) as u64;
+		while (list2.size < max) {
+			list2.appendNode(1)
+		}
 	})
 })
