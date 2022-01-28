@@ -3,6 +3,7 @@
  */
 import {AbstractChunk} from "./abstractChunk"
 import {Chunk} from "./chunk"
+import {TraversalResult} from "./traversalResult";
 
 export abstract class AbstractChunkedFlexList<D extends number> {
 	/**
@@ -55,6 +56,29 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 				(<Chunk<AbstractChunk<D>, D>> lastAbove).appendElementUnchecked(newLast, last.totalLength)
 			this.lastChunks[level] = newLast
 		}
+	}
+
+	traverse(distanceFromStart: D): TraversalResult<D, u64> | null {
+		// log("traversing, distanceFromStart: " + distanceFromStart.toString())
+		if (this.size == 0)
+			return null
+		if (distanceFromStart < this.offset)
+			return new TraversalResult(0 as u64, this.offset - distanceFromStart as D)
+		// log("for real")
+		let toGo = distanceFromStart - this.offset as D
+		let chunk = this.topChunk!
+		let index: u64 = 0
+		for (let level = this.depth - 1; level > 0; level--) {
+			// log("at level " + level.toString() + " now, index " + index.toString() + ", toGo " + toGo.toString())
+			const traversalResult = chunk.traverse(toGo)
+			// log(traversalResult.toString())
+			const subChunk = (chunk as Chunk<AbstractChunk<D>, D>).getElementAt(traversalResult.index)
+			toGo = traversalResult.distance
+			index |= traversalResult.index << (AbstractChunk.indexBits * level)
+			chunk = subChunk
+		}
+		const traversalResult = chunk.traverse(toGo)
+		return new TraversalResult<D, u64>(index | traversalResult.index, traversalResult.distance)
 	}
 
 	abstract createEmptyChunk(): AbstractChunk<D>
