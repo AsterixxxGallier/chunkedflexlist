@@ -49,8 +49,10 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 		if (last.size == AbstractChunk.maxSize) {
 			this.makeSpace(level + 1)
 			const lastAbove = this.lastChunks[level + 1]
-			let newLast = this.createEmptyChunk();
-			(lastAbove as Chunk<AbstractChunk<D>, D>).appendElementUnchecked(newLast, last.totalLength)
+			let newLast = this.createEmptyChunk()
+			// noinspection SuspiciousTypeOfGuard
+			if (lastAbove instanceof Chunk)
+				(<Chunk<AbstractChunk<D>, D>> lastAbove).appendElementUnchecked(newLast, last.totalLength)
 			this.lastChunks[level] = newLast
 		}
 	}
