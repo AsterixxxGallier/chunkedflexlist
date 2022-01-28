@@ -110,8 +110,9 @@ export abstract class AbstractChunk<D extends number> {
 	traverse(distanceFromStart: D): TraversalResult<D, u8> {
 		// log("traversing chunk, distanceFromStart: " + distanceFromStart.toString())
 		let toGo = distanceFromStart
-		let index: i32 = 0
-		for (let degree = AbstractChunk.indexBits - 1; degree >= 0; degree--) {
+		let index: u8 = 0
+		for (let degree = AbstractChunk.indexBits - 1; degree < 255; degree--) {
+			// log("degree " + degree.toString() + ", index: " + index.toString() + ", toGo: " + toGo.toString())
 			const toNext = this.getLinkLengthUnchecked(index, degree as u8)
 			if (toGo >= toNext) {
 				toGo = toGo - toNext as D
