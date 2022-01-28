@@ -1,3 +1,5 @@
+import "wasi";
+
 const fs = require("fs");
 const loader = require("@assemblyscript/loader");
 const imports = { /* imports go here */ };
