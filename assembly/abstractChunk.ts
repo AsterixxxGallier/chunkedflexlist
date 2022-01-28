@@ -107,7 +107,8 @@ export abstract class AbstractChunk<D extends number> {
 	 * and additionally returns the "overshoot" distance in a {@link TraversalResult}.
 	 * @param distanceFromStart
 	 */
-	traverse(distanceFromStart: D): TraversalResult<D> {
+	traverse(distanceFromStart: D): TraversalResult<D, u8> {
+		// log("traversing chunk, distanceFromStart: " + distanceFromStart.toString())
 		let toGo = distanceFromStart
 		let index: i32 = 0
 		for (let degree = AbstractChunk.indexBits - 1; degree >= 0; degree--) {

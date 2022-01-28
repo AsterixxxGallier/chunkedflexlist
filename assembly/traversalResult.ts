@@ -1,13 +1,13 @@
 import {AbstractChunk} from "./abstractChunk";
 
-export class TraversalResult<D extends number> {
-	index: i32
+export class TraversalResult<D extends number, I extends number> {
+	index: I
 	/**
 	 * The distance that was already traversed from this node; always smaller than the full distance to the next node in this {@link Chunk}
 	 */
 	distance: D
 
-	constructor(index: i32, distance: D) {
+	constructor(index: I, distance: D) {
 		this.index = index
 		this.distance = distance
 	}
