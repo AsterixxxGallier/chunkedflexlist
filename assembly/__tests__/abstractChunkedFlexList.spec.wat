@@ -4805,6 +4805,99 @@
   local.get $3
   call $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<assembly/abstractChunk/AbstractChunk<u64>>
  )
+ (func $start:assembly/__tests__/abstractChunkedFlexList.spec~anonymous|0~anonymous|1
+  (local $0 i32)
+  (local $1 i64)
+  (local $2 i32)
+  (local $3 i32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 8
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  global.get $~lib/memory/__stack_pointer
+  i32.const 5252
+  i32.lt_s
+  if
+   i32.const 21664
+   i32.const 21712
+   i32.const 1
+   i32.const 1
+   call $~lib/builtins/abort
+   unreachable
+  end
+  global.get $~lib/memory/__stack_pointer
+  i32.const 0
+  i32.const 8
+  i32.const 0
+  call $~onstore
+  i64.const 0
+  i64.store
+  global.get $~lib/memory/__stack_pointer
+  i32.const 0
+  i32.const 4
+  i32.const 0
+  call $~onstore
+  i32.const 0
+  global.set $~argumentsLength
+  call $assembly/hollowChunkedFlexList/HollowChunkedFlexList<u64>#constructor@varargs
+  local.tee $3
+  i32.store
+  loop $while-continue|0
+   local.get $3
+   i64.load offset=24
+   i64.const 512
+   i64.lt_u
+   if
+    local.get $3
+    i64.const 2
+    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#appendNode
+    br $while-continue|0
+   end
+  end
+  loop $for-loop|1
+   local.get $1
+   i64.const 64
+   i64.lt_u
+   if
+    global.get $~lib/memory/__stack_pointer
+    i32.const 4
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    global.get $~lib/memory/__stack_pointer
+    i32.const 4
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    local.get $3
+    local.get $1
+    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#traverse
+    local.tee $2
+    i32.store offset=4
+    local.get $2
+    i32.eqz
+    if
+     i32.const 3696
+     i32.const 3760
+     i32.const 47
+     i32.const 28
+     call $~lib/builtins/abort
+     unreachable
+    end
+    local.get $2
+    i32.store offset=4
+    local.get $1
+    i64.const 1
+    i64.add
+    local.set $1
+    br $for-loop|1
+   end
+  end
+  global.get $~lib/memory/__stack_pointer
+  i32.const 8
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+ )
  (func $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0
   nop
  )
@@ -9471,7 +9564,7 @@
      if
       i32.const 3536
       i32.const 3600
-      i32.const 61
+      i32.const 56
       i32.const 35
       call $~lib/builtins/abort
       unreachable
@@ -13046,7 +13139,7 @@
     if
      i32.const 3696
      i32.const 3600
-     i32.const 74
+     i32.const 69
      i32.const 15
      call $~lib/builtins/abort
      unreachable
@@ -13112,7 +13205,7 @@
       if
        i32.const 3536
        i32.const 3600
-       i32.const 80
+       i32.const 75
        i32.const 22
        call $~lib/builtins/abort
        unreachable
@@ -13219,132 +13312,6 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
   local.get $0
- )
- (func $start:assembly/__tests__/abstractChunkedFlexList.spec~anonymous|0~anonymous|1
-  (local $0 i32)
-  (local $1 i64)
-  (local $2 i64)
-  (local $3 i32)
-  (local $4 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 16
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  global.get $~lib/memory/__stack_pointer
-  i32.const 5252
-  i32.lt_s
-  if
-   i32.const 21664
-   i32.const 21712
-   i32.const 1
-   i32.const 1
-   call $~lib/builtins/abort
-   unreachable
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  i64.const 0
-  i64.store
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  i64.const 0
-  i64.store offset=8
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 0
-  global.set $~argumentsLength
-  call $assembly/hollowChunkedFlexList/HollowChunkedFlexList<u64>#constructor@varargs
-  local.tee $3
-  i32.store
-  loop $while-continue|0
-   local.get $3
-   i64.load offset=24
-   i64.const 512
-   i64.lt_u
-   if
-    local.get $3
-    i64.const 2
-    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#appendNode
-    br $while-continue|0
-   end
-  end
-  loop $for-loop|1
-   local.get $1
-   i64.const 64
-   i64.lt_u
-   if
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $3
-    local.get $1
-    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#traverse
-    local.tee $0
-    i32.store offset=4
-    local.get $0
-    i32.eqz
-    if
-     i32.const 3696
-     i32.const 3760
-     i32.const 47
-     i32.const 28
-     call $~lib/builtins/abort
-     unreachable
-    end
-    local.get $0
-    i32.store offset=4
-    local.get $0
-    i64.load
-    call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u64>
-    local.set $0
-    global.get $~lib/memory/__stack_pointer
-    i32.const 8
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $0
-    i32.store offset=8
-    local.get $1
-    i64.const 1
-    i64.shr_u
-    local.set $2
-    global.get $~lib/memory/__stack_pointer
-    i32.const 12
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    i32.const 2096
-    i32.store offset=12
-    local.get $0
-    local.get $2
-    call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u64>#toBe
-    local.get $1
-    i64.const 1
-    i64.add
-    local.set $1
-    br $for-loop|1
-   end
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 16
-  i32.add
-  global.set $~lib/memory/__stack_pointer
  )
  (func $start:assembly/__tests__/abstractChunkedFlexList.spec~anonymous|0
   global.get $~lib/memory/__stack_pointer
