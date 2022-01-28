@@ -69,6 +69,9 @@ export abstract class AbstractChunk<D extends number> {
 	 */
 	linkLengths: StaticArray<StaticArray<D>> = new StaticArray<StaticArray<D>>(AbstractChunk.maxSize)
 
+	/**
+	 * The sublist at some index is to be understood as being positioned just before the node at the same index
+	 */
 	sublists: StaticArray<AbstractChunkedFlexList<D> | null> = new StaticArray(AbstractChunk.maxSize)
 
 	// endregion
