@@ -30,12 +30,19 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 	appendNode(distanceFromEnd: D): void {
 		if (this.size == 0)
 			this.offset = this.offset + distanceFromEnd as D
-		this.makeSpace()
+		this.makeSpace(0, distanceFromEnd)
 		this.lastChunks[0].appendNodeUnchecked(distanceFromEnd)
 		this.size++
 	}
 
-	makeSpace(level: u8 = 0): void {
+	makeSpace(level: u8 = 0, distanceFromEnd: D = 0 as D): void {
+		if (this.size == 0) {
+			const chunk = this.createEmptyChunk()
+			this.topChunk = chunk
+			this.lastChunks[0] = chunk
+			this.depth = 1
+			return
+		}
 		if (level == this.depth) {
 			const oldTop = this.topChunk
 			const newTop = new Chunk<AbstractChunk<D>, D>()
@@ -43,17 +50,17 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 				newTop.appendElementUnchecked(oldTop, 0 as D)
 			this.topChunk = newTop
 			this.lastChunks[level] = newTop
-			this.depth++
+			this.depth = level + 1
 			return
 		}
 		const last = this.lastChunks[level]
 		if (last.size == AbstractChunk.maxSize) {
 			this.makeSpace(level + 1)
 			const lastAbove = this.lastChunks[level + 1]
-			let newLast = this.createEmptyChunk()
+			const newLast = this.createEmptyChunk()
 			// noinspection SuspiciousTypeOfGuard
 			if (lastAbove instanceof Chunk)
-				(<Chunk<AbstractChunk<D>, D>> lastAbove).appendElementUnchecked(newLast, last.totalLength)
+				(<Chunk<AbstractChunk<D>, D>> lastAbove).appendElementUnchecked(newLast, last.totalLength + distanceFromEnd as D)
 			this.lastChunks[level] = newLast
 		}
 	}
