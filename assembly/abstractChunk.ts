@@ -115,8 +115,12 @@ export abstract class AbstractChunk<D extends number> {
 			// log("degree " + degree.toString() + ", index: " + index.toString() + ", toGo: " + toGo.toString())
 			const toNext = this.getLinkLengthUnchecked(index, degree as u8)
 			if (toGo >= toNext) {
+				let toNextIndex = 1 << degree as u8
+				if ((index + toNextIndex as i32) >= this.size) {
+					continue
+				}
 				toGo = toGo - toNext as D
-				index += 1 << degree
+				index += toNextIndex
 			}
 		}
 		return new TraversalResult(index, toGo)
