@@ -67,11 +67,8 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 
 	traverse(distanceFromStart: D): TraversalResult<D, u64> | null {
 		// log("traversing, distanceFromStart: " + distanceFromStart.toString())
-		if (this.size == 0)
+		if (this.size == 0 || distanceFromStart < this.offset)
 			return null
-		if (distanceFromStart < this.offset)
-			return new TraversalResult(0 as u64, this.offset - distanceFromStart as D)
-		// log("for real")
 		let toGo = distanceFromStart - this.offset as D
 		let chunk = this.topChunk!
 		let index: u64 = 0
@@ -81,7 +78,7 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 			// log(traversalResult.toString())
 			const subChunk = (chunk as Chunk<AbstractChunk<D>, D>).getElementAt(traversalResult.index)
 			toGo = traversalResult.distance
-			index |= traversalResult.index << (AbstractChunk.indexBits * level)
+			index |= (traversalResult.index as u64) << (AbstractChunk.indexBits * level)
 			chunk = subChunk
 		}
 		const traversalResult = chunk.traverse(toGo)
