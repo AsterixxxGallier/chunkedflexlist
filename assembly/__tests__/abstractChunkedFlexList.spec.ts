@@ -39,14 +39,14 @@ describe("AbstractChunkedFlexList", () => {
 
 	test("AbstractChunkedFlexList.traverse", () => {
 		const list = new HollowChunkedFlexList<u64>()
-		while (list.size < 512) {
+		list.appendNode(0)
+		while (list.size < 1000) {
 			list.appendNode(2)
 		}
-		for (let d = 0 as u64; d < (64 as u64); d++) {
-			// log(d)
+		for (let d = 0 as u64; d < (2000 as u64); d++) {
 			const traversalResult = list.traverse(d)!
-			// expect(traversalResult.index).toBe(d / 2)
-			// expect(traversalResult.distance).toBe(d % 2)
+			expect(traversalResult.index).toBe(d / 2)
+			expect(traversalResult.distance).toBe(d % 2)
 		}
 	})
 })

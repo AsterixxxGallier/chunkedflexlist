@@ -1,7 +1,7 @@
 (module
+ (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_none (func (param i32)))
- (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_none (func))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
@@ -11,13 +11,12 @@
  (type $none_=>_i32 (func (result i32)))
  (type $i64_=>_i32 (func (param i64) (result i32)))
  (type $i32_i64_=>_none (func (param i32 i64)))
+ (type $i32_i32_i64_=>_none (func (param i32 i32 i64)))
  (type $i32_i64_=>_i32 (func (param i32 i64) (result i32)))
  (type $i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_f64_=>_i32 (func (param i32 i32 i32 i32 f64) (result i32)))
  (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (type $i32_i32_=>_i64 (func (param i32 i32) (result i64)))
- (type $i32_i32_i64_=>_none (func (param i32 i32 i64)))
- (type $i64_i64_=>_i32 (func (param i64 i64) (result i32)))
  (import "env" "memory" (memory $0 1))
  (data (i32.const 1036) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
  (data (i32.const 1084) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00s\00t\00a\00t\00i\00c\00a\00r\00r\00a\00y\00.\00t\00s\00\00\00\00\00\00\00")
@@ -1001,12 +1000,12 @@
   i32.const 21636
   call $~lib/rt/rtrace/oninit
   memory.size
-  local.tee $1
+  local.tee $0
   i32.const 0
   i32.le_s
   if (result i32)
    i32.const 1
-   local.get $1
+   local.get $0
    i32.sub
    memory.grow
    i32.const 0
@@ -1032,11 +1031,11 @@
   i32.const 0
   i32.store offset=1568
   loop $for-loop|0
-   local.get $0
+   local.get $1
    i32.const 23
    i32.lt_u
    if
-    local.get $0
+    local.get $1
     i32.const 2
     i32.shl
     i32.const 21648
@@ -1048,14 +1047,14 @@
     i32.const 0
     i32.store offset=4
     i32.const 0
-    local.set $1
+    local.set $0
     loop $for-loop|1
-     local.get $1
+     local.get $0
      i32.const 16
      i32.lt_u
      if
-      local.get $1
       local.get $0
+      local.get $1
       i32.const 4
       i32.shl
       i32.add
@@ -1069,17 +1068,17 @@
       call $~onstore
       i32.const 0
       i32.store offset=96
-      local.get $1
+      local.get $0
       i32.const 1
       i32.add
-      local.set $1
+      local.set $0
       br $for-loop|1
      end
     end
-    local.get $0
+    local.get $1
     i32.const 1
     i32.add
-    local.set $0
+    local.set $1
     br $for-loop|0
    end
   end
@@ -3433,9 +3432,10 @@
  (func $~lib/array/ensureCapacity (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
+  (local $5 i32)
   local.get $0
   i32.load offset=8
-  local.tee $4
+  local.tee $5
   i32.const 2
   i32.shr_u
   local.get $1
@@ -3454,7 +3454,7 @@
    end
    local.get $0
    i32.load
-   local.set $3
+   local.set $4
    local.get $1
    i32.const 8
    local.get $1
@@ -3463,33 +3463,33 @@
    select
    i32.const 2
    i32.shl
-   local.set $1
+   local.set $3
    block $__inlined_func$~lib/rt/itcms/__renew
     local.get $2
-    if (result i32)
-     local.get $4
+    if
+     local.get $5
      i32.const 1
      i32.shl
-     local.tee $2
+     local.tee $1
      i32.const 1073741820
-     local.get $2
+     local.get $1
      i32.const 1073741820
      i32.lt_u
      select
-     local.tee $2
+     local.tee $1
+     local.get $3
      local.get $1
-     local.get $1
-     local.get $2
-     i32.lt_u
+     local.get $3
+     i32.gt_u
      select
-    else
-     local.get $1
+     local.set $3
     end
-    local.tee $2
     local.get $3
+    local.get $4
+    local.tee $1
     i32.const 20
     i32.sub
-    local.tee $4
+    local.tee $5
     i32.load
     i32.const -4
     i32.and
@@ -3497,35 +3497,35 @@
     i32.sub
     i32.le_u
     if
-     local.get $4
+     local.get $5
      i32.const 16
      i32.const 4
      i32.const 1
      call $~onstore
-     local.get $2
-     i32.store offset=16
      local.get $3
-     local.set $1
+     i32.store offset=16
      br $__inlined_func$~lib/rt/itcms/__renew
     end
-    local.get $2
-    local.get $4
+    local.get $3
+    local.get $5
     i32.load offset=12
     call $~lib/rt/itcms/__new
-    local.tee $1
+    local.tee $2
+    local.get $1
     local.get $3
-    local.get $2
-    local.get $4
+    local.get $5
     i32.load offset=16
-    local.tee $4
-    local.get $2
-    local.get $4
-    i32.lt_u
+    local.tee $1
+    local.get $1
+    local.get $3
+    i32.gt_u
     select
     call $~lib/memory/memory.copy
+    local.get $2
+    local.set $1
    end
    local.get $1
-   local.get $3
+   local.get $4
    i32.ne
    if
     local.get $0
@@ -3555,7 +3555,7 @@
    i32.const 4
    i32.const 0
    call $~onstore
-   local.get $2
+   local.get $3
    i32.store offset=8
   end
  )
@@ -4199,7 +4199,7 @@
   i32.const 2
   i32.shl
   call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.tee $4
+  local.tee $5
   i32.store
   global.get $~lib/memory/__stack_pointer
   i32.const 4
@@ -4219,7 +4219,7 @@
   i32.store offset=4
   local.get $0
   i32.load offset=8
-  local.tee $5
+  local.tee $4
   local.get $0
   i32.load offset=16
   i32.const 12
@@ -4229,17 +4229,17 @@
   local.get $3
   local.set $2
   loop $while-continue|0
-   local.get $5
+   local.get $4
    local.get $7
    i32.ne
    if
-    local.get $5
+    local.get $4
     i32.load offset=8
     i32.const 1
     i32.and
     i32.eqz
     if
-     local.get $5
+     local.get $4
      i32.load
      local.set $8
      local.get $2
@@ -4249,7 +4249,7 @@
      call $~onstore
      local.get $8
      i32.store
-     local.get $5
+     local.get $4
      i32.load offset=4
      local.set $9
      local.get $2
@@ -4291,7 +4291,7 @@
      i32.and
      i32.const 2
      i32.shl
-     local.get $4
+     local.get $5
      i32.add
      local.tee $8
      i32.load
@@ -4315,10 +4315,10 @@
      i32.add
      local.set $2
     end
-    local.get $5
+    local.get $4
     i32.const 12
     i32.add
-    local.set $5
+    local.set $4
     br $while-continue|0
    end
   end
@@ -4327,25 +4327,23 @@
   i32.const 4
   i32.const 0
   call $~onstore
-  local.get $4
+  local.get $5
   i32.store
-  local.get $0
-  local.set $2
-  local.get $4
+  local.get $5
   if
-   local.get $2
-   local.get $4
+   local.get $0
+   local.get $5
    i32.const 0
    call $byn-split-outlined-A$~lib/rt/itcms/__link
   end
-  local.get $2
+  local.get $0
   i32.const 4
   i32.const 4
   i32.const 0
   call $~onstore
   local.get $1
   i32.store offset=4
-  local.get $2
+  local.get $0
   i32.const 8
   i32.const 4
   i32.const 0
@@ -4354,7 +4352,7 @@
   i32.store offset=8
   local.get $3
   if
-   local.get $2
+   local.get $0
    local.get $3
    i32.const 0
    call $byn-split-outlined-A$~lib/rt/itcms/__link
@@ -4589,7 +4587,7 @@
   (local $4 i32)
   local.get $0
   i32.load offset=8
-  local.set $4
+  local.set $3
   block $__inlined_func$assembly/datafulChunk/DatafulChunk<assembly/abstractChunk/AbstractChunk<u64>,u64>#setElementAt@virtual
    local.get $0
    i32.const 8
@@ -4622,16 +4620,16 @@
     i32.store
     local.get $0
     i32.load offset=20
-    local.set $3
+    local.set $4
     global.get $~lib/memory/__stack_pointer
     i32.const 0
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $3
-    i32.store
-    local.get $3
     local.get $4
+    i32.store
+    local.get $4
+    local.get $3
     i32.const 255
     i32.and
     local.get $1
@@ -4647,6 +4645,23 @@
   local.get $0
   local.get $2
   call $assembly/abstractChunk/AbstractChunk<u64>#appendNodeUnchecked
+ )
+ (func $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace@varargs (param $0 i32) (param $1 i32)
+  block $2of2
+   block $0of2
+    block $outOfRange
+     global.get $~argumentsLength
+     br_table $0of2 $2of2 $2of2 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   local.set $1
+  end
+  local.get $0
+  local.get $1
+  i64.const 0
+  call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace
  )
  (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<assembly/abstractChunk/AbstractChunk<u64>> (param $0 i32) (result i32)
   (local $1 i32)
@@ -4804,99 +4819,6 @@
   local.get $2
   local.get $3
   call $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<assembly/abstractChunk/AbstractChunk<u64>>
- )
- (func $start:assembly/__tests__/abstractChunkedFlexList.spec~anonymous|0~anonymous|1
-  (local $0 i32)
-  (local $1 i64)
-  (local $2 i32)
-  (local $3 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  global.get $~lib/memory/__stack_pointer
-  i32.const 5252
-  i32.lt_s
-  if
-   i32.const 21664
-   i32.const 21712
-   i32.const 1
-   i32.const 1
-   call $~lib/builtins/abort
-   unreachable
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  i64.const 0
-  i64.store
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 0
-  global.set $~argumentsLength
-  call $assembly/hollowChunkedFlexList/HollowChunkedFlexList<u64>#constructor@varargs
-  local.tee $3
-  i32.store
-  loop $while-continue|0
-   local.get $3
-   i64.load offset=24
-   i64.const 512
-   i64.lt_u
-   if
-    local.get $3
-    i64.const 2
-    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#appendNode
-    br $while-continue|0
-   end
-  end
-  loop $for-loop|1
-   local.get $1
-   i64.const 64
-   i64.lt_u
-   if
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $3
-    local.get $1
-    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#traverse
-    local.tee $2
-    i32.store offset=4
-    local.get $2
-    i32.eqz
-    if
-     i32.const 3696
-     i32.const 3760
-     i32.const 47
-     i32.const 28
-     call $~lib/builtins/abort
-     unreachable
-    end
-    local.get $2
-    i32.store offset=4
-    local.get $1
-    i64.const 1
-    i64.add
-    local.set $1
-    br $for-loop|1
-   end
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.add
-  global.set $~lib/memory/__stack_pointer
  )
  (func $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0
   nop
@@ -5309,6 +5231,64 @@
   i32.const 1
   i32.const 1
   call $~lib/builtins/abort
+  unreachable
+ )
+ (func $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#createEmptyChunk@virtual (param $0 i32) (result i32)
+  local.get $0
+  i32.const 8
+  i32.sub
+  i32.load
+  i32.const 8
+  i32.eq
+  if
+   global.get $~lib/memory/__stack_pointer
+   i32.const 4
+   i32.sub
+   global.set $~lib/memory/__stack_pointer
+   global.get $~lib/memory/__stack_pointer
+   i32.const 5252
+   i32.lt_s
+   if
+    i32.const 21664
+    i32.const 21712
+    i32.const 1
+    i32.const 1
+    call $~lib/builtins/abort
+    unreachable
+   end
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 0
+   i32.store
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 20
+   i32.const 29
+   call $~lib/rt/itcms/__new
+   local.tee $0
+   i32.store
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   local.get $0
+   call $assembly/abstractChunk/AbstractChunk<u64>#constructor
+   local.tee $0
+   i32.store
+   global.get $~lib/memory/__stack_pointer
+   i32.const 4
+   i32.add
+   global.set $~lib/memory/__stack_pointer
+   local.get $0
+   return
+  end
   unreachable
  )
  (func $assembly/abstractChunk/AbstractChunk<u64>#__aspectStrictEquals@virtual (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
@@ -5997,7 +5977,6 @@
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
-  (local $8 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 16
   i32.sub
@@ -6035,16 +6014,15 @@
     i32.gt_s
     if
      global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
-     local.set $3
+     local.set $2
      global.get $~lib/memory/__stack_pointer
      i32.const 0
      i32.const 4
      i32.const 0
      call $~onstore
-     local.get $3
+     local.get $2
      i32.store
      local.get $1
-     local.tee $2
      i32.const 255
      i32.and
      i32.ctz
@@ -6055,11 +6033,11 @@
       i32.const 8
       local.set $0
      end
-     local.get $3
+     local.get $2
      i32.const 20
      i32.sub
      i32.load offset=16
-     local.get $2
+     local.get $1
      i32.le_u
      if
       i32.const 1360
@@ -6085,8 +6063,8 @@
      i32.lt_u
      select
      local.set $0
+     local.get $1
      local.get $2
-     local.get $3
      i32.add
      i32.const 0
      i32.const 1
@@ -6095,25 +6073,23 @@
      local.get $0
      i32.store8
      global.get $assembly/abstractChunk/AbstractChunk.linkIndexesAbove
-     local.set $8
+     local.set $4
      global.get $~lib/memory/__stack_pointer
      i32.const 0
      i32.const 4
      i32.const 0
      call $~onstore
-     local.get $8
+     local.get $4
      i32.store
-     local.get $1
-     local.set $0
-     block $assembly/abstractChunk/AbstractChunk.calculateLinkIndexesAbove|inlined.0
-      local.get $2
+     block $assembly/abstractChunk/AbstractChunk.calculateLinkIndexesAbove|inlined.0 (result i32)
+      local.get $1
+      local.tee $0
       i32.const 255
       i32.and
       i32.eqz
       if
        i32.const 0
        call $~lib/array/Array<assembly/linkIndex/LinkIndex>#constructor
-       local.set $6
        br $assembly/abstractChunk/AbstractChunk.calculateLinkIndexesAbove|inlined.0
       end
       global.get $~lib/memory/__stack_pointer
@@ -6123,55 +6099,56 @@
       call $~onstore
       i32.const 8
       call $~lib/array/Array<assembly/linkIndex/LinkIndex>#constructor
-      local.tee $6
+      local.tee $5
       i32.store offset=8
       local.get $0
-      local.set $3
+      local.set $2
       i32.const 0
-      local.set $7
+      local.set $3
       loop $for-loop|2
-       local.get $7
+       local.get $3
        i32.const 255
        i32.and
        i32.const 8
        i32.lt_u
        if
         global.get $assembly/abstractChunk/AbstractChunk.maxSize
-        local.get $0
+        local.get $1
         i32.const 255
         i32.and
         i32.const 1
-        local.get $7
+        local.get $3
         i32.shl
         i32.add
         i32.lt_s
         if
-         local.get $6
-         local.get $7
+         local.get $5
+         local.get $3
          i32.const 255
          i32.and
-         local.tee $0
+         local.tee $1
          i32.const 0
          call $~lib/array/ensureCapacity
-         local.get $6
+         local.get $5
          i32.const 12
          i32.const 4
          i32.const 0
          call $~onstore
-         local.get $0
+         local.get $1
          i32.store offset=12
+         local.get $5
          br $assembly/abstractChunk/AbstractChunk.calculateLinkIndexesAbove|inlined.0
         end
-        local.get $3
-        local.get $3
+        local.get $2
+        local.get $2
         i32.const 1
         i32.sub
-        local.get $7
+        local.get $3
         i32.const 255
         i32.and
-        local.tee $5
+        local.tee $7
         select
-        local.set $3
+        local.set $2
         global.get $~lib/memory/__stack_pointer
         i32.const 4
         i32.sub
@@ -6195,35 +6172,35 @@
         i32.const 2
         i32.const 4
         call $~lib/rt/itcms/__new
-        local.tee $4
+        local.tee $6
         i32.store
-        local.get $4
+        local.get $6
         i32.const 0
         i32.const 1
         i32.const 0
         call $~onstore
         i32.const 0
         i32.store8
-        local.get $4
+        local.get $6
         i32.const 1
         i32.const 1
         i32.const 0
         call $~onstore
         i32.const 0
         i32.store8 offset=1
-        local.get $4
+        local.get $6
         i32.const 0
+        i32.const 1
+        i32.const 0
+        call $~onstore
+        local.get $2
+        i32.store8
+        local.get $6
+        i32.const 1
         i32.const 1
         i32.const 0
         call $~onstore
         local.get $3
-        i32.store8
-        local.get $4
-        i32.const 1
-        i32.const 1
-        i32.const 0
-        call $~onstore
-        local.get $7
         i32.store8 offset=1
         global.get $~lib/memory/__stack_pointer
         i32.const 4
@@ -6234,40 +6211,42 @@
         i32.const 4
         i32.const 0
         call $~onstore
-        local.get $4
-        i32.store offset=12
         local.get $6
+        i32.store offset=12
         local.get $5
-        local.get $4
+        local.get $7
+        local.get $6
         call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__set
         i32.const -2
-        local.get $7
+        local.get $3
         i32.const 7
         i32.and
         i32.rotl
-        local.get $3
+        local.get $2
         i32.and
-        local.set $3
-        local.get $7
+        local.set $2
+        local.get $3
         i32.const 1
         i32.add
-        local.set $7
+        local.set $3
         br $for-loop|2
        end
       end
+      local.get $5
      end
+     local.set $1
      global.get $~lib/memory/__stack_pointer
      i32.const 4
      i32.const 4
      i32.const 0
      call $~onstore
-     local.get $6
-     i32.store offset=4
-     local.get $8
      local.get $1
-     local.get $6
+     i32.store offset=4
+     local.get $4
+     local.get $0
+     local.get $1
      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__set
-     local.get $2
+     local.get $0
      i32.const 1
      i32.add
      local.set $1
@@ -6430,7 +6409,7 @@
     i32.const 0
     i32.const 1
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedValue
-    local.set $1
+    local.set $0
     br $folding-inner0
    end
    local.get $1
@@ -6504,7 +6483,7 @@
     local.get $1
     local.get $0
     call $~lib/map/Map<usize,i32>#get
-    local.set $1
+    local.set $0
     br $folding-inner0
    end
    local.get $0
@@ -6550,7 +6529,7 @@
   i32.const 4
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $1
+  local.get $0
  )
  (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<i32> (param $0 i32) (result i32)
   global.get $~lib/memory/__stack_pointer
@@ -7174,6 +7153,8 @@
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.sub
@@ -7190,34 +7171,36 @@
    call $~onstore
    i32.const 0
    i32.store
+   local.get $3
+   local.set $9
    i32.const -1
-   local.set $5
+   local.set $3
    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf
-    local.get $3
+    local.get $9
     i32.const 20
     i32.sub
     i32.load offset=16
     i32.const 3
     i32.shr_u
-    local.tee $6
+    local.tee $10
     i32.eqz
     br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf
     loop $while-continue|0
      local.get $4
-     local.get $6
+     local.get $10
      i32.lt_s
      if
       local.get $4
-      local.tee $5
+      local.tee $3
       i32.const 3
       i32.shl
-      local.get $3
+      local.get $9
       i32.add
       i64.load
       i64.const 4733911352903467008
       i64.eq
       br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf
-      local.get $5
+      local.get $3
       i32.const 1
       i32.add
       local.set $4
@@ -7225,9 +7208,9 @@
      end
     end
     i32.const -1
-    local.set $5
+    local.set $3
    end
-   local.get $5
+   local.get $3
    i32.const 0
    i32.lt_s
    if
@@ -7249,46 +7232,44 @@
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u64>
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
    end
-   i32.const 0
-   local.set $4
    i32.const -1
-   local.set $5
+   local.set $3
    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
-    local.get $3
+    local.get $9
     i32.const 20
     i32.sub
     i32.load offset=16
     i32.const 3
     i32.shr_u
-    local.tee $6
+    local.tee $4
     i32.eqz
     br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
     loop $while-continue|03
      local.get $4
-     local.get $6
-     i32.lt_s
+     local.get $8
+     i32.gt_s
      if
-      local.get $4
-      local.tee $5
+      local.get $8
+      local.tee $3
       i32.const 3
       i32.shl
-      local.get $3
+      local.get $9
       i32.add
       i64.load
       i64.const -4492484248283906048
       i64.eq
       br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
-      local.get $5
+      local.get $3
       i32.const 1
       i32.add
-      local.set $4
+      local.set $8
       br $while-continue|03
      end
     end
     i32.const -1
-    local.set $5
+    local.set $3
    end
-   local.get $5
+   local.get $3
    i32.const 0
    i32.lt_s
    if
@@ -7306,60 +7287,58 @@
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectKey
     local.get $0
     i32.load offset=8
-    local.set $4
+    local.set $3
     global.get $~lib/memory/__stack_pointer
     i32.const 0
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $4
+    local.get $3
     i32.store
     local.get $1
-    local.get $4
+    local.get $3
     local.get $2
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<assembly/abstractChunk/AbstractChunk<u64>|null>
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
    end
-   i32.const 0
-   local.set $4
    i32.const -1
-   local.set $5
+   local.set $3
    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4
-    local.get $3
+    local.get $9
     i32.const 20
     i32.sub
     i32.load offset=16
     i32.const 3
     i32.shr_u
-    local.tee $6
+    local.tee $4
     i32.eqz
     br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4
     loop $while-continue|07
      local.get $4
      local.get $6
-     i32.lt_s
+     i32.gt_s
      if
-      local.get $4
-      local.tee $5
+      local.get $6
+      local.tee $3
       i32.const 3
       i32.shl
-      local.get $3
+      local.get $9
       i32.add
       i64.load
       i64.const 4732882716423356416
       i64.eq
       br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4
-      local.get $5
+      local.get $3
       i32.const 1
       i32.add
-      local.set $4
+      local.set $6
       br $while-continue|07
      end
     end
     i32.const -1
-    local.set $5
+    local.set $3
    end
-   local.get $5
+   local.get $3
    i32.const 0
    i32.lt_s
    if
@@ -7381,47 +7360,44 @@
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u8>
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
    end
-   i32.const 0
-   local.set $4
    i32.const -1
-   local.set $5
+   local.set $3
    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf8
-    local.get $3
-    local.tee $6
+    local.get $9
     i32.const 20
     i32.sub
     i32.load offset=16
     i32.const 3
     i32.shr_u
-    local.tee $3
+    local.tee $4
     i32.eqz
     br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf8
     loop $while-continue|011
-     local.get $3
      local.get $4
+     local.get $7
      i32.gt_s
      if
-      local.get $4
-      local.tee $5
+      local.get $7
+      local.tee $3
       i32.const 3
       i32.shl
-      local.get $6
+      local.get $9
       i32.add
       i64.load
       i64.const 4748628776552759296
       i64.eq
       br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf8
-      local.get $5
+      local.get $3
       i32.const 1
       i32.add
-      local.set $4
+      local.set $7
       br $while-continue|011
      end
     end
     i32.const -1
-    local.set $5
+    local.set $3
    end
-   local.get $5
+   local.get $3
    i32.const 0
    i32.lt_s
    if
@@ -7439,14 +7415,16 @@
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectKey
     local.get $0
     i32.load offset=16
-    local.set $5
+    local.set $4
     global.get $~lib/memory/__stack_pointer
     i32.const 0
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $5
+    local.get $4
     i32.store
+    i32.const 0
+    local.set $8
     global.get $~lib/memory/__stack_pointer
     i32.const 8
     i32.sub
@@ -7463,7 +7441,7 @@
     i64.const 0
     i64.store
     block $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<assembly/abstractChunk/AbstractChunk<u64>>>
-     local.get $5
+     local.get $4
      i32.eqz
      if
       global.get $~lib/memory/__stack_pointer
@@ -7494,7 +7472,7 @@
      i32.load
      local.get $2
      i32.load offset=4
-     local.get $5
+     local.get $4
      i32.const -1028477379
      i32.mul
      i32.const 374761397
@@ -7534,19 +7512,19 @@
        if
         local.get $3
         i32.load offset=8
-        local.tee $4
+        local.tee $6
         i32.const 1
         i32.and
         if (result i32)
          i32.const 0
         else
-         local.get $5
+         local.get $4
          local.get $3
          i32.load
          i32.eq
         end
         br_if $__inlined_func$~lib/map/Map<usize,i32>#find
-        local.get $4
+        local.get $6
         i32.const -2
         i32.and
         local.set $3
@@ -7559,14 +7537,14 @@
      local.get $3
      if
       local.get $2
-      local.get $5
+      local.get $4
       call $~lib/map/Map<usize,i32>#get
       local.set $3
       br $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<assembly/abstractChunk/AbstractChunk<u64>>>
      end
-     local.get $5
+     local.get $4
      i32.load offset=12
-     local.set $4
+     local.set $6
      global.get $~lib/memory/__stack_pointer
      i32.const 0
      i32.const 4
@@ -7575,14 +7553,14 @@
      i32.const 3248
      i32.store
      local.get $2
-     local.get $5
+     local.get $4
      i32.const 0
      i32.const 0
      i32.const 0
-     i32.const 0
-     local.get $5
      i32.const 0
      local.get $4
+     i32.const 0
+     local.get $6
      i32.const 10
      i32.const 14
      i32.const 3248
@@ -7593,8 +7571,8 @@
      local.tee $3
      call $~lib/map/Map<usize,i32>#set
      loop $for-loop|0
-      local.get $4
-      local.get $7
+      local.get $6
+      local.get $8
       i32.gt_s
       if
        global.get $~lib/memory/__stack_pointer
@@ -7602,24 +7580,24 @@
        i32.const 4
        i32.const 0
        call $~onstore
-       local.get $5
+       local.get $4
        i32.load offset=4
-       local.get $7
+       local.get $8
        i32.const 2
        i32.shl
        i32.add
        i32.load
-       local.tee $8
+       local.tee $7
        i32.store offset=4
        local.get $3
-       local.get $8
+       local.get $7
        local.get $2
        call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<assembly/abstractChunk/AbstractChunk<u64>>
        call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
-       local.get $7
+       local.get $8
        i32.const 1
        i32.add
-       local.set $7
+       local.set $8
        br $for-loop|0
       end
      end
@@ -7632,46 +7610,44 @@
     local.get $3
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
    end
-   i32.const 0
-   local.set $4
    i32.const -1
-   local.set $3
+   local.set $4
    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf12
-    local.get $6
+    local.get $9
     i32.const 20
     i32.sub
     i32.load offset=16
     i32.const 3
     i32.shr_u
-    local.tee $5
+    local.tee $3
     i32.eqz
     br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf12
     loop $while-continue|015
-     local.get $4
+     local.get $3
      local.get $5
-     i32.lt_s
+     i32.gt_s
      if
-      local.get $4
-      local.tee $3
+      local.get $5
+      local.tee $4
       i32.const 3
       i32.shl
-      local.get $6
+      local.get $9
       i32.add
       i64.load
       i64.const 4746555943519518720
       i64.eq
       br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf12
-      local.get $3
+      local.get $4
       i32.const 1
       i32.add
-      local.set $4
+      local.set $5
       br $while-continue|015
      end
     end
     i32.const -1
-    local.set $3
+    local.set $4
    end
-   local.get $3
+   local.get $4
    i32.const 0
    i32.lt_s
    if
@@ -7839,7 +7815,7 @@
     i32.load offset=16
     i32.const 2
     i32.shr_u
-    local.set $7
+    local.set $4
     global.get $~lib/memory/__stack_pointer
     i32.const 0
     i32.const 4
@@ -7855,7 +7831,7 @@
     i32.const 0
     local.get $2
     i32.const 0
-    local.get $7
+    local.get $4
     i32.const 10
     i32.const 13
     i32.const 2784
@@ -7863,11 +7839,11 @@
     i32.const 1
     i32.const 1
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedValue
-    local.tee $4
+    local.tee $5
     call $~lib/map/Map<usize,i32>#set
     loop $for-loop|0
      local.get $3
-     local.get $7
+     local.get $4
      i32.lt_s
      if
       global.get $~lib/memory/__stack_pointer
@@ -7881,7 +7857,7 @@
       local.get $2
       i32.add
       i32.load
-      local.tee $5
+      local.tee $6
       i32.store offset=4
       global.get $~lib/memory/__stack_pointer
       i32.const 8
@@ -7899,7 +7875,7 @@
       i64.const 0
       i64.store
       block $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>|null>
-       local.get $5
+       local.get $6
        i32.eqz
        if
         global.get $~lib/memory/__stack_pointer
@@ -7930,7 +7906,7 @@
        i32.load
        local.get $1
        i32.load offset=4
-       local.get $5
+       local.get $6
        i32.const -1028477379
        i32.mul
        i32.const 374761397
@@ -7970,19 +7946,19 @@
          if
           local.get $0
           i32.load offset=8
-          local.tee $6
+          local.tee $7
           i32.const 1
           i32.and
           if (result i32)
            i32.const 0
           else
-           local.get $5
+           local.get $6
            local.get $0
            i32.load
            i32.eq
           end
           br_if $__inlined_func$~lib/map/Map<usize,i32>#find1
-          local.get $6
+          local.get $7
           i32.const -2
           i32.and
           local.set $0
@@ -7995,12 +7971,12 @@
        local.get $0
        if
         local.get $1
-        local.get $5
+        local.get $6
         call $~lib/map/Map<usize,i32>#get
         local.set $0
         br $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>|null>
        end
-       local.get $5
+       local.get $6
        i32.const 16
        i32.sub
        i32.load offset=16
@@ -8013,12 +7989,12 @@
        i32.const 2976
        i32.store
        local.get $1
-       local.get $5
+       local.get $6
        i32.const 0
        i32.const 1
        i32.const 1
        i32.const 32
-       local.get $5
+       local.get $6
        i32.const 0
        local.get $0
        i32.const 1
@@ -8045,7 +8021,7 @@
        local.get $8
        i32.store offset=4
        block $__inlined_func$assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#__aspectAddReflectedValueKeyValuePairs@virtual
-        local.get $5
+        local.get $6
         i32.const 8
         i32.sub
         i32.load
@@ -8070,7 +8046,7 @@
          i32.const 0
          i32.const 20
          call $~lib/rt/itcms/__new
-         local.tee $6
+         local.tee $7
          i32.const 4832
          i32.const 0
          call $~lib/memory/memory.copy
@@ -8079,23 +8055,23 @@
          i32.const 4
          i32.const 0
          call $~onstore
-         local.get $6
+         local.get $7
          i32.store offset=4
          local.get $8
-         local.get $6
+         local.get $7
          call $~lib/staticarray/StaticArray.concat<i64>
-         local.set $6
+         local.set $7
          global.get $~lib/memory/__stack_pointer
          i32.const 0
          i32.const 4
          i32.const 0
          call $~onstore
-         local.get $6
+         local.get $7
          i32.store
-         local.get $5
+         local.get $6
          local.get $0
          local.get $1
-         local.get $6
+         local.get $7
          call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#__aspectAddReflectedValueKeyValuePairs
          global.get $~lib/memory/__stack_pointer
          i32.const 8
@@ -8103,7 +8079,7 @@
          global.set $~lib/memory/__stack_pointer
          br $__inlined_func$assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#__aspectAddReflectedValueKeyValuePairs@virtual
         end
-        local.get $5
+        local.get $6
         local.get $0
         local.get $1
         local.get $8
@@ -8114,7 +8090,7 @@
       i32.const 8
       i32.add
       global.set $~lib/memory/__stack_pointer
-      local.get $4
+      local.get $5
       local.get $0
       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
       local.get $3
@@ -8128,7 +8104,7 @@
     i32.const 8
     i32.add
     global.set $~lib/memory/__stack_pointer
-    local.get $4
+    local.get $5
     return
    end
    i32.const 21664
@@ -8148,6 +8124,8 @@
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.sub
@@ -8173,35 +8151,36 @@
   block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf (result i32)
    i32.const -1
    local.get $3
+   local.tee $6
    i32.const 20
    i32.sub
    i32.load offset=16
    i32.const 3
    i32.shr_u
-   local.tee $5
+   local.tee $3
    i32.eqz
    br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf
    drop
    loop $while-continue|0
-    local.get $4
-    local.get $5
-    i32.lt_s
+    local.get $3
+    local.get $8
+    i32.gt_s
     if
-     local.get $4
-     local.get $4
+     local.get $8
+     local.get $8
      i32.const 3
      i32.shl
-     local.get $3
+     local.get $6
      i32.add
      i64.load
      i64.const -4478377148100378624
      i64.eq
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf
      drop
-     local.get $4
+     local.get $8
      i32.const 1
      i32.add
-     local.set $4
+     local.set $8
      br $while-continue|0
     end
    end
@@ -8228,49 +8207,44 @@
    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<u64>
    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
   end
-  block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0 (result i32)
-   i32.const 0
-   local.set $4
-   i32.const -1
-   local.get $3
-   local.tee $5
+  i32.const -1
+  local.set $3
+  block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
+   local.get $6
    i32.const 20
    i32.sub
    i32.load offset=16
    i32.const 3
    i32.shr_u
-   local.tee $3
-   i32.const 0
-   local.get $3
-   select
+   local.tee $8
    i32.eqz
    br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
-   drop
    loop $while-continue|03
-    local.get $3
-    local.get $4
-    i32.gt_s
+    local.get $5
+    local.get $8
+    i32.lt_s
     if
-     local.get $4
-     local.get $4
+     local.get $5
+     local.tee $3
      i32.const 3
      i32.shl
-     local.get $5
+     local.get $6
      i32.add
      i64.load
      i64.const 4746555943519518720
      i64.eq
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
-     drop
-     local.get $4
+     local.get $3
      i32.const 1
      i32.add
-     local.set $4
+     local.set $5
      br $while-continue|03
     end
    end
    i32.const -1
+   local.set $3
   end
+  local.get $3
   i32.const 0
   i32.lt_s
   if
@@ -8292,40 +8266,34 @@
    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<i32>
    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
   end
-  block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4 (result i32)
-   i32.const 0
-   local.set $4
-   i32.const -1
-   local.get $5
+  i32.const -1
+  local.set $5
+  block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4
+   local.get $6
    i32.const 20
    i32.sub
    i32.load offset=16
    i32.const 3
    i32.shr_u
    local.tee $3
-   i32.const 0
-   local.get $3
-   select
    i32.eqz
    br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4
-   drop
    loop $while-continue|07
     local.get $3
     local.get $4
     i32.gt_s
     if
      local.get $4
-     local.get $4
+     local.tee $5
      i32.const 3
      i32.shl
-     local.get $5
+     local.get $6
      i32.add
      i64.load
      i64.const 4753298468099850240
      i64.eq
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4
-     drop
-     local.get $4
+     local.get $5
      i32.const 1
      i32.add
      local.set $4
@@ -8333,7 +8301,9 @@
     end
    end
    i32.const -1
+   local.set $5
   end
+  local.get $5
   i32.const 0
   i32.lt_s
   if
@@ -8365,49 +8335,44 @@
    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/staticarray/StaticArray<~lib/staticarray/StaticArray<u64>>>
    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
   end
-  i32.const 0
-  local.set $4
   i32.const -1
-  local.set $3
+  local.set $4
   block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf8
-   local.get $5
+   local.get $6
    i32.const 20
    i32.sub
    i32.load offset=16
    i32.const 3
    i32.shr_u
-   local.tee $6
-   i32.const 0
-   local.get $6
-   select
+   local.tee $3
    i32.eqz
    br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf8
    loop $while-continue|011
-    local.get $4
-    local.get $6
-    i32.lt_s
+    local.get $3
+    local.get $7
+    i32.gt_s
     if
-     local.get $4
-     local.tee $3
+     local.get $7
+     local.tee $4
      i32.const 3
      i32.shl
-     local.get $5
+     local.get $6
      i32.add
      i64.load
      i64.const -4480526135066624000
      i64.eq
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf8
-     local.get $3
+     local.get $4
      i32.const 1
      i32.add
-     local.set $4
+     local.set $7
      br $while-continue|011
     end
    end
    i32.const -1
-   local.set $3
+   local.set $4
   end
-  local.get $3
+  local.get $4
   i32.const 0
   i32.lt_s
   if
@@ -8637,6 +8602,7 @@
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
+  (local $4 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -8697,8 +8663,10 @@
     i32.const 5252
     i32.lt_s
     br_if $folding-inner0
-    global.get $assembly/abstractChunk/AbstractChunk.maxSize
+    local.get $0
     local.set $2
+    global.get $assembly/abstractChunk/AbstractChunk.maxSize
+    local.set $3
     global.get $~lib/memory/__stack_pointer
     i32.const 0
     i32.const 4
@@ -8706,7 +8674,7 @@
     call $~onstore
     i32.const 0
     i32.store
-    local.get $2
+    local.get $3
     i32.const 268435455
     i32.gt_u
     br_if $folding-inner1
@@ -8715,28 +8683,28 @@
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $2
+    local.get $3
     i32.const 2
     i32.shl
     i32.const 12
     call $~lib/rt/itcms/__new
-    local.tee $2
+    local.tee $3
     i32.store
     global.get $~lib/memory/__stack_pointer
     i32.const 4
     i32.add
     global.set $~lib/memory/__stack_pointer
-    local.get $0
+    local.get $2
     i32.const 12
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $2
+    local.get $3
     i32.store offset=12
-    local.get $2
+    local.get $3
     if
-     local.get $0
      local.get $2
+     local.get $3
      i32.const 0
      call $byn-split-outlined-A$~lib/rt/itcms/__link
     end
@@ -8749,7 +8717,7 @@
     i32.lt_s
     br_if $folding-inner0
     global.get $assembly/abstractChunk/AbstractChunk.maxSize
-    local.set $2
+    local.set $3
     global.get $~lib/memory/__stack_pointer
     i32.const 0
     i32.const 4
@@ -8757,7 +8725,7 @@
     call $~onstore
     i32.const 0
     i32.store
-    local.get $2
+    local.get $3
     i32.const 268435455
     i32.gt_u
     br_if $folding-inner1
@@ -8766,28 +8734,28 @@
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $2
+    local.get $3
     i32.const 2
     i32.shl
     i32.const 13
     call $~lib/rt/itcms/__new
-    local.tee $2
+    local.tee $3
     i32.store
     global.get $~lib/memory/__stack_pointer
     i32.const 4
     i32.add
     global.set $~lib/memory/__stack_pointer
-    local.get $0
+    local.get $2
     i32.const 16
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $2
+    local.get $3
     i32.store offset=16
-    local.get $2
+    local.get $3
     if
-     local.get $0
      local.get $2
+     local.get $3
      i32.const 0
      call $byn-split-outlined-A$~lib/rt/itcms/__link
     end
@@ -8821,21 +8789,23 @@
       call $~onstore
       local.get $2
       i32.store offset=4
-      global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
+      local.get $1
       local.set $3
+      global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
+      local.set $4
       global.get $~lib/memory/__stack_pointer
       i32.const 8
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $3
+      local.get $4
       i32.store offset=8
-      local.get $1
-      local.get $3
+      local.get $4
       i32.const 20
       i32.sub
       i32.load offset=16
-      i32.ge_u
+      local.get $1
+      i32.le_u
       if
        i32.const 1360
        i32.const 1104
@@ -8844,11 +8814,11 @@
        call $~lib/builtins/abort
        unreachable
       end
-      local.get $1
       local.get $3
+      local.get $4
       i32.add
       i32.load8_u
-      local.set $3
+      local.set $4
       global.get $~lib/memory/__stack_pointer
       i32.const 4
       i32.sub
@@ -8864,7 +8834,7 @@
       call $~onstore
       i32.const 0
       i32.store
-      local.get $3
+      local.get $4
       i32.const 134217727
       i32.gt_u
       br_if $folding-inner1
@@ -8873,12 +8843,12 @@
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $3
+      local.get $4
       i32.const 3
       i32.shl
       i32.const 11
       call $~lib/rt/itcms/__new
-      local.tee $3
+      local.tee $4
       i32.store
       global.get $~lib/memory/__stack_pointer
       i32.const 4
@@ -8889,11 +8859,11 @@
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $3
+      local.get $4
       i32.store offset=8
       local.get $2
-      local.get $1
       local.get $3
+      local.get $4
       call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__set
       local.get $1
       i32.const 1
@@ -9136,751 +9106,541 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace (param $0 i32) (param $1 i32)
-  (local $2 i32)
+ (func $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace (param $0 i32) (param $1 i32) (param $2 i64)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 16
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  block $folding-inner0
+  (local $6 i32)
+  (local $7 i32)
+  block $folding-inner1
    global.get $~lib/memory/__stack_pointer
-   i32.const 5252
-   i32.lt_s
-   br_if $folding-inner0
-   global.get $~lib/memory/__stack_pointer
-   i32.const 0
-   i32.const 8
-   i32.const 0
-   call $~onstore
-   i64.const 0
-   i64.store
-   global.get $~lib/memory/__stack_pointer
-   i32.const 8
-   i32.const 8
-   i32.const 0
-   call $~onstore
-   i64.const 0
-   i64.store offset=8
-   local.get $0
-   i32.load8_u offset=12
-   local.get $1
-   i32.const 255
-   i32.and
-   i32.eq
-   if
+   i32.const 16
+   i32.sub
+   global.set $~lib/memory/__stack_pointer
+   block $folding-inner0
+    global.get $~lib/memory/__stack_pointer
+    i32.const 5252
+    i32.lt_s
+    br_if $folding-inner0
     global.get $~lib/memory/__stack_pointer
     i32.const 0
-    i32.const 4
+    i32.const 8
     i32.const 0
     call $~onstore
+    i64.const 0
+    i64.store
+    global.get $~lib/memory/__stack_pointer
+    i32.const 8
+    i32.const 8
+    i32.const 0
+    call $~onstore
+    i64.const 0
+    i64.store offset=8
     local.get $0
-    i32.load offset=8
-    local.tee $3
-    i32.store
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.sub
-    global.set $~lib/memory/__stack_pointer
-    global.get $~lib/memory/__stack_pointer
-    i32.const 5252
-    i32.lt_s
-    br_if $folding-inner0
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    i32.const 0
-    i32.store
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    i32.const 24
-    i32.const 22
-    call $~lib/rt/itcms/__new
-    local.tee $2
-    i32.store
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.sub
-    global.set $~lib/memory/__stack_pointer
-    global.get $~lib/memory/__stack_pointer
-    i32.const 5252
-    i32.lt_s
-    br_if $folding-inner0
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    i32.const 0
-    i32.store
-    local.get $2
-    i32.eqz
+    i64.load offset=24
+    i64.eqz
     if
      global.get $~lib/memory/__stack_pointer
      i32.const 0
      i32.const 4
      i32.const 0
      call $~onstore
-     i32.const 20
-     i32.const 23
-     call $~lib/rt/itcms/__new
-     local.tee $2
-     i32.store
-    end
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $2
-    call $assembly/abstractChunk/AbstractChunk<u64>#constructor
-    local.tee $2
-    i32.store
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.add
-    global.set $~lib/memory/__stack_pointer
-    local.get $2
-    i32.store
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.sub
-    global.set $~lib/memory/__stack_pointer
-    global.get $~lib/memory/__stack_pointer
-    i32.const 5252
-    i32.lt_s
-    br_if $folding-inner0
-    global.get $assembly/abstractChunk/AbstractChunk.maxSize
-    local.set $5
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    i32.const 0
-    i32.store
-    local.get $5
-    i32.const 268435455
-    i32.gt_u
-    if
-     i32.const 1056
-     i32.const 1104
-     i32.const 91
-     i32.const 60
-     call $~lib/builtins/abort
-     unreachable
-    end
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $5
-    i32.const 2
-    i32.shl
-    i32.const 24
-    call $~lib/rt/itcms/__new
-    local.tee $5
-    i32.store
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.add
-    global.set $~lib/memory/__stack_pointer
-    local.get $2
-    i32.const 20
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $5
-    i32.store offset=20
-    local.get $5
-    if
-     local.get $2
-     local.get $5
-     i32.const 0
-     call $byn-split-outlined-A$~lib/rt/itcms/__link
-    end
-    global.get $~lib/memory/__stack_pointer
-    i32.const 4
-    i32.add
-    global.set $~lib/memory/__stack_pointer
-    local.get $2
-    i32.store offset=4
-    local.get $3
-    if
-     local.get $2
-     local.get $3
-     i64.const 0
-     call $assembly/datafulChunk/DatafulChunk<assembly/abstractChunk/AbstractChunk<u64>,u64>#appendElementUnchecked
-    end
-    local.get $0
-    i32.const 8
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $2
-    i32.store offset=8
-    local.get $2
-    if
      local.get $0
-     local.get $2
+     call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#createEmptyChunk@virtual
+     local.tee $1
+     i32.store
+     local.get $0
+     i32.const 8
+     i32.const 4
      i32.const 0
-     call $byn-split-outlined-A$~lib/rt/itcms/__link
+     call $~onstore
+     local.get $1
+     i32.store offset=8
+     local.get $1
+     if
+      local.get $0
+      local.get $1
+      i32.const 0
+      call $byn-split-outlined-A$~lib/rt/itcms/__link
+     end
+     local.get $0
+     i32.load offset=16
+     local.set $3
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $3
+     i32.store offset=4
+     local.get $3
+     i32.const 0
+     local.get $1
+     call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__set
+     local.get $0
+     i32.const 12
+     i32.const 1
+     i32.const 0
+     call $~onstore
+     i32.const 1
+     i32.store8 offset=12
+     br $folding-inner1
     end
-    local.get $0
-    i32.load offset=16
-    local.set $3
-    global.get $~lib/memory/__stack_pointer
-    i32.const 8
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $3
-    i32.store offset=8
-    local.get $3
-    local.get $1
-    i32.const 255
-    i32.and
-    local.get $2
-    call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__set
     local.get $0
     i32.load8_u offset=12
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $0
-    i32.const 12
-    i32.const 1
-    i32.const 0
-    call $~onstore
     local.get $1
-    i32.store8 offset=12
-    global.get $~lib/memory/__stack_pointer
-    i32.const 16
-    i32.add
-    global.set $~lib/memory/__stack_pointer
-    return
-   end
-   global.get $~lib/memory/__stack_pointer
-   i32.const 4
-   i32.const 4
-   i32.const 0
-   call $~onstore
-   local.get $0
-   i32.load offset=16
-   local.set $3
-   global.get $~lib/memory/__stack_pointer
-   i32.const 8
-   i32.const 4
-   i32.const 0
-   call $~onstore
-   local.get $3
-   i32.store offset=8
-   local.get $3
-   local.get $1
-   i32.const 255
-   i32.and
-   call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__get
-   local.tee $3
-   i32.store offset=4
-   global.get $assembly/abstractChunk/AbstractChunk.maxSize
-   local.get $3
-   i32.load offset=8
-   i32.eq
-   if
-    local.get $0
-    local.get $1
-    i32.const 1
-    i32.add
-    local.tee $2
-    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $0
-    i32.load offset=16
-    local.set $5
-    global.get $~lib/memory/__stack_pointer
-    i32.const 8
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $5
-    i32.store offset=8
-    local.get $5
-    local.get $2
     i32.const 255
     i32.and
-    call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__get
-    local.tee $4
-    i32.store
-    global.get $~lib/memory/__stack_pointer
-    i32.const 12
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    block $__inlined_func$assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#createEmptyChunk@virtual
-     local.get $0
-     i32.const 8
-     i32.sub
-     i32.load
-     i32.const 8
-     i32.eq
-     if
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.sub
-      global.set $~lib/memory/__stack_pointer
-      global.get $~lib/memory/__stack_pointer
-      i32.const 5252
-      i32.lt_s
-      br_if $folding-inner0
-      global.get $~lib/memory/__stack_pointer
-      i32.const 0
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 0
-      i32.store
-      global.get $~lib/memory/__stack_pointer
-      i32.const 0
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 20
-      i32.const 29
-      call $~lib/rt/itcms/__new
-      local.tee $5
-      i32.store
-      global.get $~lib/memory/__stack_pointer
-      i32.const 0
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $5
-      call $assembly/abstractChunk/AbstractChunk<u64>#constructor
-      local.tee $5
-      i32.store
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.add
-      global.set $~lib/memory/__stack_pointer
-      br $__inlined_func$assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#createEmptyChunk@virtual
-     end
-     unreachable
-    end
-    local.get $5
-    i32.store offset=12
-    block $__inlined_func$assembly/chunk/Chunk~instanceof (result i32)
-     i32.const 0
-     local.get $4
-     i32.eqz
-     br_if $__inlined_func$assembly/chunk/Chunk~instanceof
-     drop
-     i32.const 1
-     block $__inlined_func$~lib/rt/__instanceof (result i32)
-      local.get $4
-      i32.const 20
-      i32.sub
-      i32.load offset=12
-      local.tee $2
-      i32.const 5008
-      i32.load
-      i32.le_u
-      if
-       loop $do-loop|0
-        i32.const 1
-        local.get $2
-        i32.const 22
-        i32.eq
-        br_if $__inlined_func$~lib/rt/__instanceof
-        drop
-        local.get $2
-        i32.const 3
-        i32.shl
-        i32.const 5012
-        i32.add
-        i32.load offset=4
-        local.tee $2
-        br_if $do-loop|0
-       end
-      end
-      i32.const 0
-     end
-     br_if $__inlined_func$assembly/chunk/Chunk~instanceof
-     drop
-     i32.const 0
-    end
+    i32.eq
     if
-     block $__inlined_func$~lib/rt/__instanceof3 (result i32)
-      local.get $4
-      i32.const 20
-      i32.sub
-      i32.load offset=12
-      local.tee $2
-      i32.const 5008
-      i32.load
-      i32.le_u
-      if
-       loop $do-loop|05
-        i32.const 1
-        local.get $2
-        i32.const 22
-        i32.eq
-        br_if $__inlined_func$~lib/rt/__instanceof3
-        drop
-        local.get $2
-        i32.const 3
-        i32.shl
-        i32.const 5012
-        i32.add
-        i32.load offset=4
-        local.tee $2
-        br_if $do-loop|05
-       end
-      end
-      i32.const 0
-     end
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $0
+     i32.load offset=8
+     local.tee $5
+     i32.store
+     global.get $~lib/memory/__stack_pointer
+     i32.const 8
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.sub
+     global.set $~lib/memory/__stack_pointer
+     global.get $~lib/memory/__stack_pointer
+     i32.const 5252
+     i32.lt_s
+     br_if $folding-inner0
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     i32.const 0
+     i32.store
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     i32.const 24
+     i32.const 22
+     call $~lib/rt/itcms/__new
+     local.tee $3
+     i32.store
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.sub
+     global.set $~lib/memory/__stack_pointer
+     global.get $~lib/memory/__stack_pointer
+     i32.const 5252
+     i32.lt_s
+     br_if $folding-inner0
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     i32.const 0
+     i32.store
+     local.get $3
      i32.eqz
      if
-      i32.const 3536
-      i32.const 3600
-      i32.const 56
-      i32.const 35
+      global.get $~lib/memory/__stack_pointer
+      i32.const 0
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      i32.const 20
+      i32.const 23
+      call $~lib/rt/itcms/__new
+      local.tee $3
+      i32.store
+     end
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $3
+     call $assembly/abstractChunk/AbstractChunk<u64>#constructor
+     local.tee $3
+     i32.store
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.add
+     global.set $~lib/memory/__stack_pointer
+     local.get $3
+     i32.store
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.sub
+     global.set $~lib/memory/__stack_pointer
+     global.get $~lib/memory/__stack_pointer
+     i32.const 5252
+     i32.lt_s
+     br_if $folding-inner0
+     local.get $3
+     local.set $4
+     global.get $assembly/abstractChunk/AbstractChunk.maxSize
+     local.set $7
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     i32.const 0
+     i32.store
+     local.get $7
+     i32.const 268435455
+     i32.gt_u
+     if
+      i32.const 1056
+      i32.const 1104
+      i32.const 91
+      i32.const 60
       call $~lib/builtins/abort
       unreachable
      end
      global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $7
+     i32.const 2
+     i32.shl
+     i32.const 24
+     call $~lib/rt/itcms/__new
+     local.tee $7
+     i32.store
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.add
+     global.set $~lib/memory/__stack_pointer
+     local.get $4
+     i32.const 20
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $7
+     i32.store offset=20
+     local.get $7
+     if
+      local.get $4
+      local.get $7
+      i32.const 0
+      call $byn-split-outlined-A$~lib/rt/itcms/__link
+     end
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.add
+     global.set $~lib/memory/__stack_pointer
+     local.get $3
+     i32.store offset=8
+     local.get $5
+     if
+      local.get $3
+      local.get $5
+      i64.const 0
+      call $assembly/datafulChunk/DatafulChunk<assembly/abstractChunk/AbstractChunk<u64>,u64>#appendElementUnchecked
+     end
+     local.get $0
      i32.const 8
      i32.const 4
      i32.const 0
      call $~onstore
-     local.get $4
-     i32.store offset=8
-     local.get $4
-     local.get $5
      local.get $3
-     i64.load
-     call $assembly/datafulChunk/DatafulChunk<assembly/abstractChunk/AbstractChunk<u64>,u64>#appendElementUnchecked
+     i32.store offset=8
+     local.get $3
+     if
+      local.get $0
+      local.get $3
+      i32.const 0
+      call $byn-split-outlined-A$~lib/rt/itcms/__link
+     end
+     local.get $0
+     i32.load offset=16
+     local.set $4
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $4
+     i32.store offset=4
+     local.get $4
+     local.get $1
+     i32.const 255
+     i32.and
+     local.get $3
+     call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__set
+     local.get $0
+     i32.const 12
+     i32.const 1
+     i32.const 0
+     call $~onstore
+     local.get $1
+     i32.const 1
+     i32.add
+     i32.store8 offset=12
+     br $folding-inner1
     end
-    local.get $0
-    i32.load offset=16
-    local.set $0
     global.get $~lib/memory/__stack_pointer
     i32.const 8
     i32.const 4
     i32.const 0
     call $~onstore
     local.get $0
-    i32.store offset=8
-    local.get $0
+    i32.load offset=16
+    local.set $4
+    global.get $~lib/memory/__stack_pointer
+    i32.const 4
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    local.get $4
+    i32.store offset=4
+    local.get $4
     local.get $1
     i32.const 255
     i32.and
-    local.get $5
-    call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__set
+    call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__get
+    local.tee $4
+    i32.store offset=8
+    global.get $assembly/abstractChunk/AbstractChunk.maxSize
+    local.get $4
+    i32.load offset=8
+    i32.eq
+    if
+     i32.const 1
+     global.set $~argumentsLength
+     local.get $0
+     local.get $1
+     i32.const 1
+     i32.add
+     local.tee $3
+     call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace@varargs
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $0
+     i32.load offset=16
+     local.set $6
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $6
+     i32.store offset=4
+     local.get $6
+     local.get $3
+     i32.const 255
+     i32.and
+     call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__get
+     local.tee $5
+     i32.store
+     global.get $~lib/memory/__stack_pointer
+     i32.const 12
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $0
+     call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#createEmptyChunk@virtual
+     local.tee $6
+     i32.store offset=12
+     block $__inlined_func$assembly/chunk/Chunk~instanceof (result i32)
+      i32.const 0
+      local.get $5
+      i32.eqz
+      br_if $__inlined_func$assembly/chunk/Chunk~instanceof
+      drop
+      i32.const 1
+      block $__inlined_func$~lib/rt/__instanceof (result i32)
+       local.get $5
+       i32.const 20
+       i32.sub
+       i32.load offset=12
+       local.tee $3
+       i32.const 5008
+       i32.load
+       i32.le_u
+       if
+        loop $do-loop|0
+         i32.const 1
+         local.get $3
+         i32.const 22
+         i32.eq
+         br_if $__inlined_func$~lib/rt/__instanceof
+         drop
+         local.get $3
+         i32.const 3
+         i32.shl
+         i32.const 5012
+         i32.add
+         i32.load offset=4
+         local.tee $3
+         br_if $do-loop|0
+        end
+       end
+       i32.const 0
+      end
+      br_if $__inlined_func$assembly/chunk/Chunk~instanceof
+      drop
+      i32.const 0
+     end
+     if
+      block $__inlined_func$~lib/rt/__instanceof3 (result i32)
+       local.get $5
+       i32.const 20
+       i32.sub
+       i32.load offset=12
+       local.tee $3
+       i32.const 5008
+       i32.load
+       i32.le_u
+       if
+        loop $do-loop|05
+         i32.const 1
+         local.get $3
+         i32.const 22
+         i32.eq
+         br_if $__inlined_func$~lib/rt/__instanceof3
+         drop
+         local.get $3
+         i32.const 3
+         i32.shl
+         i32.const 5012
+         i32.add
+         i32.load offset=4
+         local.tee $3
+         br_if $do-loop|05
+        end
+       end
+       i32.const 0
+      end
+      i32.eqz
+      if
+       i32.const 3536
+       i32.const 3600
+       i32.const 68
+       i32.const 35
+       call $~lib/builtins/abort
+       unreachable
+      end
+      global.get $~lib/memory/__stack_pointer
+      i32.const 4
+      i32.const 4
+      i32.const 0
+      call $~onstore
+      local.get $5
+      i32.store offset=4
+      local.get $5
+      local.get $6
+      local.get $2
+      local.get $4
+      i64.load
+      i64.add
+      call $assembly/datafulChunk/DatafulChunk<assembly/abstractChunk/AbstractChunk<u64>,u64>#appendElementUnchecked
+     end
+     local.get $0
+     i32.load offset=16
+     local.set $0
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $0
+     i32.store offset=4
+     local.get $0
+     local.get $1
+     i32.const 255
+     i32.and
+     local.get $6
+     call $~lib/array/Array<assembly/linkIndex/LinkIndex>#__set
+    end
+    br $folding-inner1
    end
-   global.get $~lib/memory/__stack_pointer
-   i32.const 16
-   i32.add
-   global.set $~lib/memory/__stack_pointer
-   return
+   i32.const 21664
+   i32.const 21712
+   i32.const 1
+   i32.const 1
+   call $~lib/builtins/abort
+   unreachable
   end
-  i32.const 21664
-  i32.const 21712
-  i32.const 1
-  i32.const 1
-  call $~lib/builtins/abort
-  unreachable
+  global.get $~lib/memory/__stack_pointer
+  i32.const 16
+  i32.add
+  global.set $~lib/memory/__stack_pointer
  )
  (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<~lib/staticarray/StaticArray<u64>> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  global.get $~lib/memory/__stack_pointer
-  i32.const 5252
-  i32.lt_s
-  if
-   i32.const 21664
-   i32.const 21712
-   i32.const 1
-   i32.const 1
-   call $~lib/builtins/abort
-   unreachable
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 0
-  i32.store
-  local.get $3
-  i32.load offset=12
-  local.set $5
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 3888
-  i32.store
-  local.get $5
-  i32.const 1
-  i32.and
-  if
-   i32.const 3888
-   i32.const 1952
-   i32.const 2
-   i32.const 19
-   call $~lib/builtins/abort
-   unreachable
-  end
+  (local $8 i32)
   block $folding-inner1
-   loop $for-loop|0
-    local.get $4
-    local.get $5
-    i32.lt_s
-    if
-     local.get $0
-     local.get $3
-     i32.load offset=4
-     local.tee $6
-     local.get $4
-     i32.const 2
-     i32.shl
-     i32.add
-     i32.load
-     local.tee $7
-     i32.eq
-     local.get $1
-     local.get $4
-     i32.const 1
-     i32.add
-     i32.const 2
-     i32.shl
-     local.get $6
-     i32.add
-     i32.load
-     local.tee $6
-     i32.eq
-     i32.and
-     local.get $0
-     local.get $6
-     i32.eq
-     local.get $1
-     local.get $7
-     i32.eq
-     i32.and
-     i32.or
-     br_if $folding-inner1
-     local.get $4
-     i32.const 2
-     i32.add
-     local.set $4
-     br $for-loop|0
-    end
-   end
-   local.get $2
-   i32.load offset=12
-   local.set $5
-   i32.const 0
-   local.set $4
-   loop $for-loop|1
-    local.get $4
-    local.get $5
-    i32.lt_s
-    if
-     local.get $0
-     local.get $2
-     i32.load offset=4
-     local.tee $6
-     local.get $4
-     i32.const 2
-     i32.shl
-     i32.add
-     i32.load
-     local.tee $7
-     i32.eq
-     local.get $1
-     local.get $4
-     i32.const 1
-     i32.add
-     i32.const 2
-     i32.shl
-     local.get $6
-     i32.add
-     i32.load
-     local.tee $6
-     i32.eq
-     i32.and
-     local.get $0
-     local.get $6
-     i32.eq
-     local.get $1
-     local.get $7
-     i32.eq
-     i32.and
-     i32.or
-     if
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.add
-      global.set $~lib/memory/__stack_pointer
-      i32.const 2
-      return
-     end
-     local.get $4
-     i32.const 2
-     i32.add
-     local.set $4
-     br $for-loop|1
-    end
-   end
-   block $folding-inner0
-    local.get $0
-    i32.const 20
-    i32.sub
-    i32.load offset=16
-    i32.const 3
-    i32.shr_u
-    local.tee $4
-    local.get $1
-    i32.const 20
-    i32.sub
-    i32.load offset=16
-    i32.const 3
-    i32.shr_u
-    i32.ne
-    br_if $folding-inner0
-    i32.const 0
-    local.set $2
-    loop $for-loop|2
-     local.get $2
-     local.get $4
-     i32.lt_s
-     if
-      local.get $0
-      local.get $2
-      i32.const 3
-      i32.shl
-      local.tee $5
-      i32.add
-      i64.load
-      local.get $1
-      local.get $5
-      i32.add
-      i64.load
-      i64.ne
-      br_if $folding-inner0
-      local.get $2
-      i32.const 1
-      i32.add
-      local.set $2
-      br $for-loop|2
-     end
-    end
-    local.get $3
-    local.get $0
-    call $~lib/array/Array<usize>#push
-    local.get $3
-    local.get $1
-    call $~lib/array/Array<usize>#push
-    br $folding-inner1
-   end
    global.get $~lib/memory/__stack_pointer
    i32.const 4
-   i32.add
+   i32.sub
    global.set $~lib/memory/__stack_pointer
+   global.get $~lib/memory/__stack_pointer
+   i32.const 5252
+   i32.lt_s
+   if
+    i32.const 21664
+    i32.const 21712
+    i32.const 1
+    i32.const 1
+    call $~lib/builtins/abort
+    unreachable
+   end
+   global.get $~lib/memory/__stack_pointer
    i32.const 0
-   return
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.add
-  global.set $~lib/memory/__stack_pointer
-  i32.const 1
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<~lib/staticarray/StaticArray<~lib/staticarray/StaticArray<u64>>> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  global.get $~lib/memory/__stack_pointer
-  i32.const 5252
-  i32.lt_s
-  if
-   i32.const 21664
-   i32.const 21712
-   i32.const 1
-   i32.const 1
-   call $~lib/builtins/abort
-   unreachable
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  i64.const 0
-  i64.store
-  local.get $3
-  i32.load offset=12
-  local.set $6
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 3888
-  i32.store
-  local.get $6
-  i32.const 1
-  i32.and
-  if
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 0
+   i32.store
+   local.get $3
+   i32.load offset=12
+   local.set $6
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
    i32.const 3888
-   i32.const 1952
-   i32.const 2
-   i32.const 19
-   call $~lib/builtins/abort
-   unreachable
-  end
-  block $folding-inner1
+   i32.store
+   local.get $6
+   i32.const 1
+   i32.and
+   if
+    i32.const 3888
+    i32.const 1952
+    i32.const 2
+    i32.const 19
+    call $~lib/builtins/abort
+    unreachable
+   end
    loop $for-loop|0
     local.get $4
     local.get $6
     i32.lt_s
     if
-     local.get $0
      local.get $3
      i32.load offset=4
      local.tee $7
@@ -9890,6 +9650,7 @@
      i32.add
      i32.load
      local.tee $8
+     local.get $0
      i32.eq
      local.get $1
      local.get $4
@@ -9929,7 +9690,6 @@
     local.get $6
     i32.lt_s
     if
-     local.get $0
      local.get $2
      i32.load offset=4
      local.tee $7
@@ -9939,6 +9699,7 @@
      i32.add
      i32.load
      local.tee $8
+     local.get $0
      i32.eq
      local.get $1
      local.get $4
@@ -9950,6 +9711,218 @@
      i32.add
      i32.load
      local.tee $7
+     i32.eq
+     i32.and
+     local.get $0
+     local.get $7
+     i32.eq
+     local.get $1
+     local.get $8
+     i32.eq
+     i32.and
+     i32.or
+     if
+      global.get $~lib/memory/__stack_pointer
+      i32.const 4
+      i32.add
+      global.set $~lib/memory/__stack_pointer
+      i32.const 2
+      return
+     end
+     local.get $4
+     i32.const 2
+     i32.add
+     local.set $4
+     br $for-loop|1
+    end
+   end
+   block $folding-inner0
+    local.get $0
+    i32.const 20
+    i32.sub
+    i32.load offset=16
+    i32.const 3
+    i32.shr_u
+    local.tee $2
+    local.get $1
+    i32.const 20
+    i32.sub
+    i32.load offset=16
+    i32.const 3
+    i32.shr_u
+    i32.ne
+    br_if $folding-inner0
+    loop $for-loop|2
+     local.get $2
+     local.get $5
+     i32.gt_s
+     if
+      local.get $0
+      local.get $5
+      i32.const 3
+      i32.shl
+      local.tee $4
+      i32.add
+      i64.load
+      local.get $1
+      local.get $4
+      i32.add
+      i64.load
+      i64.ne
+      br_if $folding-inner0
+      local.get $5
+      i32.const 1
+      i32.add
+      local.set $5
+      br $for-loop|2
+     end
+    end
+    local.get $3
+    local.get $0
+    call $~lib/array/Array<usize>#push
+    local.get $3
+    local.get $1
+    call $~lib/array/Array<usize>#push
+    br $folding-inner1
+   end
+   global.get $~lib/memory/__stack_pointer
+   i32.const 4
+   i32.add
+   global.set $~lib/memory/__stack_pointer
+   i32.const 0
+   return
+  end
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+  i32.const 1
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<~lib/staticarray/StaticArray<~lib/staticarray/StaticArray<u64>>> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  block $folding-inner1
+   global.get $~lib/memory/__stack_pointer
+   i32.const 8
+   i32.sub
+   global.set $~lib/memory/__stack_pointer
+   global.get $~lib/memory/__stack_pointer
+   i32.const 5252
+   i32.lt_s
+   if
+    i32.const 21664
+    i32.const 21712
+    i32.const 1
+    i32.const 1
+    call $~lib/builtins/abort
+    unreachable
+   end
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   i64.const 0
+   i64.store
+   local.get $3
+   i32.load offset=12
+   local.set $6
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 3888
+   i32.store
+   local.get $6
+   i32.const 1
+   i32.and
+   if
+    i32.const 3888
+    i32.const 1952
+    i32.const 2
+    i32.const 19
+    call $~lib/builtins/abort
+    unreachable
+   end
+   loop $for-loop|0
+    local.get $4
+    local.get $6
+    i32.lt_s
+    if
+     local.get $3
+     i32.load offset=4
+     local.tee $7
+     local.get $4
+     i32.const 2
+     i32.shl
+     i32.add
+     i32.load
+     local.tee $8
+     local.get $0
+     i32.eq
+     local.get $4
+     i32.const 1
+     i32.add
+     i32.const 2
+     i32.shl
+     local.get $7
+     i32.add
+     i32.load
+     local.tee $7
+     local.get $1
+     i32.eq
+     i32.and
+     local.get $0
+     local.get $7
+     i32.eq
+     local.get $1
+     local.get $8
+     i32.eq
+     i32.and
+     i32.or
+     br_if $folding-inner1
+     local.get $4
+     i32.const 2
+     i32.add
+     local.set $4
+     br $for-loop|0
+    end
+   end
+   local.get $2
+   i32.load offset=12
+   local.set $6
+   i32.const 0
+   local.set $4
+   loop $for-loop|1
+    local.get $4
+    local.get $6
+    i32.lt_s
+    if
+     local.get $2
+     i32.load offset=4
+     local.tee $7
+     local.get $4
+     i32.const 2
+     i32.shl
+     i32.add
+     i32.load
+     local.tee $8
+     local.get $0
+     i32.eq
+     local.get $4
+     i32.const 1
+     i32.add
+     i32.const 2
+     i32.shl
+     local.get $7
+     i32.add
+     i32.load
+     local.tee $7
+     local.get $1
      i32.eq
      i32.and
      local.get $0
@@ -10079,65 +10052,66 @@
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  global.get $~lib/memory/__stack_pointer
-  i32.const 5252
-  i32.lt_s
-  if
-   i32.const 21664
-   i32.const 21712
-   i32.const 1
-   i32.const 1
-   call $~lib/builtins/abort
-   unreachable
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  i64.const 0
-  i64.store
-  local.get $3
-  i32.load offset=12
-  local.set $5
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 3888
-  i32.store
-  local.get $5
-  i32.const 1
-  i32.and
-  if
-   i32.const 3888
-   i32.const 1952
-   i32.const 2
-   i32.const 19
-   call $~lib/builtins/abort
-   unreachable
-  end
+  (local $8 i32)
   block $folding-inner1
+   global.get $~lib/memory/__stack_pointer
+   i32.const 8
+   i32.sub
+   global.set $~lib/memory/__stack_pointer
+   global.get $~lib/memory/__stack_pointer
+   i32.const 5252
+   i32.lt_s
+   if
+    i32.const 21664
+    i32.const 21712
+    i32.const 1
+    i32.const 1
+    call $~lib/builtins/abort
+    unreachable
+   end
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   i64.const 0
+   i64.store
+   local.get $3
+   i32.load offset=12
+   local.set $6
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 3888
+   i32.store
+   local.get $6
+   i32.const 1
+   i32.and
+   if
+    i32.const 3888
+    i32.const 1952
+    i32.const 2
+    i32.const 19
+    call $~lib/builtins/abort
+    unreachable
+   end
    loop $for-loop|0
     local.get $4
-    local.get $5
+    local.get $6
     i32.lt_s
     if
-     local.get $0
      local.get $3
      i32.load offset=4
-     local.tee $6
+     local.tee $7
      local.get $4
      i32.const 2
      i32.shl
      i32.add
      i32.load
-     local.tee $7
+     local.tee $8
+     local.get $0
      i32.eq
      local.get $1
      local.get $4
@@ -10145,17 +10119,17 @@
      i32.add
      i32.const 2
      i32.shl
-     local.get $6
+     local.get $7
      i32.add
      i32.load
-     local.tee $6
+     local.tee $7
      i32.eq
      i32.and
      local.get $0
-     local.get $6
+     local.get $7
      i32.eq
      local.get $1
-     local.get $7
+     local.get $8
      i32.eq
      i32.and
      i32.or
@@ -10169,24 +10143,24 @@
    end
    local.get $2
    i32.load offset=12
-   local.set $5
+   local.set $6
    i32.const 0
    local.set $4
    loop $for-loop|1
     local.get $4
-    local.get $5
+    local.get $6
     i32.lt_s
     if
-     local.get $0
      local.get $2
      i32.load offset=4
-     local.tee $6
+     local.tee $7
      local.get $4
      i32.const 2
      i32.shl
      i32.add
      i32.load
-     local.tee $7
+     local.tee $8
+     local.get $0
      i32.eq
      local.get $1
      local.get $4
@@ -10194,17 +10168,17 @@
      i32.add
      i32.const 2
      i32.shl
-     local.get $6
+     local.get $7
      i32.add
      i32.load
-     local.tee $6
+     local.tee $7
      i32.eq
      i32.and
      local.get $0
-     local.get $6
+     local.get $7
      i32.eq
      local.get $1
-     local.get $7
+     local.get $8
      i32.eq
      i32.and
      i32.or
@@ -10226,19 +10200,17 @@
    block $folding-inner0
     local.get $0
     i32.load offset=12
-    local.tee $5
+    local.tee $4
     local.get $1
     i32.load offset=12
     i32.ne
     br_if $folding-inner0
-    i32.const 0
-    local.set $4
     loop $for-loop|2
      local.get $4
      local.get $5
-     i32.lt_s
+     i32.gt_s
      if
-      local.get $4
+      local.get $5
       i32.const 2
       i32.shl
       local.tee $6
@@ -10274,10 +10246,10 @@
       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunk/AbstractChunk<u64>>
       i32.eqz
       br_if $folding-inner0
-      local.get $4
+      local.get $5
       i32.const 1
       i32.add
-      local.set $4
+      local.set $5
       br $for-loop|2
      end
     end
@@ -10305,6 +10277,11 @@
  (func $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 8
   i32.sub
@@ -10330,17 +10307,17 @@
      i32.load offset=16
      i32.const 3
      i32.shr_u
-     local.tee $6
+     local.tee $11
      i32.eqz
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf
      drop
      loop $while-continue|0
-      local.get $5
       local.get $6
+      local.get $11
       i32.lt_s
       if
-       local.get $5
-       local.get $5
+       local.get $6
+       local.get $6
        i32.const 3
        i32.shl
        local.get $4
@@ -10350,10 +10327,10 @@
        i64.eq
        br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf
        drop
-       local.get $5
+       local.get $6
        i32.const 1
        i32.add
-       local.set $5
+       local.set $6
        br $while-continue|0
       end
      end
@@ -10372,30 +10349,25 @@
     end
     i32.eqz
     br_if $folding-inner1
-    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0 (result i32)
-     i32.const 0
-     local.set $5
-     i32.const -1
+    i32.const -1
+    local.set $6
+    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
      local.get $4
      i32.const 20
      i32.sub
      i32.load offset=16
      i32.const 3
      i32.shr_u
-     local.tee $6
-     i32.const 0
-     local.get $6
-     select
+     local.tee $11
      i32.eqz
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
-     drop
      loop $while-continue|03
       local.get $5
-      local.get $6
+      local.get $11
       i32.lt_s
       if
        local.get $5
-       local.get $5
+       local.tee $6
        i32.const 3
        i32.shl
        local.get $4
@@ -10404,8 +10376,7 @@
        i64.const -4492484248283906048
        i64.eq
        br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
-       drop
-       local.get $5
+       local.get $6
        i32.const 1
        i32.add
        local.set $5
@@ -10413,12 +10384,14 @@
       end
      end
      i32.const -1
+     local.set $6
     end
+    local.get $6
     i32.const 0
     i32.ge_s
     if
      i32.const 1
-     local.set $5
+     local.set $10
     else
      block $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunk/AbstractChunk<u64>|null>
       local.get $0
@@ -10465,7 +10438,7 @@
        i32.add
        global.set $~lib/memory/__stack_pointer
        i32.const 1
-       local.set $5
+       local.set $10
        br $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunk/AbstractChunk<u64>|null>
       end
       local.get $5
@@ -10478,8 +10451,6 @@
        i32.const 8
        i32.add
        global.set $~lib/memory/__stack_pointer
-       i32.const 0
-       local.set $5
        br $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunk/AbstractChunk<u64>|null>
       end
       local.get $5
@@ -10521,20 +10492,19 @@
       local.get $2
       local.get $3
       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<assembly/abstractChunk/AbstractChunk<u64>>
-      local.set $5
+      local.set $10
       global.get $~lib/memory/__stack_pointer
       i32.const 8
       i32.add
       global.set $~lib/memory/__stack_pointer
      end
     end
-    local.get $5
+    local.get $10
     i32.eqz
     br_if $folding-inner1
-    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf5 (result i32)
-     i32.const 0
-     local.set $5
-     i32.const -1
+    i32.const -1
+    local.set $5
+    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf5
      local.get $4
      i32.const 20
      i32.sub
@@ -10542,19 +10512,15 @@
      i32.const 3
      i32.shr_u
      local.tee $6
-     i32.const 0
-     local.get $6
-     select
      i32.eqz
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf5
-     drop
      loop $while-continue|08
-      local.get $5
       local.get $6
-      i32.lt_s
+      local.get $7
+      i32.gt_s
       if
-       local.get $5
-       local.get $5
+       local.get $7
+       local.tee $5
        i32.const 3
        i32.shl
        local.get $4
@@ -10563,16 +10529,17 @@
        i64.const 4732882716423356416
        i64.eq
        br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf5
-       drop
        local.get $5
        i32.const 1
        i32.add
-       local.set $5
+       local.set $7
        br $while-continue|08
       end
      end
      i32.const -1
+     local.set $5
     end
+    local.get $5
     i32.const 0
     i32.ge_s
     if (result i32)
@@ -10586,10 +10553,9 @@
     end
     i32.eqz
     br_if $folding-inner1
-    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf9 (result i32)
-     i32.const 0
-     local.set $5
-     i32.const -1
+    i32.const -1
+    local.set $5
+    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf9
      local.get $4
      i32.const 20
      i32.sub
@@ -10597,19 +10563,15 @@
      i32.const 3
      i32.shr_u
      local.tee $6
-     i32.const 0
-     local.get $6
-     select
      i32.eqz
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf9
-     drop
      loop $while-continue|012
-      local.get $5
       local.get $6
-      i32.lt_s
+      local.get $8
+      i32.gt_s
       if
-       local.get $5
-       local.get $5
+       local.get $8
+       local.tee $5
        i32.const 3
        i32.shl
        local.get $4
@@ -10618,16 +10580,17 @@
        i64.const 4748628776552759296
        i64.eq
        br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf9
-       drop
        local.get $5
        i32.const 1
        i32.add
-       local.set $5
+       local.set $8
        br $while-continue|012
       end
      end
      i32.const -1
+     local.set $5
     end
+    local.get $5
     i32.const 0
     i32.ge_s
     if (result i32)
@@ -10677,30 +10640,25 @@
     end
     i32.eqz
     br_if $folding-inner1
-    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf13 (result i32)
-     i32.const 0
-     local.set $2
-     i32.const -1
+    i32.const -1
+    local.set $3
+    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf13
      local.get $4
      i32.const 20
      i32.sub
      i32.load offset=16
      i32.const 3
      i32.shr_u
-     local.tee $3
-     i32.const 0
-     local.get $3
-     select
+     local.tee $2
      i32.eqz
      br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf13
-     drop
      loop $while-continue|016
       local.get $2
-      local.get $3
-      i32.lt_s
+      local.get $9
+      i32.gt_s
       if
-       local.get $2
-       local.get $2
+       local.get $9
+       local.tee $3
        i32.const 3
        i32.shl
        local.get $4
@@ -10709,16 +10667,17 @@
        i64.const 4746555943519518720
        i64.eq
        br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf13
-       drop
-       local.get $2
+       local.get $3
        i32.const 1
        i32.add
-       local.set $2
+       local.set $9
        br $while-continue|016
       end
      end
      i32.const -1
+     local.set $3
     end
+    local.get $3
     i32.const 0
     i32.ge_s
     if (result i32)
@@ -10773,8 +10732,6 @@
    call $~onstore
    i64.const 0
    i64.store
-   local.get $0
-   local.set $4
    local.get $3
    i32.load offset=12
    local.set $5
@@ -10796,26 +10753,24 @@
     call $~lib/builtins/abort
     unreachable
    end
-   i32.const 0
-   local.set $0
    loop $for-loop|0
-    local.get $0
+    local.get $4
     local.get $5
     i32.lt_s
     if
-     local.get $4
      local.get $3
      i32.load offset=4
      local.tee $6
-     local.get $0
+     local.get $4
      i32.const 2
      i32.shl
      i32.add
      i32.load
      local.tee $7
+     local.get $0
      i32.eq
      local.get $1
-     local.get $0
+     local.get $4
      i32.const 1
      i32.add
      i32.const 2
@@ -10826,7 +10781,7 @@
      local.tee $6
      i32.eq
      i32.and
-     local.get $4
+     local.get $0
      local.get $6
      i32.eq
      local.get $1
@@ -10842,10 +10797,10 @@
       i32.const 1
       return
      end
-     local.get $0
+     local.get $4
      i32.const 2
      i32.add
-     local.set $0
+     local.set $4
      br $for-loop|0
     end
    end
@@ -10853,25 +10808,25 @@
    i32.load offset=12
    local.set $5
    i32.const 0
-   local.set $0
+   local.set $4
    loop $for-loop|1
-    local.get $0
+    local.get $4
     local.get $5
     i32.lt_s
     if
-     local.get $4
      local.get $2
      i32.load offset=4
      local.tee $6
-     local.get $0
+     local.get $4
      i32.const 2
      i32.shl
      i32.add
      i32.load
      local.tee $7
+     local.get $0
      i32.eq
      local.get $1
-     local.get $0
+     local.get $4
      i32.const 1
      i32.add
      i32.const 2
@@ -10882,7 +10837,7 @@
      local.tee $6
      i32.eq
      i32.and
-     local.get $4
+     local.get $0
      local.get $6
      i32.eq
      local.get $1
@@ -10898,24 +10853,26 @@
       i32.const 2
       return
      end
-     local.get $0
+     local.get $4
      i32.const 2
      i32.add
-     local.set $0
+     local.set $4
      br $for-loop|1
     end
    end
    local.get $2
-   local.get $4
+   local.get $0
    call $~lib/array/Array<usize>#push
    local.get $2
    local.get $1
    call $~lib/array/Array<usize>#push
    block $__inlined_func$assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#__aspectStrictEquals@virtual (result i32)
+    local.get $3
+    local.set $4
     i32.const 0
     i32.const 20
     call $~lib/rt/itcms/__new
-    local.tee $0
+    local.tee $5
     i32.const 4144
     i32.const 0
     call $~lib/memory/memory.copy
@@ -10924,9 +10881,9 @@
     i32.const 4
     i32.const 0
     call $~onstore
-    local.get $0
+    local.get $5
     i32.store offset=4
-    local.get $4
+    local.get $0
     i32.const 8
     i32.sub
     i32.load
@@ -10952,7 +10909,7 @@
       i32.const 0
       i32.const 20
       call $~lib/rt/itcms/__new
-      local.tee $5
+      local.tee $6
       i32.const 4864
       i32.const 0
       call $~lib/memory/memory.copy
@@ -10961,24 +10918,24 @@
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $5
+      local.get $6
       i32.store offset=4
-      local.get $0
       local.get $5
+      local.get $6
       call $~lib/staticarray/StaticArray.concat<i64>
-      local.set $0
+      local.set $5
       global.get $~lib/memory/__stack_pointer
       i32.const 0
       i32.const 4
       i32.const 0
       call $~onstore
-      local.get $0
+      local.get $5
       i32.store
-      local.get $4
+      local.get $0
       local.get $1
       local.get $2
-      local.get $3
-      local.get $0
+      local.get $4
+      local.get $5
       call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#__aspectStrictEquals
       i32.eqz
       if
@@ -10997,17 +10954,17 @@
      end
      br $__inlined_func$assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#__aspectStrictEquals@virtual
     end
-    local.get $4
+    local.get $0
     local.get $1
     local.get $2
-    local.get $3
-    local.get $0
+    local.get $4
+    local.get $5
     call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#__aspectStrictEquals
    end
-   local.tee $0
+   local.tee $4
    if
     local.get $3
-    local.get $4
+    local.get $0
     call $~lib/array/Array<usize>#push
     local.get $3
     local.get $1
@@ -11021,7 +10978,7 @@
    i32.const 8
    i32.add
    global.set $~lib/memory/__stack_pointer
-   local.get $0
+   local.get $4
    i32.eqz
    i32.eqz
    return
@@ -11039,12 +10996,11 @@
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
-  (local $9 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
   block $folding-inner2
+   global.get $~lib/memory/__stack_pointer
+   i32.const 8
+   i32.sub
+   global.set $~lib/memory/__stack_pointer
    block $folding-inner1
     block $folding-inner0
      global.get $~lib/memory/__stack_pointer
@@ -11058,11 +11014,9 @@
      call $~onstore
      i64.const 0
      i64.store
-     local.get $0
-     local.set $4
      local.get $3
      i32.load offset=12
-     local.set $7
+     local.set $6
      global.get $~lib/memory/__stack_pointer
      i32.const 0
      i32.const 4
@@ -11070,7 +11024,7 @@
      call $~onstore
      i32.const 3888
      i32.store
-     local.get $7
+     local.get $6
      i32.const 1
      i32.and
      if
@@ -11081,73 +11035,24 @@
       call $~lib/builtins/abort
       unreachable
      end
-     i32.const 0
-     local.set $0
      loop $for-loop|0
-      local.get $0
-      local.get $7
+      local.get $4
+      local.get $6
       i32.lt_s
       if
-       local.get $4
        local.get $3
        i32.load offset=4
-       local.tee $8
-       local.get $0
-       i32.const 2
-       i32.shl
-       i32.add
-       i32.load
-       local.tee $9
-       i32.eq
-       local.get $1
-       local.get $0
-       i32.const 1
-       i32.add
-       i32.const 2
-       i32.shl
-       local.get $8
-       i32.add
-       i32.load
-       local.tee $8
-       i32.eq
-       i32.and
-       local.get $4
-       local.get $8
-       i32.eq
-       local.get $1
-       local.get $9
-       i32.eq
-       i32.and
-       i32.or
-       br_if $folding-inner2
-       local.get $0
-       i32.const 2
-       i32.add
-       local.set $0
-       br $for-loop|0
-      end
-     end
-     local.get $2
-     i32.load offset=12
-     local.set $0
-     loop $for-loop|1
-      local.get $0
-      local.get $5
-      i32.gt_s
-      if
-       local.get $4
-       local.get $2
-       i32.load offset=4
        local.tee $7
-       local.get $5
+       local.get $4
        i32.const 2
        i32.shl
        i32.add
        i32.load
        local.tee $8
+       local.get $0
        i32.eq
        local.get $1
-       local.get $5
+       local.get $4
        i32.const 1
        i32.add
        i32.const 2
@@ -11158,7 +11063,56 @@
        local.tee $7
        i32.eq
        i32.and
+       local.get $0
+       local.get $7
+       i32.eq
+       local.get $1
+       local.get $8
+       i32.eq
+       i32.and
+       i32.or
+       br_if $folding-inner2
        local.get $4
+       i32.const 2
+       i32.add
+       local.set $4
+       br $for-loop|0
+      end
+     end
+     local.get $2
+     i32.load offset=12
+     local.set $6
+     i32.const 0
+     local.set $4
+     loop $for-loop|1
+      local.get $4
+      local.get $6
+      i32.lt_s
+      if
+       local.get $2
+       i32.load offset=4
+       local.tee $7
+       local.get $4
+       i32.const 2
+       i32.shl
+       i32.add
+       i32.load
+       local.tee $8
+       local.get $0
+       i32.eq
+       local.get $1
+       local.get $4
+       i32.const 1
+       i32.add
+       i32.const 2
+       i32.shl
+       local.get $7
+       i32.add
+       i32.load
+       local.tee $7
+       i32.eq
+       i32.and
+       local.get $0
        local.get $7
        i32.eq
        local.get $1
@@ -11174,20 +11128,20 @@
         i32.const 2
         return
        end
-       local.get $5
+       local.get $4
        i32.const 2
        i32.add
-       local.set $5
+       local.set $4
        br $for-loop|1
       end
      end
-     local.get $4
+     local.get $0
      i32.const 20
      i32.sub
      i32.load offset=16
      i32.const 2
      i32.shr_u
-     local.tee $5
+     local.tee $6
      local.get $1
      i32.const 20
      i32.sub
@@ -11199,13 +11153,13 @@
      loop $for-loop|2
       local.get $5
       local.get $6
-      i32.gt_s
+      i32.lt_s
       if
-       local.get $4
-       local.get $6
+       local.get $0
+       local.get $5
        i32.const 2
        i32.shl
-       local.tee $0
+       local.tee $4
        i32.add
        i32.load
        local.set $7
@@ -11216,17 +11170,17 @@
        call $~onstore
        local.get $7
        i32.store offset=4
-       local.get $0
        local.get $1
+       local.get $4
        i32.add
        i32.load
-       local.set $0
+       local.set $4
        global.get $~lib/memory/__stack_pointer
        i32.const 0
        i32.const 4
        i32.const 0
        call $~onstore
-       local.get $0
+       local.get $4
        i32.store
        global.get $~lib/memory/__stack_pointer
        i32.const 8
@@ -11244,7 +11198,7 @@
        i64.const 0
        i64.store
        block $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>|null>
-        local.get $0
+        local.get $4
         local.get $7
         i32.eq
         if
@@ -11253,12 +11207,12 @@
          i32.add
          global.set $~lib/memory/__stack_pointer
          i32.const 1
-         local.set $0
+         local.set $4
          br $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>|null>
         end
         local.get $7
         i32.eqz
-        local.get $0
+        local.get $4
         i32.eqz
         i32.xor
         if
@@ -11267,7 +11221,7 @@
          i32.add
          global.set $~lib/memory/__stack_pointer
          i32.const 0
-         local.set $0
+         local.set $4
          br $__inlined_func$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>|null>
         end
         local.get $7
@@ -11287,7 +11241,7 @@
         call $~onstore
         local.get $7
         i32.store
-        local.get $0
+        local.get $4
         i32.eqz
         if
          i32.const 3696
@@ -11302,31 +11256,31 @@
         i32.const 4
         i32.const 0
         call $~onstore
-        local.get $0
+        local.get $4
         i32.store offset=4
         local.get $7
-        local.get $0
+        local.get $4
         local.get $2
         local.get $3
         call $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>>
-        local.set $0
+        local.set $4
         global.get $~lib/memory/__stack_pointer
         i32.const 8
         i32.add
         global.set $~lib/memory/__stack_pointer
        end
-       local.get $0
+       local.get $4
        i32.eqz
        br_if $folding-inner1
-       local.get $6
+       local.get $5
        i32.const 1
        i32.add
-       local.set $6
+       local.set $5
        br $for-loop|2
       end
      end
      local.get $3
-     local.get $4
+     local.get $0
      call $~lib/array/Array<usize>#push
      local.get $3
      local.get $1
@@ -11357,6 +11311,8 @@
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 8
   i32.sub
@@ -11431,8 +11387,6 @@
    i32.eqz
    br_if $folding-inner0
    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0 (result i32)
-    i32.const 0
-    local.set $6
     i32.const -1
     local.get $4
     i32.const 20
@@ -11440,20 +11394,17 @@
     i32.load offset=16
     i32.const 3
     i32.shr_u
-    local.tee $7
-    i32.const 0
-    local.get $7
-    select
+    local.tee $6
     i32.eqz
     br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
     drop
     loop $while-continue|03
      local.get $6
-     local.get $7
-     i32.lt_s
+     local.get $9
+     i32.gt_s
      if
-      local.get $6
-      local.get $6
+      local.get $9
+      local.get $9
       i32.const 3
       i32.shl
       local.get $4
@@ -11463,10 +11414,10 @@
       i64.eq
       br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf0
       drop
-      local.get $6
+      local.get $9
       i32.const 1
       i32.add
-      local.set $6
+      local.set $9
       br $while-continue|03
      end
     end
@@ -11486,8 +11437,6 @@
    i32.eqz
    br_if $folding-inner0
    block $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4 (result i32)
-    i32.const 0
-    local.set $6
     i32.const -1
     local.get $4
     i32.const 20
@@ -11495,20 +11444,17 @@
     i32.load offset=16
     i32.const 3
     i32.shr_u
-    local.tee $7
-    i32.const 0
-    local.get $7
-    select
+    local.tee $6
     i32.eqz
     br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4
     drop
     loop $while-continue|07
      local.get $6
-     local.get $7
-     i32.lt_s
+     local.get $8
+     i32.gt_s
      if
-      local.get $6
-      local.get $6
+      local.get $8
+      local.get $8
       i32.const 3
       i32.shl
       local.get $4
@@ -11518,10 +11464,10 @@
       i64.eq
       br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf4
       drop
-      local.get $6
+      local.get $8
       i32.const 1
       i32.add
-      local.set $6
+      local.set $8
       br $while-continue|07
      end
     end
@@ -11586,9 +11532,6 @@
     i32.const 3
     i32.shr_u
     local.tee $7
-    i32.const 0
-    local.get $7
-    select
     i32.eqz
     br_if $__inlined_func$~lib/staticarray/StaticArray<i64>#indexOf8
     loop $while-continue|011
@@ -11732,7 +11675,6 @@
    local.get $5
    i32.lt_s
    if
-    local.get $0
     local.get $3
     i32.load offset=4
     local.tee $6
@@ -11742,6 +11684,7 @@
     i32.add
     i32.load
     local.tee $7
+    local.get $0
     i32.eq
     local.get $1
     local.get $4
@@ -11788,7 +11731,6 @@
    local.get $5
    i32.lt_s
    if
-    local.get $0
     local.get $2
     i32.load offset=4
     local.tee $6
@@ -11798,6 +11740,7 @@
     i32.add
     i32.load
     local.tee $7
+    local.get $0
     i32.eq
     local.get $1
     local.get $4
@@ -11915,23 +11858,22 @@
    local.get $1
    local.get $5
    i32.eq
-   local.set $2
    local.get $0
    i32.load
-   local.set $0
+   local.set $6
    i32.const 1
    global.set $~argumentsLength
    local.get $5
    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<assembly/abstractChunk/AbstractChunk<u64>>@varargs
-   local.tee $6
+   local.tee $0
    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
-   local.get $6
+   local.get $0
    call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
    local.get $1
    i32.const 0
    i32.const 0
    local.get $5
-   local.get $0
+   local.get $6
    select
    select
    if (result i32)
@@ -11971,7 +11913,7 @@
       i32.const 26
       i32.const 4224
       call $~lib/rt/__newArray
-      local.tee $3
+      local.tee $4
       i32.store
      end
      global.get $~lib/memory/__stack_pointer
@@ -11982,13 +11924,13 @@
      i32.const 26
      i32.const 4256
      call $~lib/rt/__newArray
-     local.tee $4
+     local.tee $2
      i32.store offset=4
     end
     local.get $5
     local.get $1
-    local.get $3
     local.get $4
+    local.get $2
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunk/AbstractChunk<u64>>
     global.get $~lib/memory/__stack_pointer
     i32.const 8
@@ -12048,14 +11990,14 @@
     i32.const 4288
     local.get $1
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
-    local.set $1
+    local.set $0
     global.get $~lib/memory/__stack_pointer
     i32.const 4
     i32.add
     global.set $~lib/memory/__stack_pointer
-    local.get $1
+    local.get $0
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
-    local.get $1
+    local.get $0
     i32.const 0
     call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
    else
@@ -12063,14 +12005,13 @@
     global.set $~argumentsLength
     local.get $1
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<assembly/abstractChunk/AbstractChunk<u64>>@varargs
-    local.tee $1
+    local.tee $0
     call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
-    local.get $1
     local.get $0
+    local.get $6
     call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
    end
-   local.get $0
-   local.get $2
+   local.get $6
    i32.xor
    i32.eqz
    if
@@ -12140,6 +12081,7 @@
   end
   local.get $0
   i32.const 0
+  local.get $1
   call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace
   local.get $0
   i32.load offset=16
@@ -12341,9 +12283,11 @@
   local.get $1
   i32.const 0
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe
+  i32.const 0
+  global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace
+  call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace@varargs
   local.get $0
   i64.load offset=24
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u64>
@@ -12540,9 +12484,11 @@
     br $while-continue|0
    end
   end
+  i32.const 0
+  global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace
+  call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#makeSpace@varargs
   local.get $0
   i64.load offset=24
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u64>
@@ -12962,18 +12908,29 @@
      local.tee $4
      i64.ge_u
      if
+      local.get $0
+      i32.load offset=8
       i32.const 1
       local.get $2
       i32.const 7
       i32.and
       i32.shl
+      local.tee $5
       local.get $3
       i32.add
-      local.set $3
-      local.get $1
-      local.get $4
-      i64.sub
-      local.set $1
+      i32.const 255
+      i32.and
+      i32.gt_s
+      if
+       local.get $3
+       local.get $5
+       i32.add
+       local.set $3
+       local.get $1
+       local.get $4
+       i64.sub
+       local.set $1
+      end
      end
      local.get $2
      i32.const 1
@@ -13056,250 +13013,324 @@
  (func $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#traverse (param $0 i32) (param $1 i64) (result i32)
   (local $2 i32)
   (local $3 i32)
-  (local $4 i32)
-  (local $5 i64)
+  (local $4 i64)
+  (local $5 i32)
   (local $6 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 20
   i32.sub
   global.set $~lib/memory/__stack_pointer
-  block $folding-inner1
-   block $folding-inner0
-    global.get $~lib/memory/__stack_pointer
-    i32.const 5252
-    i32.lt_s
-    br_if $folding-inner0
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 8
-    i32.const 0
-    call $~onstore
-    i64.const 0
-    i64.store
-    global.get $~lib/memory/__stack_pointer
-    i32.const 8
-    i32.const 8
-    i32.const 0
-    call $~onstore
-    i64.const 0
-    i64.store offset=8
-    global.get $~lib/memory/__stack_pointer
-    i32.const 16
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    i32.const 0
-    i32.store offset=16
-    local.get $0
-    i64.load offset=24
-    i64.eqz
-    if
-     global.get $~lib/memory/__stack_pointer
-     i32.const 20
-     i32.add
-     global.set $~lib/memory/__stack_pointer
-     i32.const 0
-     return
-    end
+  block $folding-inner0
+   global.get $~lib/memory/__stack_pointer
+   i32.const 5252
+   i32.lt_s
+   br_if $folding-inner0
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   i64.const 0
+   i64.store
+   global.get $~lib/memory/__stack_pointer
+   i32.const 8
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   i64.const 0
+   i64.store offset=8
+   global.get $~lib/memory/__stack_pointer
+   i32.const 16
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 0
+   i32.store offset=16
+   local.get $0
+   i64.load offset=24
+   i64.eqz
+   if (result i32)
+    i32.const 1
+   else
     local.get $0
     i64.load
     local.get $1
     i64.gt_u
+   end
+   if
+    global.get $~lib/memory/__stack_pointer
+    i32.const 20
+    i32.add
+    global.set $~lib/memory/__stack_pointer
+    i32.const 0
+    return
+   end
+   local.get $1
+   local.get $0
+   i64.load
+   i64.sub
+   local.set $1
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   local.get $0
+   i32.load offset=8
+   local.tee $2
+   i32.store
+   local.get $2
+   i32.eqz
+   if
+    i32.const 3696
+    i32.const 3600
+    i32.const 78
+    i32.const 15
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $2
+   i32.store
+   local.get $0
+   i32.load8_u offset=12
+   i32.const 1
+   i32.sub
+   local.set $0
+   loop $for-loop|0
+    local.get $0
+    i32.const 255
+    i32.and
     if
-     i64.const 0
-     local.get $0
-     i64.load
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $2
      local.get $1
-     i64.sub
-     call $assembly/traversalResult/TraversalResult<u64,u64>#constructor
-     local.set $0
-     br $folding-inner1
-    end
-    local.get $1
-    local.get $0
-    i64.load
-    i64.sub
-    local.set $1
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    global.get $~lib/memory/__stack_pointer
-    i32.const 0
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $0
-    i32.load offset=8
-    local.tee $2
-    i32.store
-    local.get $2
-    i32.eqz
-    if
-     i32.const 3696
-     i32.const 3600
-     i32.const 69
-     i32.const 15
-     call $~lib/builtins/abort
-     unreachable
-    end
-    local.get $2
-    i32.store
-    local.get $0
-    i32.load8_u offset=12
-    i32.const 1
-    i32.sub
-    local.set $3
-    loop $for-loop|0
+     call $assembly/abstractChunk/AbstractChunk<u64>#traverse
+     local.tee $5
+     i32.store offset=4
+     global.get $~lib/memory/__stack_pointer
+     i32.const 12
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     block $__inlined_func$~lib/rt/__instanceof (result i32)
+      local.get $2
+      i32.const 20
+      i32.sub
+      i32.load offset=12
+      local.tee $3
+      i32.const 5008
+      i32.load
+      i32.le_u
+      if
+       loop $do-loop|0
+        i32.const 1
+        local.get $3
+        i32.const 22
+        i32.eq
+        br_if $__inlined_func$~lib/rt/__instanceof
+        drop
+        local.get $3
+        i32.const 3
+        i32.shl
+        i32.const 5012
+        i32.add
+        i32.load offset=4
+        local.tee $3
+        br_if $do-loop|0
+       end
+      end
+      i32.const 0
+     end
+     i32.eqz
+     if
+      i32.const 3536
+      i32.const 3600
+      i32.const 85
+      i32.const 22
+      call $~lib/builtins/abort
+      unreachable
+     end
+     global.get $~lib/memory/__stack_pointer
+     i32.const 8
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $2
+     i32.store offset=8
+     local.get $5
+     i32.load8_u
+     local.set $3
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.sub
+     global.set $~lib/memory/__stack_pointer
+     global.get $~lib/memory/__stack_pointer
+     i32.const 5252
+     i32.lt_s
+     br_if $folding-inner0
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     i32.const 0
+     i32.store
+     local.get $2
+     i32.load offset=20
+     local.set $2
+     global.get $~lib/memory/__stack_pointer
+     i32.const 0
+     i32.const 4
+     i32.const 0
+     call $~onstore
+     local.get $2
+     i32.store
+     local.get $2
      local.get $3
+     call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
+     local.set $2
+     global.get $~lib/memory/__stack_pointer
+     i32.const 4
+     i32.add
+     global.set $~lib/memory/__stack_pointer
+     local.get $2
+     i32.store offset=12
+     local.get $5
+     i64.load offset=8
+     local.set $1
+     local.get $5
+     i32.load8_u
+     i64.extend_i32_u
+     local.get $0
+     i32.const 3
+     i32.shl
      i32.const 255
      i32.and
-     if
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $2
-      local.get $1
-      call $assembly/abstractChunk/AbstractChunk<u64>#traverse
-      local.tee $4
-      i32.store offset=4
-      global.get $~lib/memory/__stack_pointer
-      i32.const 12
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      block $__inlined_func$~lib/rt/__instanceof (result i32)
-       local.get $2
-       local.tee $0
-       i32.const 20
-       i32.sub
-       i32.load offset=12
-       local.tee $2
-       i32.const 5008
-       i32.load
-       i32.le_u
-       if
-        loop $do-loop|0
-         i32.const 1
-         local.get $2
-         i32.const 22
-         i32.eq
-         br_if $__inlined_func$~lib/rt/__instanceof
-         drop
-         local.get $2
-         i32.const 3
-         i32.shl
-         i32.const 5012
-         i32.add
-         i32.load offset=4
-         local.tee $2
-         br_if $do-loop|0
-        end
-       end
-       i32.const 0
-      end
-      i32.eqz
-      if
-       i32.const 3536
-       i32.const 3600
-       i32.const 75
-       i32.const 22
-       call $~lib/builtins/abort
-       unreachable
-      end
-      global.get $~lib/memory/__stack_pointer
-      i32.const 8
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $0
-      i32.store offset=8
-      local.get $4
-      i32.load8_u
-      local.set $2
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.sub
-      global.set $~lib/memory/__stack_pointer
-      global.get $~lib/memory/__stack_pointer
-      i32.const 5252
-      i32.lt_s
-      br_if $folding-inner0
-      global.get $~lib/memory/__stack_pointer
-      i32.const 0
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      i32.const 0
-      i32.store
-      local.get $0
-      i32.load offset=20
-      local.set $0
-      global.get $~lib/memory/__stack_pointer
-      i32.const 0
-      i32.const 4
-      i32.const 0
-      call $~onstore
-      local.get $0
-      i32.store
-      local.get $0
-      local.get $2
-      call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__get
-      local.set $2
-      global.get $~lib/memory/__stack_pointer
-      i32.const 4
-      i32.add
-      global.set $~lib/memory/__stack_pointer
-      local.get $2
-      i32.store offset=12
-      local.get $4
-      i64.load offset=8
-      local.set $1
-      local.get $4
-      i32.load8_u
-      local.get $3
-      i32.const 3
-      i32.shl
-      i32.const 7
-      i32.and
-      i32.shl
-      i32.const 255
-      i32.and
-      i64.extend_i32_u
-      local.get $5
-      i64.or
-      local.set $5
-      local.get $3
-      i32.const 1
-      i32.sub
-      local.set $3
-      br $for-loop|0
-     end
+     i64.extend_i32_u
+     i64.shl
+     local.get $4
+     i64.or
+     local.set $4
+     local.get $0
+     i32.const 1
+     i32.sub
+     local.set $0
+     br $for-loop|0
     end
-    global.get $~lib/memory/__stack_pointer
-    i32.const 16
-    i32.const 4
-    i32.const 0
-    call $~onstore
-    local.get $2
-    local.get $1
-    call $assembly/abstractChunk/AbstractChunk<u64>#traverse
-    local.tee $0
-    i32.store offset=16
-    local.get $0
-    i32.load8_u
-    i64.extend_i32_u
-    local.get $5
-    i64.or
-    local.get $0
-    i64.load offset=8
-    call $assembly/traversalResult/TraversalResult<u64,u64>#constructor
-    local.set $0
-    br $folding-inner1
    end
+   global.get $~lib/memory/__stack_pointer
+   i32.const 16
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   local.get $2
+   local.get $1
+   call $assembly/abstractChunk/AbstractChunk<u64>#traverse
+   local.tee $0
+   i32.store offset=16
+   local.get $0
+   i32.load8_u
+   i64.extend_i32_u
+   local.get $4
+   i64.or
+   local.set $1
+   local.get $0
+   i64.load offset=8
+   local.set $4
+   global.get $~lib/memory/__stack_pointer
+   i32.const 4
+   i32.sub
+   global.set $~lib/memory/__stack_pointer
+   global.get $~lib/memory/__stack_pointer
+   i32.const 5252
+   i32.lt_s
+   br_if $folding-inner0
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 0
+   i32.store
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 16
+   i32.const 27
+   call $~lib/rt/itcms/__new
+   local.tee $0
+   i32.store
+   local.get $0
+   i32.const 0
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   i64.const 0
+   i64.store
+   local.get $0
+   i32.const 8
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   i64.const 0
+   i64.store offset=8
+   local.get $0
+   i32.const 0
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   local.get $1
+   i64.store
+   local.get $0
+   i32.const 8
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   local.get $4
+   i64.store offset=8
+   global.get $~lib/memory/__stack_pointer
+   i32.const 4
+   i32.add
+   global.set $~lib/memory/__stack_pointer
+   global.get $~lib/memory/__stack_pointer
+   i32.const 20
+   i32.add
+   global.set $~lib/memory/__stack_pointer
+   local.get $0
+   return
+  end
+  i32.const 21664
+  i32.const 21712
+  i32.const 1
+  i32.const 1
+  call $~lib/builtins/abort
+  unreachable
+ )
+ (func $start:assembly/__tests__/abstractChunkedFlexList.spec~anonymous|0~anonymous|1
+  (local $0 i32)
+  (local $1 i64)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i64)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 16
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  global.get $~lib/memory/__stack_pointer
+  i32.const 5252
+  i32.lt_s
+  if
    i32.const 21664
    i32.const 21712
    i32.const 1
@@ -13308,10 +13339,137 @@
    unreachable
   end
   global.get $~lib/memory/__stack_pointer
-  i32.const 20
+  i32.const 0
+  i32.const 8
+  i32.const 0
+  call $~onstore
+  i64.const 0
+  i64.store
+  global.get $~lib/memory/__stack_pointer
+  i32.const 8
+  i32.const 8
+  i32.const 0
+  call $~onstore
+  i64.const 0
+  i64.store offset=8
+  global.get $~lib/memory/__stack_pointer
+  i32.const 0
+  i32.const 4
+  i32.const 0
+  call $~onstore
+  i32.const 0
+  global.set $~argumentsLength
+  call $assembly/hollowChunkedFlexList/HollowChunkedFlexList<u64>#constructor@varargs
+  local.tee $2
+  i32.store
+  local.get $2
+  i64.const 0
+  call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#appendNode
+  loop $while-continue|0
+   local.get $2
+   i64.load offset=24
+   i64.const 1000
+   i64.lt_u
+   if
+    local.get $2
+    i64.const 2
+    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#appendNode
+    br $while-continue|0
+   end
+  end
+  loop $for-loop|1
+   local.get $1
+   i64.const 2000
+   i64.lt_u
+   if
+    global.get $~lib/memory/__stack_pointer
+    i32.const 4
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    global.get $~lib/memory/__stack_pointer
+    i32.const 4
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    local.get $2
+    local.get $1
+    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#traverse
+    local.tee $0
+    i32.store offset=4
+    local.get $0
+    i32.eqz
+    if
+     i32.const 3696
+     i32.const 3760
+     i32.const 47
+     i32.const 28
+     call $~lib/builtins/abort
+     unreachable
+    end
+    local.get $0
+    i32.store offset=4
+    local.get $0
+    i64.load
+    call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u64>
+    local.set $3
+    global.get $~lib/memory/__stack_pointer
+    i32.const 8
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    local.get $3
+    i32.store offset=8
+    local.get $1
+    i64.const 1
+    i64.shr_u
+    local.set $4
+    global.get $~lib/memory/__stack_pointer
+    i32.const 12
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    i32.const 2096
+    i32.store offset=12
+    local.get $3
+    local.get $4
+    call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u64>#toBe
+    local.get $0
+    i64.load offset=8
+    call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<u64>
+    local.set $0
+    global.get $~lib/memory/__stack_pointer
+    i32.const 8
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    local.get $0
+    i32.store offset=8
+    local.get $1
+    i64.const 1
+    i64.and
+    local.set $4
+    global.get $~lib/memory/__stack_pointer
+    i32.const 12
+    i32.const 4
+    i32.const 0
+    call $~onstore
+    i32.const 2096
+    i32.store offset=12
+    local.get $0
+    local.get $4
+    call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<u64>#toBe
+    local.get $1
+    i64.const 1
+    i64.add
+    local.set $1
+    br $for-loop|1
+   end
+  end
+  global.get $~lib/memory/__stack_pointer
+  i32.const 16
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $0
  )
  (func $start:assembly/__tests__/abstractChunkedFlexList.spec~anonymous|0
   global.get $~lib/memory/__stack_pointer
@@ -13448,65 +13606,66 @@
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  global.get $~lib/memory/__stack_pointer
-  i32.const 5252
-  i32.lt_s
-  if
-   i32.const 21664
-   i32.const 21712
-   i32.const 1
-   i32.const 1
-   call $~lib/builtins/abort
-   unreachable
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  i64.const 0
-  i64.store
-  local.get $3
-  i32.load offset=12
-  local.set $5
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 3888
-  i32.store
-  local.get $5
-  i32.const 1
-  i32.and
-  if
-   i32.const 3888
-   i32.const 1952
-   i32.const 2
-   i32.const 19
-   call $~lib/builtins/abort
-   unreachable
-  end
+  (local $8 i32)
   block $folding-inner1
+   global.get $~lib/memory/__stack_pointer
+   i32.const 8
+   i32.sub
+   global.set $~lib/memory/__stack_pointer
+   global.get $~lib/memory/__stack_pointer
+   i32.const 5252
+   i32.lt_s
+   if
+    i32.const 21664
+    i32.const 21712
+    i32.const 1
+    i32.const 1
+    call $~lib/builtins/abort
+    unreachable
+   end
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 8
+   i32.const 0
+   call $~onstore
+   i64.const 0
+   i64.store
+   local.get $3
+   i32.load offset=12
+   local.set $6
+   global.get $~lib/memory/__stack_pointer
+   i32.const 0
+   i32.const 4
+   i32.const 0
+   call $~onstore
+   i32.const 3888
+   i32.store
+   local.get $6
+   i32.const 1
+   i32.and
+   if
+    i32.const 3888
+    i32.const 1952
+    i32.const 2
+    i32.const 19
+    call $~lib/builtins/abort
+    unreachable
+   end
    loop $for-loop|0
     local.get $4
-    local.get $5
+    local.get $6
     i32.lt_s
     if
-     local.get $0
      local.get $3
      i32.load offset=4
-     local.tee $6
+     local.tee $7
      local.get $4
      i32.const 2
      i32.shl
      i32.add
      i32.load
-     local.tee $7
+     local.tee $8
+     local.get $0
      i32.eq
      local.get $1
      local.get $4
@@ -13514,17 +13673,17 @@
      i32.add
      i32.const 2
      i32.shl
-     local.get $6
+     local.get $7
      i32.add
      i32.load
-     local.tee $6
+     local.tee $7
      i32.eq
      i32.and
      local.get $0
-     local.get $6
+     local.get $7
      i32.eq
      local.get $1
-     local.get $7
+     local.get $8
      i32.eq
      i32.and
      i32.or
@@ -13538,24 +13697,24 @@
    end
    local.get $2
    i32.load offset=12
-   local.set $5
+   local.set $6
    i32.const 0
    local.set $4
    loop $for-loop|1
     local.get $4
-    local.get $5
+    local.get $6
     i32.lt_s
     if
-     local.get $0
      local.get $2
      i32.load offset=4
-     local.tee $6
+     local.tee $7
      local.get $4
      i32.const 2
      i32.shl
      i32.add
      i32.load
-     local.tee $7
+     local.tee $8
+     local.get $0
      i32.eq
      local.get $1
      local.get $4
@@ -13563,17 +13722,17 @@
      i32.add
      i32.const 2
      i32.shl
-     local.get $6
+     local.get $7
      i32.add
      i32.load
-     local.tee $6
+     local.tee $7
      i32.eq
      i32.and
      local.get $0
-     local.get $6
+     local.get $7
      i32.eq
      local.get $1
-     local.get $7
+     local.get $8
      i32.eq
      i32.and
      i32.or
@@ -13599,7 +13758,7 @@
     i32.load offset=16
     i32.const 2
     i32.shr_u
-    local.tee $5
+    local.tee $4
     local.get $1
     i32.const 20
     i32.sub
@@ -13608,15 +13767,13 @@
     i32.shr_u
     i32.ne
     br_if $folding-inner0
-    i32.const 0
-    local.set $4
     loop $for-loop|2
      local.get $4
      local.get $5
-     i32.lt_s
+     i32.gt_s
      if
       local.get $0
-      local.get $4
+      local.get $5
       i32.const 2
       i32.shl
       local.tee $6
@@ -13649,10 +13806,10 @@
       call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<assembly/abstractChunk/AbstractChunk<u64>>
       i32.eqz
       br_if $folding-inner0
-      local.get $4
+      local.get $5
       i32.const 1
       i32.add
-      local.set $4
+      local.set $5
       br $for-loop|2
      end
     end
@@ -14720,74 +14877,6 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $assembly/traversalResult/TraversalResult<u64,u64>#constructor (param $0 i64) (param $1 i64) (result i32)
-  (local $2 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  global.get $~lib/memory/__stack_pointer
-  i32.const 5252
-  i32.lt_s
-  if
-   i32.const 21664
-   i32.const 21712
-   i32.const 1
-   i32.const 1
-   call $~lib/builtins/abort
-   unreachable
-  end
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 0
-  i32.store
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.const 4
-  i32.const 0
-  call $~onstore
-  i32.const 16
-  i32.const 27
-  call $~lib/rt/itcms/__new
-  local.tee $2
-  i32.store
-  local.get $2
-  i32.const 0
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  i64.const 0
-  i64.store
-  local.get $2
-  i32.const 8
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  i64.const 0
-  i64.store offset=8
-  local.get $2
-  i32.const 0
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  local.get $0
-  i64.store
-  local.get $2
-  i32.const 8
-  i32.const 8
-  i32.const 0
-  call $~onstore
-  local.get $1
-  i64.store offset=8
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.add
-  global.set $~lib/memory/__stack_pointer
-  local.get $2
- )
  (func $~lib/staticarray/StaticArray.concat<i64> (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
@@ -14820,7 +14909,7 @@
   i32.load offset=16
   i32.const 3
   i32.shr_u
-  local.tee $3
+  local.tee $2
   local.get $1
   i32.const 20
   i32.sub
@@ -14830,7 +14919,7 @@
   i32.const 0
   local.get $1
   select
-  local.tee $2
+  local.tee $3
   i32.add
   local.tee $4
   i32.const 134217727
@@ -14857,7 +14946,7 @@
   i32.store
   local.get $4
   local.get $0
-  local.get $3
+  local.get $2
   i32.const 3
   i32.shl
   local.tee $0
@@ -14866,7 +14955,7 @@
   local.get $4
   i32.add
   local.get $1
-  local.get $2
+  local.get $3
   i32.const 3
   i32.shl
   call $~lib/memory/memory.copy
