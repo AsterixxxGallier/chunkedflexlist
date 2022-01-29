@@ -6,6 +6,6 @@ import {HollowChunk} from "./hollowChunk"
  */
 export class HollowChunkedFlexList<D extends number> extends AbstractChunkedFlexList<D> {
 	createEmptyChunk(): HollowChunk<D> {
-		return new HollowChunk<D>();
+		return new HollowChunk<D>()
 	}
 }

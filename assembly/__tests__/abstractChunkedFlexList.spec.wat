@@ -9535,8 +9535,8 @@
       if
        i32.const 3536
        i32.const 3600
-       i32.const 68
-       i32.const 35
+       i32.const 63
+       i32.const 6
        call $~lib/builtins/abort
        unreachable
       end
@@ -13089,7 +13089,7 @@
    if
     i32.const 3696
     i32.const 3600
-    i32.const 78
+    i32.const 72
     i32.const 15
     call $~lib/builtins/abort
     unreachable
@@ -13154,7 +13154,7 @@
      if
       i32.const 3536
       i32.const 3600
-      i32.const 85
+      i32.const 76
       i32.const 22
       call $~lib/builtins/abort
       unreachable

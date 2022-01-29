@@ -1,5 +1,5 @@
 import {HollowChunkedFlexList} from "../hollowChunkedFlexList"
-import {AbstractChunk} from "../abstractChunk";
+import {AbstractChunk} from "../abstractChunk"
 
 describe("AbstractChunkedFlexList", () => {
 	beforeAll(AbstractChunk.init)
@@ -31,7 +31,7 @@ describe("AbstractChunkedFlexList", () => {
 		expect(list.lastChunks[1].size).toBe(2)
 
 		const list2 = new HollowChunkedFlexList<u64>()
-		const max = 1 << ((AbstractChunk.indexBits as u64) * 2) as u64;
+		const max = 1 << ((AbstractChunk.indexBits as u64) * 2) as u64
 		while (list2.size < max) {
 			list2.appendNode(1)
 		}

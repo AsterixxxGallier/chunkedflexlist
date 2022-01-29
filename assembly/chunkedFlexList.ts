@@ -18,6 +18,6 @@ import {Chunk} from "./chunk"
  */
 export class ChunkedFlexList<E, D extends number> extends DatafulChunkedFlexList<E, D> {
 	createEmptyChunk(): Chunk<E, D> {
-		return new Chunk<E, D>();
+		return new Chunk<E, D>()
 	}
 }

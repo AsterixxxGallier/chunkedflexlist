@@ -1,1 +1,1 @@
-import "wasi";
+import "wasi"

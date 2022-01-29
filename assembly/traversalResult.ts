@@ -1,4 +1,4 @@
-import {AbstractChunk} from "./abstractChunk";
+import {AbstractChunk} from "./abstractChunk"
 
 export class TraversalResult<D extends number, I extends number> {
 	index: I
