@@ -21,7 +21,7 @@ export class Chunk<E, D extends number> extends DatafulChunk<E, D> {
 	toDebugString(): string {
 		let result = "\n"
 		const maxNumberOfLinksFromNode = AbstractChunk.indexBits
-		const linkLengthPadWidth = 2
+		const linkLengthPadWidth = 3
 		for (let nodeIndex = 0; nodeIndex < AbstractChunk.maxSize; nodeIndex++) {
 			let line = ""
 			const linkLengths = this.linkLengths[nodeIndex]
