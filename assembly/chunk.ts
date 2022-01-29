@@ -46,6 +46,10 @@ export class Chunk<E, D extends number> extends DatafulChunk<E, D> {
 				if (isDefined(element.toString)) {
 					// @ts-ignore
 					line += element.toString()
+				// @ts-ignore
+				} else if (isDefined(element.toDebugString)) {
+					// @ts-ignore
+					line += element.toDebugString().replaceAll('\n', '\n| ')
 				} else {
 					line += "[no string representation available]"
 				}
