@@ -124,6 +124,10 @@ export abstract class AbstractChunk<D extends number> {
 		return new TraversalResult(index, toGo)
 	}
 
+	getSublistBefore(nodeIndex: u8): AbstractChunkedFlexList<D> | null {
+		return this.sublists[nodeIndex]
+	}
+
 	// region link length accessors
 	@inline
 	getLinkLengthUncheckedByLinkIndex(localIndex: LinkIndex): D {
