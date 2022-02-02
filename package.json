@@ -9,7 +9,8 @@
   "private": false,
   "dependencies": {
     "@assemblyscript/loader": "^0.19.20",
-    "as-bind": "^0.8.2"
+    "as-bind": "^0.8.2",
+    "as-console": "^6.0.2"
   },
   "devDependencies": {
     "@as-pect/cli": "^6.2.4",

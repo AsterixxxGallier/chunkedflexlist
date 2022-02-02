@@ -1,7 +1,7 @@
 import {AbstractChunk} from "./abstractChunk"
-import "wasi"
+import { console } from "as-console"
 
-export function init(): void {
-	console.log("INITIALISING")
+export function init(log: boolean = true): void {
+	if (log) console.log("Initialising chunkedflexlist library")
 	AbstractChunk.init()
 }
