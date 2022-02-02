@@ -1,8 +1,8 @@
 (module
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
- (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $i32_=>_none (func (param i32)))
+ (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $none_=>_none (func))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
@@ -35,10 +35,11 @@
  (global $~lib/as-console/index/counts (mut i32) (i32.const 0))
  (global $~lib/as-console/index/timers (mut i32) (i32.const 0))
  (global $~lib/as-console/index/indent (mut i32) (i32.const 608))
- (global $~lib/rt/__rtti_base i32 (i32.const 848))
- (global $~lib/memory/__data_end i32 (i32.const 924))
- (global $~lib/memory/__stack_pointer (mut i32) (i32.const 17308))
- (global $~lib/memory/__heap_base i32 (i32.const 17308))
+ (global $~argumentsLength (mut i32) (i32.const 0))
+ (global $~lib/rt/__rtti_base i32 (i32.const 896))
+ (global $~lib/memory/__data_end i32 (i32.const 972))
+ (global $~lib/memory/__stack_pointer (mut i32) (i32.const 17356))
+ (global $~lib/memory/__heap_base i32 (i32.const 17356))
  (memory $0 1)
  (data (i32.const 12) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
  (data (i32.const 60) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00s\00t\00a\00t\00i\00c\00a\00r\00r\00a\00y\00.\00t\00s\00\00\00\00\00\00\00")
@@ -52,20 +53,21 @@
  (data (i32.const 460) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 524) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00\00\00\00\00\00\00")
  (data (i32.const 588) "\1c\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 620) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\18\00\00\00I\00N\00I\00T\00I\00A\00L\00I\00S\00I\00N\00G\00\00\00\00\00")
- (data (i32.const 668) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00\00\00")
- (data (i32.const 716) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00*\00\00\00O\00b\00j\00e\00c\00t\00 \00a\00l\00r\00e\00a\00d\00y\00 \00p\00i\00n\00n\00e\00d\00\00\00")
- (data (i32.const 780) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00O\00b\00j\00e\00c\00t\00 \00i\00s\00 \00n\00o\00t\00 \00p\00i\00n\00n\00e\00d\00\00\00\00\00")
- (data (i32.const 848) "\t\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00d\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\02A\00\00\00\00\00\00\04A\00\00\00\00\00\00\10\01\82\00\00\00\00\00\10\02\82\00\00\00\00\00")
+ (data (i32.const 620) "\\\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00H\00\00\00I\00n\00i\00t\00i\00a\00l\00i\00s\00i\00n\00g\00 \00c\00h\00u\00n\00k\00e\00d\00f\00l\00e\00x\00l\00i\00s\00t\00 \00l\00i\00b\00r\00a\00r\00y\00\00\00\00\00")
+ (data (i32.const 716) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00\00\00")
+ (data (i32.const 764) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00*\00\00\00O\00b\00j\00e\00c\00t\00 \00a\00l\00r\00e\00a\00d\00y\00 \00p\00i\00n\00n\00e\00d\00\00\00")
+ (data (i32.const 828) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00O\00b\00j\00e\00c\00t\00 \00i\00s\00 \00n\00o\00t\00 \00p\00i\00n\00n\00e\00d\00\00\00\00\00")
+ (data (i32.const 896) "\t\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00d\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\02A\00\00\00\00\00\00\04A\00\00\00\00\00\00\10\01\82\00\00\00\00\00\10\02\82\00\00\00\00\00")
  (table $0 1 funcref)
  (elem $0 (i32.const 1))
- (export "init" (func $assembly/index/init))
+ (export "init" (func $assembly/index/init@varargs))
  (export "__new" (func $~lib/rt/itcms/__new))
  (export "__pin" (func $~lib/rt/itcms/__pin))
  (export "__unpin" (func $~lib/rt/itcms/__unpin))
  (export "__collect" (func $~lib/rt/itcms/__collect))
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "memory" (memory $0))
+ (export "__setArgumentsLength" (func $~setArgumentsLength))
  (start $~start)
  (func $~lib/rt/itcms/Object#set:nextWithColor (param $0 i32) (param $1 i32)
   local.get $0
@@ -3958,7 +3960,7 @@
    i32.gt_u
    if
     i32.const 32
-    i32.const 688
+    i32.const 736
     i32.const 19
     i32.const 48
     call $~lib/builtins/abort
@@ -4074,7 +4076,7 @@
    i32.lt_s
    if
     i32.const 336
-    i32.const 688
+    i32.const 736
     i32.const 130
     i32.const 22
     call $~lib/builtins/abort
@@ -4139,6 +4141,21 @@
   local.get $2
   call $~lib/staticarray/StaticArray<~lib/array/Array<assembly/linkIndex/LinkIndex>>#__uset
  )
+ (func $assembly/index/init@varargs (param $0 i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~argumentsLength
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 1
+   local.set $0
+  end
+  local.get $0
+  call $assembly/index/init
+ )
  (func $~lib/rt/itcms/__pin (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
@@ -4152,7 +4169,7 @@
    i32.const 3
    i32.eq
    if
-    i32.const 736
+    i32.const 784
     i32.const 208
     i32.const 337
     i32.const 7
@@ -4184,7 +4201,7 @@
   i32.const 3
   i32.ne
   if
-   i32.const 800
+   i32.const 848
    i32.const 208
    i32.const 351
    i32.const 5
@@ -4268,10 +4285,10 @@
   i32.const 144
   local.get $0
   call $~lib/rt/itcms/__visit
-  i32.const 736
+  i32.const 784
   local.get $0
   call $~lib/rt/itcms/__visit
-  i32.const 800
+  i32.const 848
   local.get $0
   call $~lib/rt/itcms/__visit
   global.get $assembly/abstractChunk/AbstractChunk.numbersOfLinks
@@ -4606,6 +4623,10 @@
   end
   unreachable
  )
+ (func $~setArgumentsLength (param $0 i32)
+  local.get $0
+  global.set $~argumentsLength
+ )
  (func $~start
   call $start:assembly/index
  )
@@ -4614,8 +4635,8 @@
   global.get $~lib/memory/__data_end
   i32.lt_s
   if
-   i32.const 17328
    i32.const 17376
+   i32.const 17424
    i32.const 1
    i32.const 1
    call $~lib/builtins/abort
@@ -4863,8 +4884,8 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $assembly/index/init
-  (local $0 i32)
+ (func $assembly/index/init (param $0 i32)
+  (local $1 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.sub
@@ -4873,13 +4894,16 @@
   global.get $~lib/memory/__stack_pointer
   i32.const 0
   i32.store
-  i32.const 640
-  local.set $0
-  global.get $~lib/memory/__stack_pointer
   local.get $0
-  i32.store
-  local.get $0
-  call $~lib/as-console/index/console.log<~lib/string/String>
+  if
+   i32.const 640
+   local.set $1
+   global.get $~lib/memory/__stack_pointer
+   local.get $1
+   i32.store
+   local.get $1
+   call $~lib/as-console/index/console.log<~lib/string/String>
+  end
   call $assembly/abstractChunk/AbstractChunk.init
   global.get $~lib/memory/__stack_pointer
   i32.const 4
@@ -5240,7 +5264,7 @@
   i32.gt_u
   if
    i32.const 32
-   i32.const 688
+   i32.const 736
    i32.const 70
    i32.const 60
    call $~lib/builtins/abort
@@ -5327,5 +5351,5 @@
   global.set $~lib/memory/__stack_pointer
   local.get $3
  )
- ;; custom section "as-bind_bindings", size 104, contents: "{\"typeIds\":{},\"importedFunctions\":{},\"exportedFunctions\":{\"init\":{\"returnType\":\"void\",\"parameters\":[]}}}"
+ ;; custom section "as-bind_bindings", size 110, contents: "{\"typeIds\":{},\"importedFunctions\":{},\"exportedFunctions\":{\"init\":{\"returnType\":\"void\",\"parameters\":[\"bool\"]}}}"
 )
