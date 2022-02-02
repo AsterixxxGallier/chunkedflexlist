@@ -93,5 +93,12 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 		return currentChunk
 	}
 
+	getSublistBefore(nodeIndex: u64): AbstractChunkedFlexList<D> | null {
+		const chunk = this.getChunkAt(nodeIndex)
+		if (chunk == null)
+			return null
+		return chunk!.getSublistBefore((nodeIndex & 0xFF) as u8)
+	}
+
 	abstract createEmptyChunk(): AbstractChunk<D>
 }
