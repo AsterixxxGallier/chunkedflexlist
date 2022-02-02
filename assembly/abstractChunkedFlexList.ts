@@ -82,5 +82,16 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 		return new TraversalResult<D, u64>(index | traversalResult.index, traversalResult.distance)
 	}
 
+	getChunkAt(index: u64): AbstractChunk<D> | null {
+		let currentChunk = this.topChunk
+		if (currentChunk == null) return null
+		for (let level = this.depth - 1; level > 0; level--) {
+			// noinspection SuspiciousTypeOfGuard
+			if (currentChunk instanceof Chunk)
+				currentChunk = (currentChunk as Chunk<AbstractChunk<D>, D>).getElementAt((index >> (level * AbstractChunk.indexBits)) as u8)
+		}
+		return currentChunk
+	}
+
 	abstract createEmptyChunk(): AbstractChunk<D>
 }
