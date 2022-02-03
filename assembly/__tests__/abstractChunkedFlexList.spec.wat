@@ -12887,7 +12887,7 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $assembly/abstractChunk/AbstractChunk<u64>#traverse (param $0 i32) (param $1 i64) (result i32)
+ (func $assembly/abstractChunk/AbstractChunk<u64>#firstNodeAfter (param $0 i32) (param $1 i64) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i64)
@@ -13051,7 +13051,7 @@
   call $~lib/builtins/abort
   unreachable
  )
- (func $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#traverse (param $0 i32) (param $1 i64) (result i32)
+ (func $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#firstNodeAfter (param $0 i32) (param $1 i64) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i64)
@@ -13130,7 +13130,7 @@
    if
     i32.const 3696
     i32.const 3600
-    i32.const 72
+    i32.const 77
     i32.const 15
     call $~lib/builtins/abort
     unreachable
@@ -13154,7 +13154,7 @@
      call $~onstore
      local.get $2
      local.get $1
-     call $assembly/abstractChunk/AbstractChunk<u64>#traverse
+     call $assembly/abstractChunk/AbstractChunk<u64>#firstNodeAfter
      local.tee $5
      i32.store offset=4
      global.get $~lib/memory/__stack_pointer
@@ -13196,7 +13196,7 @@
      if
       i32.const 3536
       i32.const 3600
-      i32.const 76
+      i32.const 81
       i32.const 22
       call $~lib/builtins/abort
       unreachable
@@ -13276,7 +13276,7 @@
    call $~onstore
    local.get $2
    local.get $1
-   call $assembly/abstractChunk/AbstractChunk<u64>#traverse
+   call $assembly/abstractChunk/AbstractChunk<u64>#firstNodeAfter
    local.tee $0
    i32.store offset=16
    local.get $0
@@ -13436,7 +13436,7 @@
     call $~onstore
     local.get $2
     local.get $1
-    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#traverse
+    call $assembly/abstractChunkedFlexList/AbstractChunkedFlexList<u64>#firstNodeAfter
     local.tee $0
     i32.store offset=4
     local.get $0

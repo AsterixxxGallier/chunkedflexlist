@@ -107,8 +107,8 @@ export abstract class AbstractChunk<D extends number> {
 	 * and additionally returns the "overshoot" distance in a {@link TraversalResult}.
 	 * @param distanceFromStart
 	 */
-	traverse(distanceFromStart: D): TraversalResult<D, u8> {
-		let toGo = distanceFromStart
+	lastNodeBefore(position: D): TraversalResult<D, u8> {
+		let toGo = position
 		let index: u8 = 0
 		for (let degree = AbstractChunk.indexBits - 1; degree < 255; degree--) {
 			const toNext = this.getLinkLengthUnchecked(index, degree as u8)

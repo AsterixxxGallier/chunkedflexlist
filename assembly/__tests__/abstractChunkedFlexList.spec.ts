@@ -44,7 +44,7 @@ describe("AbstractChunkedFlexList", () => {
 			list.appendNode(2)
 		}
 		for (let d = 0 as u64; d < (2000 as u64); d++) {
-			const traversalResult = list.traverse(d)!
+			const traversalResult = list.lastNodeBefore(d)!
 			expect(traversalResult.index).toBe(d / 2)
 			expect(traversalResult.distance).toBe(d % 2)
 		}

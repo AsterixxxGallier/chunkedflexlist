@@ -65,20 +65,25 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 		}
 	}
 
-	traverse(distanceFromStart: D): TraversalResult<D, u64> | null {
-		if (this.size == 0 || distanceFromStart < this.offset)
+	/**
+	 * Systematically traverses this list to find the index of the node which is positioned just before position
+	 * and additionally returns the "overshoot" distance in a {@link TraversalResult}.
+	 * @param position
+	 */
+	lastNodeBefore(position: D): TraversalResult<D, u64> | null {
+		if (this.size == 0 || position < this.offset)
 			return null
-		let toGo = distanceFromStart - this.offset as D
+		let toGo = position - this.offset as D
 		let chunk = this.topChunk!
 		let index: u64 = 0
 		for (let level = this.depth - 1; level > 0; level--) {
-			const traversalResult = chunk.traverse(toGo)
+			const traversalResult = chunk.lastNodeBefore(toGo)
 			const subChunk = (chunk as Chunk<AbstractChunk<D>, D>).getElementAt(traversalResult.index)
 			toGo = traversalResult.distance
 			index |= (traversalResult.index as u64) << (AbstractChunk.indexBits * level)
 			chunk = subChunk
 		}
-		const traversalResult = chunk.traverse(toGo)
+		const traversalResult = chunk.lastNodeBefore(toGo)
 		return new TraversalResult<D, u64>(index | traversalResult.index, traversalResult.distance)
 	}
 
