@@ -103,9 +103,9 @@ export abstract class AbstractChunk<D extends number> {
 	}
 
 	/**
-	 * Systematically traverses this chunk to find the index of the node which is positioned just before distanceFromStart
+	 * Systematically traverses this chunk to find the index of the node which is positioned just before position
 	 * and additionally returns the "overshoot" distance in a {@link TraversalResult}.
-	 * @param distanceFromStart
+	 * @param position
 	 */
 	lastNodeBefore(position: D): TraversalResult<D, u8> {
 		let toGo = position
