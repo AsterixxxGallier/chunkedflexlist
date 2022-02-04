@@ -4192,6 +4192,13 @@
       end
       local.get $0
       i32.load offset=16
+      local.tee $1
+      if
+       local.get $1
+       call $byn-split-outlined-A$~lib/rt/itcms/__visit
+      end
+      local.get $0
+      i32.load offset=20
       local.tee $0
       if
        local.get $0

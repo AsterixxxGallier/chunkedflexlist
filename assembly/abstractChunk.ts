@@ -121,7 +121,7 @@ export abstract class AbstractChunk<D extends number> {
 				index += toNextIndex
 			}
 		}
-		return new TraversalResult(index, toGo)
+		return new TraversalResult(index, toGo, this)
 	}
 
 	getSublistBefore(nodeIndex: u8): AbstractChunkedFlexList<D> | null {

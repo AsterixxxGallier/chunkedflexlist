@@ -17,6 +17,7 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 	 * The last chunk of each level, where the index corresponds to the chunk level
 	 */
 	lastChunks: Array<AbstractChunk<D>> = []
+	firstChunk: AbstractChunk<D> | null = null
 	size: u64 = 0
 
 	/**
@@ -27,10 +28,21 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 		this.offset = offset
 	}
 
+	/**
+	 * The distance from 0 to the last node
+	 */
+	get totalLength(): D {
+		if (this.topChunk != null)
+			return this.topChunk!.totalLength + this.offset as D
+		return this.offset
+	}
+
 	appendNode(distanceFromEnd: D): void {
-		if (this.size == 0)
-			this.offset = this.offset + distanceFromEnd as D
 		this.makeSpace(0, distanceFromEnd)
+		if (this.size == 0) {
+			this.offset = this.offset + distanceFromEnd as D
+			this.firstChunk = this.topChunk
+		}
 		this.lastChunks[0].appendNodeUnchecked(distanceFromEnd)
 		this.size++
 	}
@@ -84,7 +96,23 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 			chunk = subChunk
 		}
 		const traversalResult = chunk.lastNodeBefore(toGo)
-		return new TraversalResult<D, u64>(index | traversalResult.index, traversalResult.distance)
+		return new TraversalResult<D, u64>(index | traversalResult.index, traversalResult.distance, chunk)
+	}
+
+	/**
+	 * Systematically traverses this list to find the index of the node which is positioned just after position
+	 * and additionally returns the distance from the node to the position in a {@link TraversalResult}.
+	 * @param position
+	 */
+	firstNodeAfter(position: D): TraversalResult<D, u64> | null {
+		if (position > this.totalLength || this.size == 0)
+			return null
+		if (position < this.offset)
+			return new TraversalResult<D, u64>(0, this.offset - position as D, this.firstChunk!)
+		let lastNodeBefore = this.lastNodeBefore(position)!
+		let nextIndex = lastNodeBefore.index + 1
+		let chunk = nextIndex & 0xFF ? lastNodeBefore.chunk : this.getChunkAt(nextIndex)!
+		return new TraversalResult<D, u64>(nextIndex, lastNodeBefore.distance, chunk)
 	}
 
 	getChunkAt(index: u64): AbstractChunk<D> | null {
