@@ -37,6 +37,55 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 		return this.offset
 	}
 
+	getChunkAt(index: u64): AbstractChunk<D> | null {
+		let currentChunk = this.topChunk
+		if (currentChunk == null) return null
+		for (let level = this.depth - 1; level > 0; level--) {
+			// noinspection SuspiciousTypeOfGuard
+			if (currentChunk instanceof Chunk)
+				currentChunk = (currentChunk as Chunk<AbstractChunk<D>, D>).getElementAt((index >> (level * AbstractChunk.indexBits)) as u8)
+		}
+		return currentChunk
+	}
+
+	getChunksAt(index: u64): Array<AbstractChunk<D>> {
+		let currentChunk = this.topChunk
+		if (currentChunk == null) return []
+		let chunks = [currentChunk!]
+		for (let level = this.depth - 1; level > 0; level--) {
+			// noinspection SuspiciousTypeOfGuard
+			if (currentChunk instanceof Chunk)
+				currentChunk = (currentChunk as Chunk<AbstractChunk<D>, D>).getElementAt((index >> (level * AbstractChunk.indexBits)) as u8)
+			chunks.unshift(currentChunk)
+		}
+		return chunks
+	}
+
+	/**
+	 * Gets the length of the link of degree 0 starting at `index` at level `level`, returns 0 if link length could not be found
+	 */
+	getLinkLength(index: u64, level: u8 = 0): D {
+		if (level == this.depth) return 0 as D
+		const chunks = this.getChunksAt(index)
+		// for (; level < this.depth; level++) {
+			const localIndex = (index & (0xFF << (level * AbstractChunk.indexBits)) >> (level * AbstractChunk.indexBits)) as u8;
+			if (~localIndex) {
+				return chunks[level].getLinkLengthUnchecked(localIndex, 0)
+			} else {
+				// return the link length one level above minus the total length of this chunk
+				return this.getLinkLength(index, level + 1) - chunks[level].totalLength as D
+			}
+		// }
+		// return null
+	}
+
+	/**
+	 * Sets the length of the link of degree 0 starting at `index` to `length`
+	 */
+	setLinkLengthUnchecked(index: u64, length: D): void {
+		throw new Error("not yet implemented")
+	}
+
 	appendNode(distanceFromEnd: D): void {
 		this.makeSpace(0, distanceFromEnd)
 		if (this.size == 0) {
@@ -78,7 +127,7 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 	}
 
 	/**
-	 * Systematically traverses this list to find the index of the node which is positioned just before position
+	 * Systematically traverses this list to find the index of the node which is positioned just before or at the specified position
 	 * and additionally returns the "overshoot" distance in a {@link TraversalResult}.
 	 * @param position
 	 */
@@ -111,19 +160,12 @@ export abstract class AbstractChunkedFlexList<D extends number> {
 			return new TraversalResult<D, u64>(0, this.offset - position as D, this.firstChunk!)
 		let lastNodeBefore = this.lastNodeBefore(position)!
 		let nextIndex = lastNodeBefore.index + 1
-		let chunk = nextIndex & 0xFF ? lastNodeBefore.chunk : this.getChunkAt(nextIndex)!
-		return new TraversalResult<D, u64>(nextIndex, lastNodeBefore.distance, chunk)
-	}
-
-	getChunkAt(index: u64): AbstractChunk<D> | null {
-		let currentChunk = this.topChunk
-		if (currentChunk == null) return null
-		for (let level = this.depth - 1; level > 0; level--) {
-			// noinspection SuspiciousTypeOfGuard
-			if (currentChunk instanceof Chunk)
-				currentChunk = (currentChunk as Chunk<AbstractChunk<D>, D>).getElementAt((index >> (level * AbstractChunk.indexBits)) as u8)
-		}
-		return currentChunk
+		// if (nextIndex & 0xFF) {
+		// 	const chunk = lastNodeBefore.chunk
+		// 	return new TraversalResult<D, u64>(nextIndex, chunk.getLinkLengthUnchecked(lastNodeBefore.index, 0) - lastNodeBefore.distance as D, chunk)
+		// }
+		// let chunk = nextIndex & 0xFF ? lastNodeBefore.chunk : this.getChunkAt(nextIndex)!
+		return new TraversalResult<D, u64>(nextIndex, this.getLinkLength(lastNodeBefore.index) - lastNodeBefore.distance as D)
 	}
 
 	getSublistBefore(nodeIndex: u64): AbstractChunkedFlexList<D> | null {

@@ -103,7 +103,150 @@ export abstract class AbstractChunk<D extends number> {
 	}
 
 	/**
-	 * Systematically traverses this chunk to find the index of the node which is positioned just before position
+	 * Systematically traverses this chunk to find the index of the node which is positioned just before the specified position
+	 * and additionally returns the distance from the node to the position in a {@link TraversalResult}.
+	 * @param position
+	 */
+	nodeBefore(position: D): TraversalResult<D, u8> | null {
+		let distanceTraversed = 0 as D
+		let index = 0 as u8
+		let degree = AbstractChunk.indexBits - 1
+		while (true) {
+			const toNextIndex = 1 << degree as u8
+			const nextIndex = index + toNextIndex
+			if (nextIndex < this.size) {
+				const distanceToNext = this.getLinkLengthUnchecked(index, degree)
+				const nextDistanceTraversed = distanceTraversed + distanceToNext as D
+				if (nextDistanceTraversed > position) {
+					return new TraversalResult<D, u8>(index, position - distanceTraversed as D, this)
+				}
+				distanceTraversed = nextDistanceTraversed
+			}
+			if (degree == 0) {
+				return null
+			}
+			index = nextIndex
+			degree--
+		}
+	}
+
+	/**
+	 * Systematically traverses this chunk to find the index of the node which is positioned just before or at the specified position
+	 * and additionally returns the distance from the node to the position in a {@link TraversalResult}.
+	 * @param position
+	 */
+	nodeBeforeOrAt(position: D): TraversalResult<D, u8> | null {
+		let distanceTraversed = 0 as D
+		let index = 0 as u8
+		let degree = AbstractChunk.indexBits - 1
+		while (true) {
+			const toNextIndex = 1 << degree as u8
+			const nextIndex = index + toNextIndex
+			if (nextIndex < this.size) {
+				const distanceToNext = this.getLinkLengthUnchecked(index, degree)
+				const nextDistanceTraversed = distanceTraversed + distanceToNext as D
+				if (nextDistanceTraversed > position) {
+					return new TraversalResult<D, u8>(index, position - distanceTraversed as D, this)
+				} else if (nextDistanceTraversed == position) {
+					return new TraversalResult<D, u8>(nextIndex, 0 as D, this)
+				}
+				distanceTraversed = nextDistanceTraversed
+			}
+			if (degree == 0) {
+				return null
+			}
+			index = nextIndex
+			degree--
+		}
+	}
+
+	/**
+	 * Systematically traverses this chunk to find the index of the node which is positioned at the specified position.
+	 * @param position
+	 */
+	nodeAt(position: D): TraversalResult<D, u8> | null {
+		let distanceTraversed = 0 as D
+		let index = 0 as u8
+		let degree = AbstractChunk.indexBits - 1
+		while (true) {
+			const toNextIndex = 1 << degree as u8
+			const nextIndex = index + toNextIndex
+			if (nextIndex < this.size) {
+				const distanceToNext = this.getLinkLengthUnchecked(index, degree)
+				const nextDistanceTraversed = distanceTraversed + distanceToNext as D
+				if (nextDistanceTraversed == position) {
+					return new TraversalResult<D, u8>(nextIndex, 0 as D, this)
+				}
+				distanceTraversed = nextDistanceTraversed
+			}
+			if (degree == 0) {
+				return null
+			}
+			index = nextIndex
+			degree--
+		}
+	}
+
+	/**
+	 * Systematically traverses this list to find the index of the node which is positioned just after or at position
+	 * and additionally returns the distance from the position to the node in a {@link TraversalResult}.
+	 * @param position
+	 */
+	nodeAfterOrAt(position: D): TraversalResult<D, u8> | null {
+		let distanceTraversed = 0 as D
+		let index = 0 as u8
+		let degree = AbstractChunk.indexBits - 1
+		while (true) {
+			const toNextIndex = 1 << degree as u8
+			const nextIndex = index + toNextIndex
+			if (nextIndex < this.size) {
+				const distanceToNext = this.getLinkLengthUnchecked(index, degree)
+				const nextDistanceTraversed = distanceTraversed + distanceToNext as D
+				if (nextDistanceTraversed > position) {
+					return new TraversalResult<D, u8>(nextIndex, nextDistanceTraversed - position as D, this)
+				} else if (nextDistanceTraversed == position) {
+					return new TraversalResult<D, u8>(nextIndex, 0 as D, this)
+				}
+				distanceTraversed = nextDistanceTraversed
+			}
+			if (degree == 0) {
+				return null
+			}
+			index = nextIndex
+			degree--
+		}
+	}
+
+	/**
+	 * Systematically traverses this list to find the index of the node which is positioned just after position
+	 * and additionally returns the distance from the position to the node in a {@link TraversalResult}.
+	 * @param position
+	 */
+	nodeAfter(position: D): TraversalResult<D, u8> | null {
+		let distanceTraversed = 0 as D
+		let index = 0 as u8
+		let degree = AbstractChunk.indexBits - 1
+		while (true) {
+			const toNextIndex = 1 << degree as u8
+			const nextIndex = index + toNextIndex
+			if (nextIndex < this.size) {
+				const distanceToNext = this.getLinkLengthUnchecked(index, degree)
+				const nextDistanceTraversed = distanceTraversed + distanceToNext as D
+				if (nextDistanceTraversed > position) {
+					return new TraversalResult<D, u8>(nextIndex, nextDistanceTraversed - position as D, this)
+				}
+				distanceTraversed = nextDistanceTraversed
+			}
+			if (degree == 0) {
+				return null
+			}
+			index = nextIndex
+			degree--
+		}
+	}
+
+	/**
+	 * Systematically traverses this chunk to find the index of the node which is positioned just before or at the specified position
 	 * and additionally returns the "overshoot" distance in a {@link TraversalResult}.
 	 * @param position
 	 */
