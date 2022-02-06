@@ -141,8 +141,6 @@ export abstract class AbstractChunk<D extends number> {
 
 	/**
 	 * Gets the length of the link starting at `index` of degree `degree`
-	 * @param index the local index of node a
-	 * @param degree the degree of the link
 	 */
 	@inline
 	getLinkLengthUnchecked(index: u8, degree: u8): D {
@@ -151,9 +149,6 @@ export abstract class AbstractChunk<D extends number> {
 
 	/**
 	 * Sets the length of the link starting at `index` of degree `degree` to `length`
-	 * @param index the local index of node a
-	 * @param degree the degree of the link
-	 * @param length the new length of the link
 	 */
 	@inline
 	setLinkLengthUnchecked(index: u8, degree: u8, length: D): void {
