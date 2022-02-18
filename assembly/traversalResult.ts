@@ -6,9 +6,9 @@ export class TraversalResult<D extends number, I extends number> {
 	 * The distance that was already traversed from this node; always smaller than the full distance to the next node in this {@link Chunk}
 	 */
 	distance: D
-	chunk: AbstractChunk<D>
+	chunk: AbstractChunk<D> | null
 
-	constructor(index: I, distance: D, chunk: AbstractChunk<D>) {
+	constructor(index: I, distance: D, chunk: AbstractChunk<D> | null = null) {
 		this.index = index
 		this.distance = distance
 		this.chunk = chunk

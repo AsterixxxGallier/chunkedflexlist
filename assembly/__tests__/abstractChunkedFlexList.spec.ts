@@ -40,13 +40,55 @@ describe("AbstractChunkedFlexList", () => {
 	test("AbstractChunkedFlexList.traverse", () => {
 		const list = new HollowChunkedFlexList<u64>()
 		list.appendNode(0)
-		while (list.size < 1000) {
+		while (list.size <= 1000) {
 			list.appendNode(2)
 		}
-		for (let d = 0 as u64; d < (2000 as u64); d++) {
-			const traversalResult = list.lastNodeBefore(d)!
-			expect(traversalResult.index).toBe(d / 2)
-			expect(traversalResult.distance).toBe(d % 2)
+		for (let d = 2 as u64; d <= (2000 as u64); d++) {
+			log(d)
+
+			// const traversalResultAt = list.nodeAt(d)
+			// if (d % 2) {
+			// 	expect(traversalResultAt).toBeNull()
+			// } else {
+			// 	expect(traversalResultAt).not.toBeNull()
+			// 	expect(traversalResultAt!.index).toBe(d / 2)
+			// 	expect(traversalResultAt!.distance).toBe(0)
+			// }
+
+			// const traversalResultBefore = list.nodeBefore(d)
+			// if (d == 2000) {
+			// 	expect(traversalResultBefore).toBeNull()
+			// } else {
+			// 	expect(traversalResultBefore).not.toBeNull()
+			// 	log(traversalResultBefore!.toString())
+			// 	expect(traversalResultBefore!.index).toBe(d / 2)
+			// 	expect(traversalResultBefore!.distance).toBe(d % 2)
+			// }
+
+			const traversalResultAfter = list.nodeAfter(d)
+			if (d == 2000) {
+				expect(traversalResultAfter).toBeNull()
+			} else {
+				expect(traversalResultAfter).not.toBeNull()
+				log(traversalResultAfter!.toString())
+				expect(traversalResultAfter!.index).toBe(d / 2 + 1)
+				expect(traversalResultAfter!.distance).toBe(2 - d % 2)
+			}
 		}
+		// while (list.size < 1000) {
+		// 	list.appendNode(2)
+		// }
+		// for (let d = 0 as u64; d < (2000 as u64); d++) {
+		// 	const traversalResultBefore = list.lastNodeBefore(d)!
+		// 	log(d.toString() + traversalResultBefore.toString())
+		// 	expect(traversalResultBefore.index).toBe(d / 2)
+		// 	expect(traversalResultBefore.distance).toBe(d % 2)
+		//
+		// 	const traversalResultAfter = list.firstNodeAfter(d)!
+		// 	log(d.toString() + traversalResultAfter.toString())
+		// 	expect(traversalResultAfter.index).toBe(d / 2 + 1)
+		// 	expect(traversalResultAfter.distance).toBe(2 - d % 2)
+		// }
+		// expect(1).toBe(2)
 	})
 })
